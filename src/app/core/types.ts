@@ -16,6 +16,23 @@ export type Offer = {
     location: string
 }
 
+export type OfferForm = {
+    platform: string;
+    date: Date;
+    skillsMust: string[];
+    skillsPlus: string[];
+    softSkills: string[];
+    recruiters: Contact[];
+    originalText: string;
+    salaryRange: { min: number, max: number };
+    role: string;
+    type: OFFER_TYPES
+    status: string;
+    annotations: Annotation[];
+    modality: OFFER_MODALITIES,
+    location: string
+}
+
 export type Response = {
     offerId: string;
     type: RESPONSE_TYPES,
