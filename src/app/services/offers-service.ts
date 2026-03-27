@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base-service';
-import { Offer, OfferForm } from './core/types';
+import { Offer, OfferForm } from '../core/types';
 
 @Injectable({
   providedIn: 'root',
