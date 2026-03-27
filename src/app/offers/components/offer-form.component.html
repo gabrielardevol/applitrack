@@ -81,5 +81,5 @@ offer form
         </div>
     </fieldset>
 
-    <button (click)="submitForm()">Submit</button>
+    <button (click)="$event.preventDefault(); submitForm()">Submit</button>
 </form>

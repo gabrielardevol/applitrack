@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OfferFormComponent } from './components/offer-form.component';
+import { OffersService } from '../services/offers-service';
 
 @Component({
   selector: 'app-offers-page',
@@ -8,6 +9,6 @@ import { OfferFormComponent } from './components/offer-form.component';
   styleUrl: './offers.page.scss',
 })
 export class OffersPage {
-
-
+  private offersService = inject(OffersService);
+  public offers = this.offersService.$listValue
 }
