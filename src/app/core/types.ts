@@ -18,18 +18,15 @@ export type Offer = {
 
 export type OfferForm = {
     platform: string;
-    date: Date;
-    skillsMust: string[];
-    skillsPlus: string[];
-    softSkills: string[];
-    recruiters: Contact[];
+    skillsMust: string;
+    skillsPlus: string;
+    softSkills: string;
+    recruiters: string;
     originalText: string;
-    salaryRange: { min: number, max: number };
+    salaryRange: { min: number | null, max: number | null };
     role: string;
-    type: OFFER_TYPES
-    status: string;
-    annotations: Annotation[];
-    modality: OFFER_MODALITIES,
+    type: OFFER_TYPES;
+    modality: OFFER_MODALITIES;
     location: string
 }
 
@@ -73,18 +70,18 @@ export type Annotation = {
 }
 
 export enum ANNOTATION_ENTITY_TYPES {
-    OFFER = 0,
-    RESPONSE = 1,
-    INTERVIEW = 2
+    OFFER = 'OFFER',
+    RESPONSE = 'RESPONSE',
+    INTERVIEW = 'INTERVIEW'
 }
 
 export enum OFFER_TYPES {
-    PROPOSAL = 0,
-    APPLICATION = 1
+    PROPOSAL = 'PROPOSAL',
+    APPLICATION = 'APPLICATION'
 }
 
 export enum OFFER_MODALITIES {
-    REMOTE = 0, ON_SITE = 1, HYBRID = 2
+    REMOTE = 'REMOTE', ON_SITE = 'ON_SITE', HYBRID = 'HYBRID'
 }
 
 export type Tips = {

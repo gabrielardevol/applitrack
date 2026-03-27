@@ -1,7 +1,85 @@
 offer form
 <form>
-    <label for="title">Title</label>
-    <input name="title" type="text" required>
+    <fieldset>
+        <legend>Skills</legend>
+
+        <label for="platform">Must</label>
+        <input [formField]="offerForm.skillsMust" type="text">
+        <br>
+
+        <label for="platform">Plus</label>
+        <input [formField]="offerForm.skillsPlus" type="text">
+        <br>
+
+        <label for="platform">Soft</label>
+        <input [formField]="offerForm.softSkills" type="text">
+    </fieldset>
+
+    <br>
+
+    <label for="platform">Recruiters</label>
+    <input [formField]="offerForm.recruiters" type="text">
+    <br>
+
+    <label for="platform">Original text</label>
+    <input [formField]="offerForm.originalText" type="text">
+    <br>
+
+
+    <br>
+    <label for="platform">Platform</label>
+    <input [formField]="offerForm.platform" type="text">
+
+    <br>
+    <label for="role">Role</label>
+    <input [formField]="offerForm.role" type="text">
+
+    <br>
+    <label for="location">Location</label>
+    <input [formField]="offerForm.location" type="text">
+
+
+    <fieldset>
+        <legend> Salary range</legend>
+
+
+        <label>Min</label>
+        <input [formField]="offerForm.salaryRange.min" type="number">
+
+        <br>
+        <label>Max</label>
+        <input [formField]="offerForm.salaryRange.max" type="number">
+
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>Type</legend>
+        <div>
+            <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.APPLICATION" />
+            <label [for]="OFFER_TYPES.APPLICATION">Application</label>
+        </div>
+        <div>
+            <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
+            <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
+        </div>
+    </fieldset>
+
+    <br>
+    <fieldset>
+        <legend>Modality</legend>
+        <div>
+            <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.HYBRID" />
+            <label [for]="OFFER_MODALITIES.HYBRID">Hybrid</label>
+        </div>
+        <div>
+            <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.REMOTE" />
+            <label [for]="OFFER_MODALITIES.REMOTE">Remote</label>
+        </div>
+        <div>
+            <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.ON_SITE" />
+            <label [for]="OFFER_MODALITIES.ON_SITE">On site</label>
+        </div>
+    </fieldset>
 
     <button (click)="submitForm()">Submit</button>
 </form>
