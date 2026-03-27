@@ -1,7 +1,9 @@
 import { signal, WritableSignal } from "@angular/core";
 
 export class BaseService<TSingle, TList, TCreate, TUpdate> {
-  constructor(STORAGE_KEY: string, API: string) {
+  constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
+    let list = window.localStorage.getItem(STORAGE_KEY) || ''
+    this.$listValue.set(JSON.parse(list) as TList[])
   }
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
@@ -15,6 +17,7 @@ export class BaseService<TSingle, TList, TCreate, TUpdate> {
   }
 
   public create(item: TCreate): TList {
+    this.createLocal(item);
     this.$listValue.set([...this.$listValue(), item as unknown as TList])
     return {} as TList
   }
@@ -55,8 +58,11 @@ export class BaseService<TSingle, TList, TCreate, TUpdate> {
     return {} as TSingle
   }
 
-  private createLocal(): TList {
-    return {} as TList
+  private createLocal(item: TCreate): TCreate {
+    let items = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
+    let parsedItems = JSON.parse(items)
+    window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]))
+    return item
   }
 
   private createApi(): TList {
