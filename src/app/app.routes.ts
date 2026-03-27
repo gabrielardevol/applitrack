@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { BaseComponent } from './base/base.component';
+import { BasePageComponent } from './base-page/base-page.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: BaseComponent,
+        component: BasePageComponent,
         children: [
             // {
             //     path: '',
