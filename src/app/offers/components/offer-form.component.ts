@@ -38,6 +38,6 @@ export class OfferFormComponent {
     offerForm = form(this.offer)
 
     public submitForm() {
-        this.offersService.create({} as OfferForm)
+        this.offersService.create(this.offerForm().value())
     }
 }
