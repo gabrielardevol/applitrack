@@ -10,11 +10,11 @@ export class BaseService<TRead, TCreate, TUpdate> {
     return {} as TRead
   }
 
-  public create(): TRead {
+  public create(item: TCreate): TRead {
     return {} as TRead
   }
 
-  public delete(): { success: boolean } {
+  public delete(id: string): { success: boolean } {
     return { success: true }
   }
 
