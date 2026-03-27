@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageLayout } from './page-layout';
+import { BaseComponent } from './base.component';
 
-describe('PageLayout', () => {
-  let component: PageLayout;
-  let fixture: ComponentFixture<PageLayout>;
+describe('BaseComponent', () => {
+  let component: BaseComponent;
+  let fixture: ComponentFixture<BaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageLayout],
+      imports: [BaseComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PageLayout);
+    fixture = TestBed.createComponent(BaseComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
