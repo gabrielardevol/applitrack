@@ -14,6 +14,7 @@ export type Offer = {
     annotations: Annotation[];
     modality: OFFER_MODALITIES,
     location: string
+    company: string
 }
 
 export type OfferForm = {
@@ -27,7 +28,8 @@ export type OfferForm = {
     role: string;
     type: OFFER_TYPES;
     modality: OFFER_MODALITIES;
-    location: string
+    location: string;
+    company: string
 }
 
 export type Response = {

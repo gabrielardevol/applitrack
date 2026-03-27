@@ -13,5 +13,6 @@ export const EMPTY_OFFER_FORM: OfferForm = {
     role: '',
     type: OFFER_TYPES.APPLICATION,
     modality: OFFER_MODALITIES.HYBRID,
-    location: ''
+    location: '',
+    company: ''
 }
