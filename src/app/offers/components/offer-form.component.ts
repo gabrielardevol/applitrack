@@ -2,22 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { OffersService } from '../../services/offers-service';
 import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../../core/types';
 import { form, FormField } from '@angular/forms/signals';
-
-const EMPTY_OFFER_FORM: OfferForm = {
-    platform: '',
-    skillsMust: '',
-    skillsPlus: '',
-    softSkills: '',
-    recruiters: '',
-    originalText: '',
-    salaryRange: {
-        min: null, max: null
-    },
-    role: '',
-    type: OFFER_TYPES.APPLICATION,
-    modality: OFFER_MODALITIES.HYBRID,
-    location: ''
-}
+import { EMPTY_OFFER_FORM } from '../offers.constants';
 
 @Component({
     selector: 'at-offer-form',

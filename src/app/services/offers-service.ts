@@ -5,7 +5,7 @@ import { Offer, OfferForm } from '../core/types';
 @Injectable({
   providedIn: 'root',
 })
-export class OffersService extends BaseService<Offer, OfferForm, Partial<OfferForm>> {
+export class OffersService extends BaseService<Offer, Offer, OfferForm, Partial<OfferForm>> {
   constructor() {
     super('OFFERS', '/offers')
   }

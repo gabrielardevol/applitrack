@@ -1,25 +1,30 @@
-export class BaseService<TRead, TCreate, TUpdate> {
+import { signal, WritableSignal } from "@angular/core";
+
+export class BaseService<TSingle, TList, TCreate, TUpdate> {
   constructor(STORAGE_KEY: string, API: string) {
   }
 
-  public getList(): TRead[] {
+  public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
+
+  public getList(): TList[] {
     return []
   }
 
-  public getSingle(): TRead {
-    return {} as TRead
+  public getSingle(): TSingle {
+    return {} as TSingle
   }
 
-  public create(item: TCreate): TRead {
-    return {} as TRead
+  public create(item: TCreate): TList {
+    this.$listValue.set([...this.$listValue(), item as unknown as TList])
+    return {} as TList
   }
 
   public delete(id: string): { success: boolean } {
     return { success: true }
   }
 
-  public update(offer: TUpdate): TRead {
-    return {} as TRead
+  public update(offer: TUpdate): TList {
+    return {} as TList
   }
 
   public addComment(id: string, comment: Comment): Comment {
@@ -34,28 +39,28 @@ export class BaseService<TRead, TCreate, TUpdate> {
     return { success: true }
   }
 
-  private getListLocal(): TRead[] {
+  private getListLocal(): TList[] {
     return []
   }
 
-  private getListApi(): TRead[] {
+  private getListApi(): TList[] {
     return []
   }
 
-  private getSingleLocal(): TRead {
-    return {} as TRead
+  private getSingleLocal(): TSingle {
+    return {} as TSingle
   }
 
-  private getSingleApi(): TRead {
-    return {} as TRead
+  private getSingleApi(): TSingle {
+    return {} as TSingle
   }
 
-  private createLocal(): TRead {
-    return {} as TRead
+  private createLocal(): TList {
+    return {} as TList
   }
 
-  private createApi(): TRead {
-    return {} as TRead
+  private createApi(): TList {
+    return {} as TList
   }
 
   public deleteLocal(): { success: boolean } {
@@ -66,12 +71,12 @@ export class BaseService<TRead, TCreate, TUpdate> {
     return { success: true }
   }
 
-  public updateLocal(offer: TUpdate): TRead {
-    return {} as TRead
+  public updateLocal(offer: TUpdate): TList {
+    return {} as TList
   }
 
-  public updateApi(offer: TUpdate): TRead {
-    return {} as TRead
+  public updateApi(offer: TUpdate): TList {
+    return {} as TList
   }
 
   public addCommentLocal(id: string, comment: Comment): Comment {

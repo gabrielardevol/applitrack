@@ -7,4 +7,7 @@ import { OfferFormComponent } from './components/offer-form.component';
   templateUrl: './offers.page.html',
   styleUrl: './offers.page.scss',
 })
-export class OffersPage { }
+export class OffersPage {
+
+
+}
