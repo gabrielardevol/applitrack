@@ -1,7 +1,12 @@
 import { signal, WritableSignal } from "@angular/core";
-import { v4 as uuidv4 } from 'uuid';
+import { parse, v4 as uuidv4 } from 'uuid';
 
-export class BaseService<TSingle, TList extends { id: null | string }, TCreate extends { id: null | string }, TUpdate> {
+export class BaseService<
+  TSingle extends { id: null | string },
+  TList extends { id: null | string },
+  TCreate extends { id: null | string },
+  TUpdate
+> {
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
 
@@ -35,8 +40,8 @@ export class BaseService<TSingle, TList extends { id: null | string }, TCreate e
     this.$listValue.set(JSON.parse(list) as TList[])
   }
 
-  public getSingle(id: string): TSingle {
-    return {} as TSingle
+  public getSingle(id: string) {
+    return this.getSingleLocal(id)
   }
 
   public delete(id: string): { success: boolean } {
@@ -69,8 +74,13 @@ export class BaseService<TSingle, TList extends { id: null | string }, TCreate e
     return []
   }
 
-  private getSingleLocal(): TSingle {
-    return {} as TSingle
+  private getSingleLocal(id: string): { success: boolean, item?: TSingle } {
+    let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
+    let parsedList = JSON.parse(list);
+    let selectedItem = (parsedList as TSingle[]).filter(item => item.id = id)[0] || null
+    return {
+      success: Boolean(selectedItem), item: selectedItem
+    }
   }
 
   private getSingleApi(): TSingle {
