@@ -17,10 +17,9 @@ export class BaseService<TSingle, TList extends { id: null | string }, TCreate e
     return {} as TList
   }
 
-  public getList(): TList[] {
+  public getList(): void {
     let list = window.localStorage.getItem(this.STORAGE_KEY) || '[]'
     this.$listValue.set(JSON.parse(list) as TList[])
-    return []
   }
 
   public getSingle(id: string): TSingle {

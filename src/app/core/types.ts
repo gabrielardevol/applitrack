@@ -1,4 +1,5 @@
 export type Offer = {
+    id: string;
     responses: Response[];
     platform: string;
     date: Date;
@@ -15,8 +16,12 @@ export type Offer = {
     modality: OFFER_MODALITIES;
     location: string;
     company: string;
-    id: string;
+}
 
+export type OfferListItem = {
+    id: string;
+    role: string;
+    company: string;
 }
 
 export type OfferForm = {
