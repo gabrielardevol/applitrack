@@ -15,4 +15,5 @@ export const EMPTY_OFFER_FORM: OfferForm = {
     modality: OFFER_MODALITIES.HYBRID,
     location: '',
     company: '',
+    id: null
 }

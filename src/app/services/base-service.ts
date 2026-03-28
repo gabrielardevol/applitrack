@@ -1,8 +1,9 @@
 import { signal, WritableSignal } from "@angular/core";
+import { v4 as uuidv4 } from 'uuid';
 
-export class BaseService<TSingle, TList, TCreate, TUpdate> {
+export class BaseService<TSingle, TList, TCreate extends { id: null | string }, TUpdate> {
   constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
-    let list = window.localStorage.getItem(STORAGE_KEY) || ''
+    let list = window.localStorage.getItem(STORAGE_KEY) || '[]'
     this.$listValue.set(JSON.parse(list) as TList[])
   }
 
@@ -17,6 +18,7 @@ export class BaseService<TSingle, TList, TCreate, TUpdate> {
   }
 
   public create(item: TCreate): TList {
+    item.id = uuidv4()
     this.createLocal(item);
     this.$listValue.set([...this.$listValue(), item as unknown as TList])
     return {} as TList

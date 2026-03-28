@@ -9,12 +9,14 @@ export type Offer = {
     originalText: string;
     salaryRange: { min: number, max: number };
     role: string;
-    type: OFFER_TYPES
+    type: OFFER_TYPES;
     status: string;
     annotations: Annotation[];
-    modality: OFFER_MODALITIES,
-    location: string
-    company: string
+    modality: OFFER_MODALITIES;
+    location: string;
+    company: string;
+    id: string;
+
 }
 
 export type OfferForm = {
@@ -29,7 +31,8 @@ export type OfferForm = {
     type: OFFER_TYPES;
     modality: OFFER_MODALITIES;
     location: string;
-    company: string
+    company: string;
+    id: string | null;
 }
 
 export type Response = {
