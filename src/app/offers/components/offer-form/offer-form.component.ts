@@ -12,7 +12,6 @@ import { EMPTY_OFFER_FORM } from '../../offers.constants';
 })
 export class OfferFormComponent {
 
-    private readonly mode: 'create' | 'update' = 'create';
     public readonly OFFER_TYPES = OFFER_TYPES;
     public readonly OFFER_MODALITIES = OFFER_MODALITIES;
     private offersService = inject(OffersService);
