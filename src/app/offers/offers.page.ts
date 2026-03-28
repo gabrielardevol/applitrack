@@ -10,5 +10,9 @@ import { OffersService } from '../services/offers-service';
 })
 export class OffersPage {
   private offersService = inject(OffersService);
-  public offers = this.offersService.$listValue
+  public offers = this.offersService.$listValue;
+
+  deleteOffer(id: string) {
+    this.offersService.delete(id)
+  }
 }

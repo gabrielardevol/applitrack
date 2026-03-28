@@ -1,20 +1,13 @@
 import { signal, WritableSignal } from "@angular/core";
 import { v4 as uuidv4 } from 'uuid';
 
-export class BaseService<TSingle, TList, TCreate extends { id: null | string }, TUpdate> {
-  constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
-    let list = window.localStorage.getItem(STORAGE_KEY) || '[]'
-    this.$listValue.set(JSON.parse(list) as TList[])
-  }
+export class BaseService<TSingle, TList extends { id: null | string }, TCreate extends { id: null | string }, TUpdate> {
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
 
-  public getList(): TList[] {
-    return []
-  }
+  constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
+    this.getList()
 
-  public getSingle(): TSingle {
-    return {} as TSingle
   }
 
   public create(item: TCreate): TList {
@@ -24,7 +17,22 @@ export class BaseService<TSingle, TList, TCreate extends { id: null | string }, 
     return {} as TList
   }
 
+  public getList(): TList[] {
+    let list = window.localStorage.getItem(this.STORAGE_KEY) || '[]'
+    this.$listValue.set(JSON.parse(list) as TList[])
+    return []
+  }
+
+  public getSingle(id: string): TSingle {
+    return {} as TSingle
+  }
+
   public delete(id: string): { success: boolean } {
+    let filteredList = this.$listValue().filter(item => item.id != id);
+    this.$listValue.set(filteredList);
+    this.deleteLocal()
+    //delete from localstore
+    //delete from api
     return { success: true }
   }
 
@@ -71,47 +79,48 @@ export class BaseService<TSingle, TList, TCreate extends { id: null | string }, 
     return {} as TList
   }
 
-  public deleteLocal(): { success: boolean } {
+  private deleteLocal(): { success: boolean } {
+    window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...this.$listValue()]))
     return { success: true }
   }
 
-  public deleteApi(): { success: boolean } {
+  private deleteApi(): { success: boolean } {
     return { success: true }
   }
 
-  public updateLocal(offer: TUpdate): TList {
+  private updateLocal(offer: TUpdate): TList {
     return {} as TList
   }
 
-  public updateApi(offer: TUpdate): TList {
+  private updateApi(offer: TUpdate): TList {
     return {} as TList
   }
 
-  public addCommentLocal(id: string, comment: Comment): Comment {
+  private addCommentLocal(id: string, comment: Comment): Comment {
     return {} as Comment
   }
 
-  public addCommentApi(id: string, comment: Comment): Comment {
+  private addCommentApi(id: string, comment: Comment): Comment {
     return {} as Comment
   }
 
-  public updateCommentLocal(id: string, comment: Comment): Comment {
+  private updateCommentLocal(id: string, comment: Comment): Comment {
     return {} as Comment
   }
 
-  public updateCommentApi(id: string, comment: Comment): Comment {
+  private updateCommentApi(id: string, comment: Comment): Comment {
     return {} as Comment
   }
 
-  public deleteCommentLocal(id: string): { success: boolean } {
+  private deleteCommentLocal(id: string): { success: boolean } {
     return { success: true }
   }
 
-  public deleteCommentApi(id: string): { success: boolean } {
+  private deleteCommentApi(id: string): { success: boolean } {
     return { success: true }
   }
 
-  public apiPersist(): { success: boolean } {
+  private apiPersist(): { success: boolean } {
     return { success: true }
   }
 }
