@@ -10,11 +10,24 @@ export class BaseService<TSingle, TList extends { id: null | string }, TCreate e
 
   }
 
-  public create(item: TCreate): TList {
+  public create(item: TCreate) {
     item.id = uuidv4()
-    this.createLocal(item);
-    this.$listValue.set([...this.$listValue(), item as unknown as TList])
-    return {} as TList
+    let creation = this.createLocal(item);
+    if (creation.success) {
+      this.$listValue.set([...this.$listValue(), item as unknown as TList])
+    }
+  }
+
+  private createLocal(item: TCreate): { success: boolean; item?: TCreate } {
+    let items = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
+    let parsedItems = JSON.parse(items)
+    try {
+      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]))
+      return { success: true, item: item }
+    } catch {
+      console.error('Error saving new item to localstorage');
+      return { success: false }
+    }
   }
 
   public getList(): void {
@@ -64,17 +77,6 @@ export class BaseService<TSingle, TList extends { id: null | string }, TCreate e
     return {} as TSingle
   }
 
-  private createLocal(item: TCreate): { success: boolean; item?: TCreate } {
-    let items = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
-    let parsedItems = JSON.parse(items)
-    try {
-      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]))
-      return { success: true, item: item }
-    } catch {
-      console.error('Error saving new item to localstorage');
-      return { success: false }
-    }
-  }
 
   private createApi(): TList {
     return {} as TList
