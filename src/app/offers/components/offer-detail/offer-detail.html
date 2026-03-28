@@ -2,12 +2,12 @@
 
 <dialog #dialog>
     <button (click)="dialog.close(); updating = false;">close</button>
-    <button (click)="updating = !updating">Update</button>
+    <button (click)="updating && updateOffer(); updating = !updating; ">{{!updating ? 'Edit' : 'Save changes'}}</button>
     <form action="">
         Company
         <br>
         @if (!updating) {
-        {{offer?.company}}
+        {{offer()?.company}}
         }
         @if (updating) {
         <input [formField]="offerForm.company" type="text">
@@ -22,7 +22,7 @@
         Role
         <br>
         @if (!updating) {
-        {{offer?.role}}
+        {{offer()?.role}}
         }
         @if (updating) {
         <input [formField]="offerForm.role" type="text">
@@ -32,7 +32,7 @@
         Location
         <br>
         @if (!updating) {
-        {{offer?.location}}
+        {{offer()?.location}}
         }
         @if (updating) {
         <input [formField]="offerForm.location" type="text">
@@ -42,7 +42,7 @@
         Modality
         <br>
         @if (!updating) {
-        {{offer?.modality}}
+        {{offer()?.modality}}
         }
         @if (updating) {
         <input [formField]="offerForm.modality" type="text">
@@ -52,7 +52,7 @@
         Status
         <br>
         @if (!updating) {
-        {{offer?.status}}
+        {{offer()?.status}}
         }
         @if (updating) {
         <input [formField]="offerForm.status" type="text">
@@ -62,7 +62,7 @@
         Type
         <br>
         @if (!updating) {
-        {{offer?.type}}
+        {{offer()?.type}}
         }
         @if (updating) {
         <fieldset>
@@ -81,13 +81,13 @@
         Salary range
         <br>
         @if (!updating) {
-        {{offer?.salaryRange?.min}}
+        {{offer()?.salaryRange?.min}}
         }
         @if (updating) {
         <input [formField]="offerForm.salaryRange.min" type="number">
         }
         @if (!updating) {
-        {{offer?.salaryRange?.max}}
+        {{offer()?.salaryRange?.max}}
         }
         <br>
         @if (updating) {
@@ -98,7 +98,7 @@
         Original text
         <br>
         @if (!updating) {
-        {{offer?.originalText}}
+        {{offer()?.originalText}}
         }
         @if (updating) {
         <input [formField]="offerForm.originalText" type="text">
@@ -108,7 +108,7 @@
         Recruiters
         <br>
         @if (!updating) {
-        {{offer?.recruiters}}
+        {{offer()?.recruiters}}
         }
         @if (updating) {
         <input [formField]="offerForm.recruiters" type="text">
@@ -118,21 +118,21 @@
         Skills
         <br>
         @if (!updating) {
-        {{offer?.skillsMust}}
+        {{offer()?.skillsMust}}
         }
         @if (updating) {
         <input [formField]="offerForm.skillsMust" type="text">
         }
         <br>
         @if (!updating) {
-        {{offer?.skillsPlus}}
+        {{offer()?.skillsPlus}}
         }
         @if (updating) {
         <input [formField]="offerForm.skillsPlus" type="text">
         }
         <br>
         @if (!updating) {
-        {{offer?.softSkills}}
+        {{offer()?.softSkills}}
         }
         @if (updating) {
         <input [formField]="offerForm.softSkills" type="text">
@@ -141,7 +141,7 @@
 
         Date
         <br> @if (!updating) {
-        {{offer?.date}}
+        {{offer()?.date}}
         }
         @if (updating) {
         <input [formField]="offerForm.date" type="date">
@@ -150,7 +150,7 @@
 
         Platform
         <br> @if (!updating) {
-        {{offer?.platform}}
+        {{offer()?.platform}}
         }
         @if (updating) {
         <input [formField]="offerForm.platform" type="string">

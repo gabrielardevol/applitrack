@@ -2,10 +2,9 @@ import { signal, WritableSignal } from "@angular/core";
 import { parse, v4 as uuidv4 } from 'uuid';
 
 export class BaseService<
-  TSingle extends { id: null | string },
-  TList extends { id: null | string },
+  TSingle extends { id: string },
+  TList extends { id: string },
   TCreate extends { id: null | string },
-  TUpdate
 > {
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
@@ -70,8 +69,8 @@ export class BaseService<
       return { success: false }
     }
   }
-  public update(offer: TUpdate): TList {
-    return {} as TList
+  public update(offer: Partial<TSingle>, id: string): { success: boolean, item?: TSingle } {
+    return this.updateLocal(offer, id);
   }
 
   public addComment(id: string, comment: Comment): Comment {
@@ -109,11 +108,20 @@ export class BaseService<
     return { success: true }
   }
 
-  private updateLocal(offer: TUpdate): TList {
-    return {} as TList
+  private updateLocal(offer: Partial<TSingle>, id: string): { success: boolean, item?: TSingle } {
+    try {
+      let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
+      let parsedList = JSON.parse(list);
+      let newList = (parsedList as TSingle[]).map(i => i.id == id ? { ...i, ...offer } : i)
+      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newList))
+      return { success: true }
+    } catch {
+      console.error('Error updating item on localstorage');
+      return { success: false }
+    }
   }
 
-  private updateApi(offer: TUpdate): TList {
+  private updateApi(offer: TSingle): TList {
     return {} as TList
   }
 

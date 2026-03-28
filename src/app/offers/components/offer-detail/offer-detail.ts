@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, input, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { OffersService } from '../../../services/offers-service';
-import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../../../core/types';
+import { Offer, OFFER_MODALITIES, OFFER_TYPES } from '../../../core/types';
 import { form, required, FormField } from '@angular/forms/signals';
 import { EMPTY_OFFER_FORM } from '../../offers.constants';
 
@@ -14,7 +14,7 @@ export class OfferDetail {
   modal = viewChild<ElementRef<HTMLDialogElement>>('dialog')
   private offersService = inject(OffersService);
   offerId = input.required<string>()
-  offer?: Offer;
+  offer: WritableSignal<Offer | null> = signal(null);
   updating: boolean = false;
   public readonly OFFER_TYPES = OFFER_TYPES;
   public readonly OFFER_MODALITIES = OFFER_MODALITIES;
@@ -29,13 +29,35 @@ export class OfferDetail {
     let offerResponse = this.offersService.getSingle(this.offerId())
     if (offerResponse.success) {
       this.modal()?.nativeElement.showModal()
-      this.offer = offerResponse.item
-      this.offerForm().value.set(this.offer!)
+      this.offer.set(offerResponse.item!)
+      this.offerForm().value.set(this.offer()!)
     }
   }
 
   updateOffer() {
-    this.offersService.update(this.offerForm().value())
-  }
 
+    this.offersService.update(this.offerForm().value() as Partial<Offer>, this.offer()!.id)
+
+    this.offer.set(
+      {
+        platform: this.offerForm().value().platform,
+        skillsMust: this.offerForm().value().skillsMust,
+        skillsPlus: this.offerForm().value().skillsPlus,
+        softSkills: this.offerForm().value().softSkills,
+        recruiters: this.offerForm().value().recruiters,
+        originalText: this.offerForm().value().originalText,
+        salaryRange: this.offerForm().value().salaryRange,
+        role: this.offerForm().value().role,
+        type: this.offerForm().value().type,
+        modality: this.offerForm().value().modality,
+        location: this.offerForm().value().location,
+        company: this.offerForm().value().company,
+        id: this.offer()!.id,
+        date: this.offer()!.date,
+        status: this.offerForm().value().status,
+        responses: this.offer()!.responses,
+        annotations: this.offer()!.annotations
+      }
+    );
+  }
 }

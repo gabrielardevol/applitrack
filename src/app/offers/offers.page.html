@@ -3,7 +3,7 @@
 {{offers().length}}-------
 @for (offer of offers(); track offer) {
 <hr>
-{{offer.role}} at {{offer.company}}
+{{offer.role}} at {{offer.company}} | {{offer.id}}
 <button (click)="deleteOffer(offer.id)">Delete</button>
 <appli-offer-detail [offerId]="offer.id"></appli-offer-detail>
 

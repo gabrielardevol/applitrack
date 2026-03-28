@@ -8,7 +8,7 @@ export type Offer = {
     softSkills: string;
     recruiters: string;
     originalText: string;
-    salaryRange: { min: number, max: number };
+    salaryRange: { min: number | null, max: number | null };
     role: string;
     type: OFFER_TYPES;
     status: string;
@@ -37,7 +37,7 @@ export type OfferForm = {
     modality: OFFER_MODALITIES;
     location: string;
     company: string;
-    id: string | null;
+    id: string;
     date: Date | null;
     status: string;
 }
