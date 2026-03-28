@@ -13,6 +13,6 @@ export class OffersPage {
   public offers = this.offersService.$listValue;
 
   deleteOffer(id: string) {
-    this.offersService.delete(id)
+    console.log(this.offersService.delete(id))
   }
 }
