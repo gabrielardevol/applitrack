@@ -1,24 +1,164 @@
 <button (click)="viewOffer()">Detail</button>
 
 <dialog #dialog>
-    <button (click)="dialog.close()">close</button>
-
+    <button (click)="dialog.close(); updating = false;">close</button>
+    <button (click)="updating = !updating">Update</button>
     <form action="">
-        <br> {{offer?.company}}
-        <br> {{offer?.role}}
-        <br>{{offer?.location}}
-        <br> {{offer?.modality}}
-        <br> {{offer?.status}}
-        <br> {{offer?.type}}
-        <br> {{offer?.salaryRange?.min}}
-        <br> {{offer?.salaryRange?.max}}
-        <br> {{offer?.originalText}}
-        <br> {{offer?.recruiters}}
-        <br> {{offer?.skillsMust}}
-        <br> {{offer?.skillsPlus}}
-        <br> {{offer?.softSkills}}
-        <br> {{offer?.date}}
-        <br> {{offer?.platform}}
-        <br> {{offer?.responses}}
+        Company
+        <br>
+        @if (!updating) {
+        {{offer?.company}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.company" type="text">
+        }
+        @if (offerForm.company().touched() && offerForm.company().invalid()) {
+        @for (error of offerForm.company().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+        }
+        <hr>
+
+        Role
+        <br>
+        @if (!updating) {
+        {{offer?.role}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.role" type="text">
+        }
+        <hr>
+
+        Location
+        <br>
+        @if (!updating) {
+        {{offer?.location}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.location" type="text">
+        }
+        <hr>
+
+        Modality
+        <br>
+        @if (!updating) {
+        {{offer?.modality}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.modality" type="text">
+        }
+        <hr>
+
+        Status
+        <br>
+        @if (!updating) {
+        {{offer?.status}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.status" type="text">
+        }
+        <hr>
+
+        Type
+        <br>
+        @if (!updating) {
+        {{offer?.type}}
+        }
+        @if (updating) {
+        <fieldset>
+            <div>
+                <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.APPLICATION" />
+                <label [for]="OFFER_TYPES.APPLICATION">Application</label>
+            </div>
+            <div>
+                <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
+                <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
+            </div>
+        </fieldset>
+        }
+        <hr>
+
+        Salary range
+        <br>
+        @if (!updating) {
+        {{offer?.salaryRange?.min}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.salaryRange.min" type="number">
+        }
+        @if (!updating) {
+        {{offer?.salaryRange?.max}}
+        }
+        <br>
+        @if (updating) {
+        <input [formField]="offerForm.salaryRange.max" type="number">
+        }
+        <hr>
+
+        Original text
+        <br>
+        @if (!updating) {
+        {{offer?.originalText}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.originalText" type="text">
+        }
+        <hr>
+
+        Recruiters
+        <br>
+        @if (!updating) {
+        {{offer?.recruiters}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.recruiters" type="text">
+        }
+        <hr>
+
+        Skills
+        <br>
+        @if (!updating) {
+        {{offer?.skillsMust}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.skillsMust" type="text">
+        }
+        <br>
+        @if (!updating) {
+        {{offer?.skillsPlus}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.skillsPlus" type="text">
+        }
+        <br>
+        @if (!updating) {
+        {{offer?.softSkills}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.softSkills" type="text">
+        }
+        <hr>
+
+        Date
+        <br> @if (!updating) {
+        {{offer?.date}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.date" type="date">
+        }
+        <hr>
+
+        Platform
+        <br> @if (!updating) {
+        {{offer?.platform}}
+        }
+        @if (updating) {
+        <input [formField]="offerForm.platform" type="string">
+        }
+        <hr>
+
+        <!-- 
+        Responses
+        <br> {{offer?.responses}} -->
     </form>
 </dialog>

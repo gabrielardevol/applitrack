@@ -38,6 +38,8 @@ export type OfferForm = {
     location: string;
     company: string;
     id: string | null;
+    date: Date | null;
+    status: string;
 }
 
 export type Response = {

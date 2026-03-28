@@ -1,4 +1,4 @@
-import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from "../core/types";
+import { OFFER_MODALITIES, OFFER_TYPES, OfferForm } from "../core/types";
 
 export const EMPTY_OFFER_FORM: OfferForm = {
     platform: '',
@@ -15,5 +15,7 @@ export const EMPTY_OFFER_FORM: OfferForm = {
     modality: OFFER_MODALITIES.HYBRID,
     location: '',
     company: '',
-    id: null
+    id: null,
+    date: null,
+    status: '' //OFFER_STATUS
 }
