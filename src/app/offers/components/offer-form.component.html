@@ -1,106 +1,113 @@
 offer form
-<form>
-    <fieldset>
-        <legend>Skills</legend>
 
-        <label for="platform">Must</label>
-        <input [formField]="offerForm.skillsMust" type="text">
-        <br>
-
-        <label for="platform">Plus</label>
-        <input [formField]="offerForm.skillsPlus" type="text">
-        <br>
-
-        <label for="platform">Soft</label>
-        <input [formField]="offerForm.softSkills" type="text">
-    </fieldset>
-
-    <br>
-    <label for="platform">Company</label>
-    <input [formField]="offerForm.company" type="text">
-    <br>
-    @if ((offerForm.company().touched() || submitButtonClicked) && offerForm.company().invalid()) {
-    @for (error of offerForm.company().errors(); track error) {
-    <li>{{ error.message }}</li>
-    }
-    }
-
-    <label for="platform">Recruiters</label>
-    <input [formField]="offerForm.recruiters" type="text">
-    <br>
-
-    <label for="platform">Original text</label>
-    <input [formField]="offerForm.originalText" type="text">
-    <br>
-
-    <br>
-    <label for="platform">Platform</label>
-    <input [formField]="offerForm.platform" type="text">
-
-    <br>
-    <label for="role">Role</label>
-    <select [formField]="offerForm.role">
-        <option value="Frontend">Frontend</option>
-        <option value="Backend">Backend</option>
-        <option value="Fullstack">Fullstack</option>
-    </select>
-    @if ((offerForm.role().touched() || submitButtonClicked) && offerForm.role().invalid()) {
-    @for (error of offerForm.role().errors(); track error) {
-    <li>{{ error.message }}</li>
-    }
-    }
-
-    <br>
-    <label for="location">Location</label>
-    <input [formField]="offerForm.location" type="text">
+<button (click)="dialog.showModal()">new offer</button>
 
 
-    <fieldset>
-        <legend> Salary range</legend>
+<dialog #dialog>
+    <button (click)="dialog.close()">close</button>
+    <form>
+        <fieldset>
+            <legend>Skills</legend>
 
+            <label for="platform">Must</label>
+            <input [formField]="offerForm.skillsMust" type="text">
+            <br>
 
-        <label>Min</label>
-        <input [formField]="offerForm.salaryRange.min" type="number">
+            <label for="platform">Plus</label>
+            <input [formField]="offerForm.skillsPlus" type="text">
+            <br>
+
+            <label for="platform">Soft</label>
+            <input [formField]="offerForm.softSkills" type="text">
+        </fieldset>
 
         <br>
-        <label>Max</label>
-        <input [formField]="offerForm.salaryRange.max" type="number">
-
-    </fieldset>
-    <br>
-    <fieldset>
-        <legend>Type</legend>
-        <div>
-            <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.APPLICATION" />
-            <label [for]="OFFER_TYPES.APPLICATION">Application</label>
-        </div>
-        <div>
-            <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
-            <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
-        </div>
-        @if ((offerForm.type().touched() || submitButtonClicked) && offerForm.type().invalid()) {
-        @for (error of offerForm.type().errors(); track error) {
+        <label for="platform">Company</label>
+        <input [formField]="offerForm.company" type="text">
+        <br>
+        @if ((offerForm.company().touched() || submitButtonClicked) && offerForm.company().invalid()) {
+        @for (error of offerForm.company().errors(); track error) {
         <li>{{ error.message }}</li>
         }
         }
-    </fieldset>
 
-    <br>
-    <fieldset>
-        <legend>Modality</legend>
-        <div>
-            <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.HYBRID" />
-            <label [for]="OFFER_MODALITIES.HYBRID">Hybrid</label>
-        </div>
-        <div>
-            <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.REMOTE" />
-            <label [for]="OFFER_MODALITIES.REMOTE">Remote</label>
-        </div>
-        <div>
-            <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.ON_SITE" />
-            <label [for]="OFFER_MODALITIES.ON_SITE">On site</label>
-        </div>
-    </fieldset>
+        <label for="platform">Recruiters</label>
+        <input [formField]="offerForm.recruiters" type="text">
+        <br>
 
-    <button (click)="$event.preventDefault(); submitForm()">Submit</button>
-</form>
+        <label for="platform">Original text</label>
+        <input [formField]="offerForm.originalText" type="text">
+        <br>
+
+        <br>
+        <label for="platform">Platform</label>
+        <input [formField]="offerForm.platform" type="text">
+
+        <br>
+        <label for="role">Role</label>
+        <select [formField]="offerForm.role">
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="Fullstack">Fullstack</option>
+        </select>
+        @if ((offerForm.role().touched() || submitButtonClicked) && offerForm.role().invalid()) {
+        @for (error of offerForm.role().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+        }
+
+        <br>
+        <label for="location">Location</label>
+        <input [formField]="offerForm.location" type="text">
+
+
+        <fieldset>
+            <legend> Salary range</legend>
+
+
+            <label>Min</label>
+            <input [formField]="offerForm.salaryRange.min" type="number">
+
+            <br>
+            <label>Max</label>
+            <input [formField]="offerForm.salaryRange.max" type="number">
+
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Type</legend>
+            <div>
+                <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.APPLICATION" />
+                <label [for]="OFFER_TYPES.APPLICATION">Application</label>
+            </div>
+            <div>
+                <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
+                <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
+            </div>
+            @if ((offerForm.type().touched() || submitButtonClicked) && offerForm.type().invalid()) {
+            @for (error of offerForm.type().errors(); track error) {
+            <li>{{ error.message }}</li>
+            }
+            }
+        </fieldset>
+
+        <br>
+        <fieldset>
+            <legend>Modality</legend>
+            <div>
+                <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.HYBRID" />
+                <label [for]="OFFER_MODALITIES.HYBRID">Hybrid</label>
+            </div>
+            <div>
+                <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.REMOTE" />
+                <label [for]="OFFER_MODALITIES.REMOTE">Remote</label>
+            </div>
+            <div>
+                <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.ON_SITE" />
+                <label [for]="OFFER_MODALITIES.ON_SITE">On site</label>
+            </div>
+        </fieldset>
+
+        <button (click)="$event.preventDefault(); submitForm()">Submit</button>
+    </form>
+</dialog>
