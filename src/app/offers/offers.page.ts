@@ -1,10 +1,11 @@
 import { Component, ElementRef, inject, Signal, viewChild } from '@angular/core';
-import { OfferFormComponent } from './components/offer-form.component';
+import { OfferFormComponent } from './components/offer-form/offer-form.component';
 import { OffersService } from '../services/offers-service';
+import { OfferDetail } from "./components/offer-detail/offer-detail";
 
 @Component({
   selector: 'app-offers-page',
-  imports: [OfferFormComponent],
+  imports: [OfferFormComponent, OfferDetail],
   templateUrl: './offers.page.html',
   styleUrl: './offers.page.scss',
 })
@@ -12,17 +13,9 @@ export class OffersPage {
   private offersService = inject(OffersService);
   public offers = this.offersService.$listValue;
 
-  modal = viewChild<ElementRef<HTMLDialogElement>>('dialog')
 
   deleteOffer(id: string) {
     this.offersService.delete(id)
   }
 
-  viewOffer(id: string) {
-    console.log(
-      this.offersService.getSingle(id)
-    )
-    this.modal()?.nativeElement.showModal()
-
-  }
 }

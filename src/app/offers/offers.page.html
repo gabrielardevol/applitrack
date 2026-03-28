@@ -1,11 +1,11 @@
 <p>offers-page works!</p>
-<at-offer-form></at-offer-form>
+<appli-offer-form></appli-offer-form>
 {{offers().length}}-------
 @for (offer of offers(); track offer) {
 <hr>
 {{offer.role}} at {{offer.company}}
 <button (click)="deleteOffer(offer.id)">Delete</button>
-<button (click)="viewOffer(offer.id)">View</button>
+<appli-offer-detail [offerId]="offer.id"></appli-offer-detail>
 
 <dialog #dialog>
     <button (click)="dialog.close()">close</button>

@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { OffersService } from '../../services/offers-service';
-import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../../core/types';
-import { debounce, email, form, FormField, required } from '@angular/forms/signals';
-import { EMPTY_OFFER_FORM } from '../offers.constants';
+import { OffersService } from '../../../services/offers-service';
+import { OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../../../core/types';
+import { form, FormField, required } from '@angular/forms/signals';
+import { EMPTY_OFFER_FORM } from '../../offers.constants';
 
 @Component({
-    selector: 'at-offer-form',
+    selector: 'appli-offer-form',
     imports: [FormField],
     templateUrl: './offer-form.component.html',
     styleUrl: './offer-form.component.scss',
@@ -13,20 +13,19 @@ import { EMPTY_OFFER_FORM } from '../offers.constants';
 export class OfferFormComponent {
 
     private readonly mode: 'create' | 'update' = 'create';
-    OFFER_TYPES = OFFER_TYPES;
-    OFFER_MODALITIES = OFFER_MODALITIES;
+    public readonly OFFER_TYPES = OFFER_TYPES;
+    public readonly OFFER_MODALITIES = OFFER_MODALITIES;
+    private offersService = inject(OffersService);
+    private offer = signal<OfferForm>(EMPTY_OFFER_FORM)
 
-    offersService = inject(OffersService);
-
-    offer = signal<OfferForm>(EMPTY_OFFER_FORM)
-
-    offerForm = form(this.offer, (schemaPath) => {
+    public offerForm = form(this.offer, (schemaPath) => {
         required(schemaPath.role, { message: 'Required field' });
         required(schemaPath.type, { message: 'Required field' });
         required(schemaPath.company, { message: 'Required field' });
     })
 
-    submitButtonClicked: boolean = false;
+    public submitButtonClicked: boolean = false;
+
     public submitForm() {
         this.submitButtonClicked = true;
         if (this.offerForm().valid()) {

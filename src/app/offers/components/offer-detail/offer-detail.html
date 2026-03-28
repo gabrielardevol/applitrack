@@ -1,0 +1,21 @@
+<button (click)="viewOffer()">Detail</button>
+
+<dialog #dialog>
+    <button (click)="dialog.close()">close</button>
+    <br> {{offer?.company}}
+    <br> {{offer?.role}}
+    <br>{{offer?.location}}
+    <br> {{offer?.modality}}
+    <br> {{offer?.status}}
+    <br> {{offer?.type}}
+    <br> {{offer?.salaryRange?.min}}
+    <br> {{offer?.salaryRange?.max}}
+    <br> {{offer?.originalText}}
+    <br> {{offer?.recruiters}}
+    <br> {{offer?.skillsMust}}
+    <br> {{offer?.skillsPlus}}
+    <br> {{offer?.softSkills}}
+    <br> {{offer?.date}}
+    <br> {{offer?.platform}}
+    <br> {{offer?.responses}}
+</dialog>

@@ -49,7 +49,27 @@ export class BaseService<
     this.$listValue.set(filteredList);
     return { success: this.deleteLocal().success }
   }
+  private getSingleLocal(id: string): { success: boolean, item?: TSingle } {
+    try {
+      let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
+      let parsedList = JSON.parse(list);
+      let selectedItem = (parsedList as TSingle[]).filter(item => item.id = id)[0] || null
+      return { success: true, item: selectedItem }
+    } catch {
+      console.error('Error retrieving item from localstorage');
+      return { success: false }
+    }
+  }
 
+  private deleteLocal(): { success: boolean } {
+    try {
+      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...this.$listValue()]))
+      return { success: true }
+    } catch {
+      console.error("Error deleting item from local storage")
+      return { success: false }
+    }
+  }
   public update(offer: TUpdate): TList {
     return {} as TList
   }
@@ -74,14 +94,6 @@ export class BaseService<
     return []
   }
 
-  private getSingleLocal(id: string): { success: boolean, item?: TSingle } {
-    let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
-    let parsedList = JSON.parse(list);
-    let selectedItem = (parsedList as TSingle[]).filter(item => item.id = id)[0] || null
-    return {
-      success: Boolean(selectedItem), item: selectedItem
-    }
-  }
 
   private getSingleApi(): TSingle {
     return {} as TSingle
@@ -92,15 +104,6 @@ export class BaseService<
     return {} as TList
   }
 
-  private deleteLocal(): { success: boolean } {
-    try {
-      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...this.$listValue()]))
-      return { success: true }
-    } catch {
-      console.error("Error deleting item from local storage")
-      return { success: false }
-    }
-  }
 
   private deleteApi(): { success: boolean } {
     return { success: true }
