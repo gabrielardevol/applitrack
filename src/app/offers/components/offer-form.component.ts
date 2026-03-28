@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { OffersService } from '../../services/offers-service';
 import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../../core/types';
-import { form, FormField } from '@angular/forms/signals';
+import { debounce, email, form, FormField, required } from '@angular/forms/signals';
 import { EMPTY_OFFER_FORM } from '../offers.constants';
 
 @Component({
@@ -20,9 +20,20 @@ export class OfferFormComponent {
 
     offer = signal<OfferForm>(EMPTY_OFFER_FORM)
 
-    offerForm = form(this.offer)
+    offerForm = form(this.offer, (schemaPath) => {
+        required(schemaPath.role, { message: 'Required field' });
+        required(schemaPath.type, { message: 'Required field' });
+        required(schemaPath.company, { message: 'Required field' });
+    })
 
+    submitButtonClicked: boolean = false;
     public submitForm() {
-        this.offersService.create(this.offerForm().value())
+        this.submitButtonClicked = true;
+        if (this.offerForm().valid()) {
+            this.offersService.create(this.offerForm().value());
+            this.offerForm().value.set(EMPTY_OFFER_FORM)
+            this.offerForm().reset()
+            this.submitButtonClicked = false;
+        }
     }
 }

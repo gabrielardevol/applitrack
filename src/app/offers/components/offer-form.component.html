@@ -19,6 +19,12 @@ offer form
     <label for="platform">Company</label>
     <input [formField]="offerForm.company" type="text">
     <br>
+    @if ((offerForm.company().touched() || submitButtonClicked) && offerForm.company().invalid()) {
+    @for (error of offerForm.company().errors(); track error) {
+    <li>{{ error.message }}</li>
+    }
+    }
+
     <label for="platform">Recruiters</label>
     <input [formField]="offerForm.recruiters" type="text">
     <br>
@@ -27,7 +33,6 @@ offer form
     <input [formField]="offerForm.originalText" type="text">
     <br>
 
-
     <br>
     <label for="platform">Platform</label>
     <input [formField]="offerForm.platform" type="text">
@@ -35,12 +40,15 @@ offer form
     <br>
     <label for="role">Role</label>
     <select [formField]="offerForm.role">
-        <option value="">Select</option>
-        <option value="us">Frontend</option>
-        <option value="ca">Backend</option>
-        <option value="ca">Fullstack</option>
-
+        <option value="Frontend">Frontend</option>
+        <option value="Backend">Backend</option>
+        <option value="Fullstack">Fullstack</option>
     </select>
+    @if ((offerForm.role().touched() || submitButtonClicked) && offerForm.role().invalid()) {
+    @for (error of offerForm.role().errors(); track error) {
+    <li>{{ error.message }}</li>
+    }
+    }
 
     <br>
     <label for="location">Location</label>
@@ -70,6 +78,11 @@ offer form
             <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
             <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
         </div>
+        @if ((offerForm.type().touched() || submitButtonClicked) && offerForm.type().invalid()) {
+        @for (error of offerForm.type().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+        }
     </fieldset>
 
     <br>
