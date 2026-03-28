@@ -1,4 +1,4 @@
-import { OFFER_MODALITIES, OFFER_TYPES, OfferForm } from "../core/types";
+import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from "../core/types";
 
 export const EMPTY_OFFER_FORM: OfferForm = {
     platform: '',

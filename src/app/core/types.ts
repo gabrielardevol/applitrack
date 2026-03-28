@@ -3,10 +3,10 @@ export type Offer = {
     responses: Response[];
     platform: string;
     date: Date;
-    skillsMust: string[];
-    skillsPlus: string[];
-    softSkills: string[];
-    recruiters: Contact[];
+    skillsMust: string;
+    skillsPlus: string;
+    softSkills: string;
+    recruiters: string;
     originalText: string;
     salaryRange: { min: number, max: number };
     role: string;
