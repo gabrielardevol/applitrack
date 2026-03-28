@@ -34,7 +34,13 @@ offer form
 
     <br>
     <label for="role">Role</label>
-    <input [formField]="offerForm.role" type="text">
+    <select [formField]="offerForm.role">
+        <option value="">Select</option>
+        <option value="us">Frontend</option>
+        <option value="ca">Backend</option>
+        <option value="ca">Fullstack</option>
+
+    </select>
 
     <br>
     <label for="location">Location</label>
