@@ -1,0 +1,49 @@
+<button (click)="dialog.showModal()">new response</button>
+
+<dialog #dialog>
+    <button (click)="dialog.close()">close</button>
+
+
+    <form>
+
+
+        <label for="platform">Original text</label>
+        <input [formField]="responseForm.originalText" type="text">
+        <br>
+
+        <hr>
+
+        <label for="responseForm.type">Company</label>
+        <input [formControl]="companyControl">
+
+        <br>
+        <hr>
+
+
+        <label for="platform">Offer</label>
+        <select [formField]="responseForm.offerId">
+            @for (offer of offersList; track offer.id) {
+            <option [value]="offer.id">{{offer.role}} at {{offer.company}}</option>
+            }
+        </select>
+        <br>
+        @if (responseForm.offerId().touched() && responseForm.offerId().invalid()) {
+        @for (error of responseForm.offerId().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+        }
+        <hr>
+
+        <label for="responseForm.type">Type</label>
+        <select [formField]="responseForm.type">
+            <option [value]="RESPONSE_TYPES.REJECTION">Rejection</option>
+            <option [value]="RESPONSE_TYPES.INFORMATION_REQUEST">Information request</option>
+            <option [value]="RESPONSE_TYPES.INTERVIEW_SCHEDULE">Interview schedule</option>
+            <option [value]="RESPONSE_TYPES.JOB_PROPOSAL">Job proposal</option>
+        </select>
+        <br>
+        <hr>
+
+        <button (click)="$event.preventDefault(); submitForm()">Submit</button>
+    </form>
+</dialog>

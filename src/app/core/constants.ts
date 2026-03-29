@@ -1,4 +1,4 @@
-import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm } from "../core/types";
+import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm, RESPONSE_TYPES, ResponseForm } from "./types";
 
 export const EMPTY_OFFER_FORM: OfferForm = {
     platform: '',
@@ -20,3 +20,10 @@ export const EMPTY_OFFER_FORM: OfferForm = {
     status: '' //OFFER_STATUS
 }
 
+export const EMPTY_RESPONSE_FORM: ResponseForm = {
+    id: '',
+    offerId: '',
+    type: RESPONSE_TYPES.INFORMATION_REQUEST,
+    people: '',
+    originalText: ''
+}

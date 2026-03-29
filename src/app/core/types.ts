@@ -43,11 +43,23 @@ export type OfferForm = {
 }
 
 export type Response = {
+    originalText: string;
+    people: string;
+    id: string;
     offerId: string;
     type: RESPONSE_TYPES,
     interview?: Interview | undefined,
     proposalAmount?: number | undefined,
-    annotations: Annotation[]
+}
+
+export type ResponseForm = {
+    originalText: string;
+    people: string;
+    id: string;
+    offerId: string;
+    type: RESPONSE_TYPES,
+    interview?: Interview | undefined,
+    proposalAmount?: number | undefined,
 }
 
 export type Interview = {
@@ -59,10 +71,10 @@ export type Interview = {
 }
 
 export enum RESPONSE_TYPES {
-    REJECTION = 0,
-    INFORMATION_REQUEST = 1,
-    INTERVIEW_SCHEDULE = 2,
-    JOB_PROPOSAL = 3
+    REJECTION = 'REJECTION',
+    INFORMATION_REQUEST = 'INFORMATION_REQUEST',
+    INTERVIEW_SCHEDULE = 'INTERVIEW_SCHEDULE',
+    JOB_PROPOSAL = 'JOB_PROPOSAL'
 }
 
 export type Contact = {

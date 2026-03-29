@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { OffersService } from '../../../services/offers-service';
 import { OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../../../core/types';
 import { form, FormField, required } from '@angular/forms/signals';
-import { EMPTY_OFFER_FORM } from '../../offers.constants';
+import { EMPTY_OFFER_FORM } from '../../../core/constants';
 
 @Component({
     selector: 'appli-offer-form',

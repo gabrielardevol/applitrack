@@ -6,6 +6,11 @@ offer form
 <dialog #dialog>
     <button (click)="dialog.close()">close</button>
     <form>
+
+        <label for="platform">Original text</label>
+        <input [formField]="offerForm.originalText" type="text">
+        <br>
+
         <fieldset>
             <legend>Skills</legend>
 
@@ -35,9 +40,6 @@ offer form
         <input [formField]="offerForm.recruiters" type="text">
         <br>
 
-        <label for="platform">Original text</label>
-        <input [formField]="offerForm.originalText" type="text">
-        <br>
 
         <br>
         <label for="platform">Platform</label>

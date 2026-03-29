@@ -26,19 +26,22 @@ export class BaseService<
 
   private createLocal(item: TCreate): TCreate | null {
     let items = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
-    let parsedItems = JSON.parse(items)
+    let parsedItems = JSON.parse(items);
     try {
-      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]))
-      return item
+      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]));
+      return item;
     } catch {
       console.error('Error saving new item to localstorage');
-      return null
+      return null;
     }
   }
 
-  public getList(): void {
-    let list = window.localStorage.getItem(this.STORAGE_KEY) || '[]'
-    this.$listValue.set(JSON.parse(list) as TList[])
+  public getList(): TList[] {
+    let list = window.localStorage.getItem(this.STORAGE_KEY) || '[]';
+    let parsedList = JSON.parse(list) as TList[];
+    this.$listValue.set(parsedList);
+    return parsedList;
+
   }
 
   public getSingle(id: string) {
