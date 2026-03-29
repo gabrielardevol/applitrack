@@ -26,10 +26,10 @@ export class OfferDetail {
   })
 
   viewOffer() {
-    let offerResponse = this.offersService.getSingle(this.offerId())
-    if (offerResponse.success) {
+    let offerDetail = this.offersService.getSingle(this.offerId())
+    if (offerDetail) {
       this.modal()?.nativeElement.showModal()
-      this.offer.set(offerResponse.item!)
+      this.offer.set(offerDetail)
       this.offerForm().value.set(this.offer()!)
     }
   }

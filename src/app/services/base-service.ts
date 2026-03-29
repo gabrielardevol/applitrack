@@ -17,20 +17,22 @@ export class BaseService<
   public create(item: TCreate) {
     item.id = uuidv4()
     let creation = this.createLocal(item);
-    if (creation.success) {
+    if (creation) {
       this.$listValue.set([...this.$listValue(), item as unknown as TList])
+    } else {
+      console.error('Item could not be added to local storage, therefore has not been created')
     }
   }
 
-  private createLocal(item: TCreate): { success: boolean; item?: TCreate } {
+  private createLocal(item: TCreate): TCreate | null {
     let items = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
     let parsedItems = JSON.parse(items)
     try {
       window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]))
-      return { success: true, item: item }
+      return item
     } catch {
       console.error('Error saving new item to localstorage');
-      return { success: false }
+      return null
     }
   }
 
@@ -43,34 +45,50 @@ export class BaseService<
     return this.getSingleLocal(id)
   }
 
-  public delete(id: string): { success: boolean } {
+  public delete(id: string) {
     let filteredList = this.$listValue().filter(item => item.id != id);
     this.$listValue.set(filteredList);
-    return { success: this.deleteLocal().success }
+    this.deleteLocal();
+
   }
-  private getSingleLocal(id: string): { success: boolean, item?: TSingle } {
+
+  private getSingleLocal(id: string): TSingle | null {
     try {
       let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
       let parsedList = JSON.parse(list);
       let selectedItem = (parsedList as TSingle[]).filter(item => item.id = id)[0] || null
-      return { success: true, item: selectedItem }
+      return selectedItem
     } catch {
       console.error('Error retrieving item from localstorage');
-      return { success: false }
+      return null
     }
   }
 
-  private deleteLocal(): { success: boolean } {
+  private deleteLocal(): true | null {
     try {
       window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...this.$listValue()]))
-      return { success: true }
+      return true
     } catch {
       console.error("Error deleting item from local storage")
-      return { success: false }
+      return null
     }
   }
-  public update(offer: Partial<TSingle>, id: string): { success: boolean, item?: TSingle } {
+
+  public update(offer: Partial<TSingle>, id: string): true | null {
     return this.updateLocal(offer, id);
+  }
+
+  private updateLocal(offer: Partial<TSingle>, id: string): true | null {
+    try {
+      let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
+      let parsedList = JSON.parse(list);
+      let newList = (parsedList as TSingle[]).map(i => i.id == id ? { ...i, ...offer } : i)
+      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newList))
+      return true
+    } catch {
+      console.error('Error updating item on localstorage');
+      return null
+    }
   }
 
   public addComment(id: string, comment: Comment): Comment {
@@ -108,18 +126,7 @@ export class BaseService<
     return { success: true }
   }
 
-  private updateLocal(offer: Partial<TSingle>, id: string): { success: boolean, item?: TSingle } {
-    try {
-      let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
-      let parsedList = JSON.parse(list);
-      let newList = (parsedList as TSingle[]).map(i => i.id == id ? { ...i, ...offer } : i)
-      window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newList))
-      return { success: true }
-    } catch {
-      console.error('Error updating item on localstorage');
-      return { success: false }
-    }
-  }
+
 
   private updateApi(offer: TSingle): TList {
     return {} as TList
