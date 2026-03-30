@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { OffersService } from '../../../services/offers-service';
-import { OFFER_MODALITIES, OFFER_TYPES, OfferForm, OfferListItem, RESPONSE_TYPES, ResponseForm } from '../../../core/types';
+import { OfferListItem, RESPONSE_TYPES, ResponseForm } from '../../../core/types';
 import { form, FormField, required } from '@angular/forms/signals';
-import { EMPTY_OFFER_FORM, EMPTY_RESPONSE_FORM } from '../../../core/constants';
+import { EMPTY_RESPONSE_FORM } from '../../../core/constants';
 import { ResponsesService } from '../../../services/responses-service';
-import { Form, FormControl, FormControlDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'appli-response-form',
@@ -48,8 +48,6 @@ export class ResponseFormComponent {
     public createResponseAndUpdateOffer() {
         let createdResponse = this.responsesService.create(this.responseForm().value());
         if (!createdResponse) return;
-
         this.offersService.addResponse(createdResponse.id, createdResponse.offerId)
-
     }
 }

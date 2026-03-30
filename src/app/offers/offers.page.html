@@ -1,16 +1,30 @@
-<p>offers-page works!</p>
-<appli-offer-form></appli-offer-form>
-<appli-response-form></appli-response-form>
+{{offers().length}} offers
 
-{{offers().length}}-------
-@for (offer of offers(); track offer) {
-<hr>
-{{offer.role}} at {{offer.company}} | {{offer.id}}
-<button (click)="deleteOffer(offer.id)">Delete</button>
-<appli-offer-detail [offerId]="offer.id"></appli-offer-detail>
-
-<dialog #dialog>
-    <button (click)="dialog.close()">close</button>
-    Detail
-</dialog>
-}
+<table>
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>company</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (offer of offers(); track offer) {
+        <tr>
+            <td>
+                {{offer.role}}
+            </td>
+            <td>
+                {{offer.company}}
+            </td>
+            <td>
+                <appli-offer-detail [offerId]="offer.id"></appli-offer-detail>
+            </td>
+            <td>
+                <button (click)="deleteOffer(offer.id)">Delete</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
