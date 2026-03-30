@@ -7,9 +7,7 @@
         <header>
             @if (!updating) {}
             <h1>
-                {{offer()?.role}}
-                at {{offer()?.company}}
-
+                {{offer()?.role}} at {{offer()?.company}}
             </h1>
 
             @if (updating) {
@@ -27,44 +25,118 @@
             }
             }
 
-
-            <br> @if (!updating) {
-            {{offer()?.createdAt}}
-            } , {{offer()?.location}}
-
-            <hr>
+            @if (!updating) {
+            <span>
+                {{offer()?.status}}
+            </span>
+            }
+            @if (updating) {
+            Status
+            <input [formField]="offerForm.status" type="text">
+            }
+            <br>
+            @if (!updating) {
+            {{offer()?.createdAt | date:'dd/MM/yy' }}
+            @if (offer()?.location) {
+            , {{offer()?.location}}
+            }
+            @if (offer()?.modality) {
+            ({{offer()?.modality}})
+            }
+            }
 
         </header>
+        <hr>
 
         @if (updating) {
         Location
         <input [formField]="offerForm.location" type="text">
         }
-        <hr>
 
-        Modality
-        <br>
-        @if (!updating) {
-        {{offer()?.modality}}
-        }
-        @if (updating) {
+        @if (updating) { Modality
         <input [formField]="offerForm.modality" type="text">
-        }
         <hr>
+        }
 
-        Status
-        <br>
         @if (!updating) {
-        {{offer()?.status}}
+        {{offer()?.salaryRange?.min}}K - {{offer()?.salaryRange?.max}}K
+        }
+
+        @if (updating) {
+        <label for="">
+            Salary range (annual gross K)
+        </label>
+        <input [formField]="offerForm.salaryRange.min" type="number">
+        <input [formField]="offerForm.salaryRange.max" type="number">
+        <hr>
+        }
+
+        @if (!updating) {
+        👤 {{offer()?.recruiters}}
         }
         @if (updating) {
-        <input [formField]="offerForm.status" type="text">
-        }
+        <label for="offerForm.recruiters">
+            Recruiter
+        </label>
+        <input [formField]="offerForm.recruiters" type="text">
         <hr>
+        }
 
-        Type
-        <br>
+
+        @let skillsPlus = (offer()?.skillsPlus?.split(',') || []).filter(string => string != "");
+        @let skillsMust = (offer()?.skillsMust?.split(',') || []).filter(string => string != "");
+        @let softSkills = (offer()?.softSkills?.split(',') || []).filter(string => string != "");
+
         @if (!updating) {
+        Skills <br>
+        @if(skillsMust.length > 0) { <b>Must have:</b>}
+        @for(skill of skillsMust; track skill) {
+        {{skill}} |
+        }
+        @if(skillsMust.length > 0) { <br>}
+
+        @if(skillsPlus.length > 0) { <b>Valued:</b>}
+        @for(skill of skillsPlus; track skill) {
+        {{skill}} |
+        }
+        @if(skillsMust.length > 0) { <br>}
+
+        @if(softSkills.length > 0) { <b>Soft skills:</b>}
+        @for(skill of softSkills; track skill) {
+        {{skill}} |
+        }
+        }
+
+        @if (updating) {
+        <label for="">Skills</label> <br>
+        Must have:
+        <input [formField]="offerForm.skillsMust" type="text">
+        <br>
+        Valued:
+        <input [formField]="offerForm.skillsPlus" type="text">
+        <br>
+        Soft skills:
+        <input [formField]="offerForm.softSkills" type="text">
+        <hr>
+        }
+
+
+        @if (!updating) {
+        <br>
+        Platform / job board:
+        {{offer()?.platform}}
+        }
+        @if (updating) {
+        <label for="offerForm.platform"> Platform / job board:
+        </label>
+        <input [formField]="offerForm.platform" type="string">
+        <hr>
+        }
+
+
+        @if (!updating) {
+        <br>
+        Type:
         {{offer()?.type}}
         }
         @if (updating) {
@@ -78,83 +150,23 @@
                 <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
             </div>
         </fieldset>
-        }
         <hr>
+        }
 
-        Salary range
-        <br>
         @if (!updating) {
-        {{offer()?.salaryRange?.min}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.salaryRange.min" type="number">
-        }
-        @if (!updating) {
-        {{offer()?.salaryRange?.max}}
-        }
         <br>
-        @if (updating) {
-        <input [formField]="offerForm.salaryRange.max" type="number">
-        }
-        <hr>
-
-        Original text
-        <br>
-        @if (!updating) {
+        Original text:
         {{offer()?.originalText}}
         }
         @if (updating) {
-        <input [formField]="offerForm.originalText" type="text">
-        }
+        <label for="offerForm.originalText">Original text</label> <br>
+        <textarea [formField]="offerForm.originalText" type="text"> </textarea>
         <hr>
+        }
 
-        Recruiters
-        <br>
         @if (!updating) {
-        {{offer()?.recruiters}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.recruiters" type="text">
-        }
-        <hr>
-
-        Skills
-        <br>
-        @if (!updating) {
-        {{offer()?.skillsMust}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.skillsMust" type="text">
-        }
-        <br>
-        @if (!updating) {
-        {{offer()?.skillsPlus}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.skillsPlus" type="text">
-        }
-        <br>
-        @if (!updating) {
-        {{offer()?.softSkills}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.softSkills" type="text">
-        }
-        <hr>
-
-
-
-        Platform
-        <br> @if (!updating) {
-        {{offer()?.platform}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.platform" type="string">
-        }
-        <hr>
-
-
         Responses
         <br> {{offer()?.responseIds}}
+        }
     </form>
 </dialog>

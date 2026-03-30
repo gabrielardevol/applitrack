@@ -3,10 +3,11 @@ import { OffersService } from '../../../services/offers-service';
 import { Offer, OFFER_MODALITIES, OFFER_TYPES } from '../../../core/types';
 import { form, required, FormField } from '@angular/forms/signals';
 import { EMPTY_OFFER_FORM } from '../../../core/constants';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'appli-offer-detail',
-  imports: [FormField],
+  imports: [FormField, DatePipe],
   templateUrl: './offer-detail.html',
   styleUrl: './offer-detail.scss',
 })
