@@ -32,6 +32,8 @@ export class OfferDetail {
       this.offer.set(offerDetail)
       this.offerForm().value.set(this.offer()!)
     }
+
+    console.log(offerDetail)
   }
 
   updateOffer() {
@@ -57,7 +59,8 @@ export class OfferDetail {
         status: this.offerForm().value().status,
         responses: this.offer()!.responses,
         responseIds: this.offer()!.responseIds,
-        annotations: this.offer()!.annotations
+        annotations: this.offer()!.annotations,
+        createdAt: this.offer()!.createdAt
       }
     );
   }

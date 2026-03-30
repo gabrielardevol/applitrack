@@ -17,6 +17,7 @@ export type Offer = {
     modality: OFFER_MODALITIES;
     location: string;
     company: string;
+    createdAt?: Date;
 }
 
 export type OfferListItem = {
@@ -41,6 +42,7 @@ export type OfferForm = {
     id: string;
     date: Date | null;
     status: string;
+
 }
 
 export type Response = {
@@ -51,6 +53,7 @@ export type Response = {
     type: RESPONSE_TYPES,
     interview?: Interview | undefined,
     proposalAmount?: number | undefined,
+    createdAt: Date;
 }
 
 export type ResponseForm = {

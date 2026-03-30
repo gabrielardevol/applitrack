@@ -4,37 +4,40 @@
     <button (click)="dialog.close(); updating = false;">close</button>
     <button (click)="updating && updateOffer(); updating = !updating; ">{{!updating ? 'Edit' : 'Save changes'}}</button>
     <form action="">
-        Company
-        <br>
-        @if (!updating) {
-        {{offer()?.company}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.company" type="text">
-        }
-        @if (offerForm.company().touched() && offerForm.company().invalid()) {
-        @for (error of offerForm.company().errors(); track error) {
-        <li>{{ error.message }}</li>
-        }
-        }
-        <hr>
+        <header>
+            @if (!updating) {}
+            <h1>
+                {{offer()?.role}}
+                at {{offer()?.company}}
 
-        Role
-        <br>
-        @if (!updating) {
-        {{offer()?.role}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.role" type="text">
-        }
-        <hr>
+            </h1>
 
+            @if (updating) {
+            <label for="offerForm.role">Role</label>
+            <input [formField]="offerForm.role" type="text">
+            }
+
+            @if (updating) {
+            <label for="offerForm.role">Company</label>
+            <input [formField]="offerForm.company" type="text">
+            }
+            @if (offerForm.company().touched() && offerForm.company().invalid()) {
+            @for (error of offerForm.company().errors(); track error) {
+            <li>{{ error.message }}</li>
+            }
+            }
+
+
+            <br> @if (!updating) {
+            {{offer()?.createdAt}}
+            } , {{offer()?.location}}
+
+            <hr>
+
+        </header>
+
+        @if (updating) {
         Location
-        <br>
-        @if (!updating) {
-        {{offer()?.location}}
-        }
-        @if (updating) {
         <input [formField]="offerForm.location" type="text">
         }
         <hr>
@@ -139,14 +142,7 @@
         }
         <hr>
 
-        Date
-        <br> @if (!updating) {
-        {{offer()?.date}}
-        }
-        @if (updating) {
-        <input [formField]="offerForm.date" type="date">
-        }
-        <hr>
+
 
         Platform
         <br> @if (!updating) {

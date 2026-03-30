@@ -25,5 +25,6 @@ export const EMPTY_RESPONSE_FORM: ResponseForm = {
     offerId: '',
     type: RESPONSE_TYPES.INFORMATION_REQUEST,
     people: '',
-    originalText: ''
+    originalText: '',
+
 }
