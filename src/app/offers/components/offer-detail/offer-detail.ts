@@ -1,9 +1,9 @@
 import { Component, computed, ElementRef, inject, input, Signal, signal, viewChild, WritableSignal } from '@angular/core';
-import { OffersService } from '../../../services/offers-service';
-import { Offer, OFFER_MODALITIES, OFFER_TYPES } from '../../../core/types';
+import { OffersService } from '../../offers-service';
 import { form, required, FormField } from '@angular/forms/signals';
-import { EMPTY_OFFER_FORM } from '../../../core/constants';
 import { DatePipe } from '@angular/common';
+import { Offer, OFFER_MODALITIES, OFFER_TYPES } from '../../../shared/types';
+import { EMPTY_OFFER_FORM } from '../../../shared/constants';
 
 @Component({
   selector: 'appli-offer-detail',

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { Response, ResponseForm } from '../core/types';
-import { BaseService } from './base-service';
-import { OffersService } from './offers-service';
+import { Response, ResponseForm } from '../shared/types';
+import { OffersService } from '../offers/offers-service';
+import { BaseService } from '../shared/services/base-service';
 
 @Injectable({
   providedIn: 'root',

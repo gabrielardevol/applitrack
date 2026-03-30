@@ -1,8 +1,8 @@
 import { Component, ElementRef, inject, Signal, viewChild } from '@angular/core';
-import { OfferFormComponent } from './components/offer-form/offer-form.component';
-import { OffersService } from '../services/offers-service';
+import { OffersService } from './offers-service';
 import { OfferDetail } from "./components/offer-detail/offer-detail";
-import { ResponseFormComponent } from "./components/response-form/response-form.component";
+import { ResponseFormComponent } from '../shared/response-form/response-form.component';
+import { OfferFormComponent } from '../shared/offer-form/offer-form.component';
 
 @Component({
   selector: 'app-offers-page',

@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { OffersService } from '../../../services/offers-service';
-import { OfferListItem, RESPONSE_TYPES, ResponseForm } from '../../../core/types';
 import { form, FormField, required } from '@angular/forms/signals';
-import { EMPTY_RESPONSE_FORM } from '../../../core/constants';
-import { ResponsesService } from '../../../services/responses-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ResponsesService } from '../../responses/responses-service';
+import { OffersService } from '../../offers/offers-service';
+import { OfferListItem, RESPONSE_TYPES, ResponseForm } from '../types';
+import { EMPTY_RESPONSE_FORM } from '../constants';
 
 @Component({
     selector: 'appli-response-form',
