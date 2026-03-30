@@ -22,14 +22,6 @@ export class OffersService extends BaseService<Offer, OfferListItem, OfferForm> 
 
     if (!offer) return null;
 
-    // let formattedResponses = offer?.responses.map(
-    //   i => this.responsesService.getSingle(i as string)
-    // ).filter(i => i != null)
-
-    // let offerView: Offer = {
-    //   ...offer,
-    //   responses: formattedResponses
-    // }
     return offer;
   }
 
@@ -39,7 +31,6 @@ export class OffersService extends BaseService<Offer, OfferListItem, OfferForm> 
 
   public addResponse(responseId: string, offerId: string) {
     let offer = super.getSingle(offerId)
-    console.log("offer", offer)
     if (!offer) return;
     if (Array.isArray(offer?.responseIds)) {
       offer.responseIds.push(responseId)
