@@ -3,22 +3,16 @@
 <dialog #dialog>
     <button (click)="dialog.close()">close</button>
 
-
     <form>
-
-
         <label for="platform">Original text</label>
         <input [formField]="responseForm.originalText" type="text">
         <br>
-
         <hr>
 
         <label for="responseForm.type">Company</label>
         <input [formControl]="companyControl">
-
         <br>
         <hr>
-
 
         <label for="platform">Offer</label>
         <select [formField]="responseForm.offerId">

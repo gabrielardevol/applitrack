@@ -1,5 +1,6 @@
 export type Offer = {
     id: string;
+    responseIds: string[];
     responses: Response[];
     platform: string;
     date: Date;

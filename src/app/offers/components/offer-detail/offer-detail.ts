@@ -56,6 +56,7 @@ export class OfferDetail {
         date: this.offer()!.date,
         status: this.offerForm().value().status,
         responses: this.offer()!.responses,
+        responseIds: this.offer()!.responseIds,
         annotations: this.offer()!.annotations
       }
     );

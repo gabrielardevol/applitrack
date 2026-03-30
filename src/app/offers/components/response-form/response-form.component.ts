@@ -38,10 +38,18 @@ export class ResponseFormComponent {
     public submitForm() {
         this.submitButtonClicked = true;
         if (this.responseForm().valid()) {
-            this.responsesService.create(this.responseForm().value());
+            this.createResponseAndUpdateOffer()
             this.responseForm().value.set(EMPTY_RESPONSE_FORM);
             this.responseForm().reset();
             this.submitButtonClicked = false;
         }
+    }
+
+    public createResponseAndUpdateOffer() {
+        let createdResponse = this.responsesService.create(this.responseForm().value());
+        if (!createdResponse) return;
+
+        this.offersService.addResponse(createdResponse.id, createdResponse.offerId)
+
     }
 }
