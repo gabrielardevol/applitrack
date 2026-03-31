@@ -42,7 +42,6 @@ export type OfferForm = {
     id: string;
     date: Date | null;
     status: string;
-
 }
 
 export type Response = {

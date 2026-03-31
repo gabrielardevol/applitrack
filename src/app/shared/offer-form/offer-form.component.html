@@ -5,7 +5,7 @@
     <form>
 
         <label for="platform">Original text</label>
-        <input [formField]="offerForm.originalText" type="text">
+        <input [formField]="offerForm.originalText" type="text" (change)="updateForm()">
         <br>
 
         <fieldset>

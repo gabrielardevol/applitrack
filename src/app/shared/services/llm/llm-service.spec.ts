@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { LlmService } from './llm-service';
 
 describe('LlmService', () => {
-  let service: LlmService;
+  let service: LlmService<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

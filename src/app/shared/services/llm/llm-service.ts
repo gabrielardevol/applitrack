@@ -5,7 +5,7 @@ export class LlmService<T> {
   groqApiKey = environment.GROQ_KEY;
   constructor() { }
 
-  async callLlmApi(): Promise<T> {
+  async callLlmApi(message: string): Promise<T> {
     const data = await fetch(this.apiUrl, {
       method: 'POST',
       headers: {
@@ -14,7 +14,7 @@ export class LlmService<T> {
       },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'user', content: "return a json object with some random properties of your choice. Don't return any extra words, ONLY JSON OBJECT TO PARSE" }]
+        messages: [{ role: 'user', content: message }]
       }),
     })
 
