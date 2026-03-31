@@ -1,6 +1,8 @@
+import { environment } from "environments/environment.development";
+
 export class LlmService<T> {
   private apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
-  groqApiKey = '';
+  groqApiKey = environment.GROQ_KEY;
   constructor() { }
 
   async callLlmApi(): Promise<T> {

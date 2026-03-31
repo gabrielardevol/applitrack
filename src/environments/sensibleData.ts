@@ -1,0 +1,1 @@
+export const GROQ_KEY = "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"
