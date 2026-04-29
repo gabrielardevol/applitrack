@@ -1,7 +1,7 @@
 <button (click)="dialog.showModal()">track response</button>
 <dialog #dialog>
     <button (click)="dialog.close()">close</button>
-    <form>
+    <form #responseFormTemplate>
         <label for="platform">Original text</label>
         <input [formField]="responseForm.originalText" type="text" (change)="updateForm()">
         <br>
@@ -28,18 +28,18 @@
         <label for="proposalAmount">
             Proposal amount
         </label>
-        <input [disabled]="responseForm().value().type 
-        != RESPONSE_TYPES.JOB_PROPOSAL" type="number" name="" id="">
+        <input type="number" [formField]="responseForm.type">
         <br>
 
         <label for="interviewDate">Interview</label>
-        <input [disabled]="responseForm().value().type != RESPONSE_TYPES.INTERVIEW_SCHEDULE" [formControl]="formDate"
-            type="datetime-local" name="" id="">
+        <input [disabled]="responseForm().value().type != RESPONSE_TYPES.INTERVIEW_SCHEDULE" type="datetime-local"
+            name="" id="">
         <br>
 
-        <label for="people">People</label>
-        <input type="text" name="people">
+        <label for="responseForm.people">People</label>
+        <input type="text" [formField]="responseForm.people">
         <!-- people -->
+        <button (click)="$event.preventDefault(); submitForm()">Submit</button>
 
     </form>
 </dialog>
