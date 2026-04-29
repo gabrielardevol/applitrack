@@ -1,5 +1,5 @@
-import { GROQ_KEY } from "./sensibleData";
+import secrets from '../../secrets.json';
 
 export const environment = {
-    GROQ_KEY: GROQ_KEY
+    GROQ_KEY: secrets.GROQ_KEY
 };

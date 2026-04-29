@@ -67,9 +67,6 @@ export class OfferFormComponent {
     public submitButtonClicked: boolean = false;
 
     public submitForm() {
-
-
-
         this.submitButtonClicked = true;
         if (this.offerForm().valid()) {
             this.offersService.create(this.offerForm().value());

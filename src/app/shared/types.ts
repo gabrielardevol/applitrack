@@ -50,6 +50,7 @@ export type Response = {
     id: string;
     offerId: string;
     type: RESPONSE_TYPES,
+    interviewId?: string;
     interview?: Interview | undefined,
     proposalAmount?: number | undefined,
     createdAt: Date;
@@ -61,7 +62,8 @@ export type ResponseForm = {
     id: string;
     offerId: string;
     type: RESPONSE_TYPES,
-    interview?: Interview | undefined,
+    interviewDate?: Date | undefined,
+
     proposalAmount?: number | undefined,
 }
 

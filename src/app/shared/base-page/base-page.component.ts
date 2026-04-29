@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { ResponseFormComponent } from '../response-form/response-form.component';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
+import { ResponseFormComponent } from '@app/response-form/response-form';
 
 @Component({
   selector: 'app-base-page',
