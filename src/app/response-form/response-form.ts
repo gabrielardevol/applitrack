@@ -1,9 +1,8 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { form, FormField, required } from '@angular/forms/signals';
 import { OffersService } from '@app/offers/offers-service';
 import { ResponsesService } from '@app/responses/responses-service';
-import { EMPTY_RESPONSE_FORM } from '@app/shared/constants';
+import { EMPTY_OFFER_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
 import { LlmService } from '@app/shared/services/llm/llm-service';
 import { RESPONSE_TYPES, ResponseForm } from '@app/shared/types';
 
@@ -55,18 +54,41 @@ export class ResponseFormComponent {
 
   public submitForm() {
 
+    console.log("submitted form")
     //create response
     // --if success, update offer
     // ----if success, all of
     // ----if error, delete response and throw UI alert 
     // --if error, delete response
 
-    this.submitButtonClicked = true;
-    if (this.responseForm().valid()) {
-      this.responseService.create(this.responseForm().value());
-      this.responseForm().value.set(EMPTY_RESPONSE_FORM)
-      this.responseForm().reset()
-      this.submitButtonClicked = false;
+    if (!this.responseForm().value().offerId) {
+      let newOffer = this.offersService.create(
+        { ...EMPTY_OFFER_FORM, role: "[auto-generated offer]" }
+      );
+      if (newOffer) {
+        this.responseForm().value().offerId = newOffer.id
+      } else {
+        //throw error and stop
+      }
     }
+    if (this.responseForm().valid()) {
+
+      let response = this.responseService.create(this.responseForm().value());
+      console.log(response)
+
+      this.submitButtonClicked = true;
+      if (!response) {
+        // handle error
+      } else {
+
+        this.resetForm()
+      }
+    }
+  }
+
+  resetForm() {
+    this.responseForm().value.set(EMPTY_RESPONSE_FORM)
+    this.responseForm().reset()
+    this.submitButtonClicked = false;
   }
 }
