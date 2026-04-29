@@ -55,6 +55,13 @@ export class ResponseFormComponent {
   public submitButtonClicked: boolean = false;
 
   public submitForm() {
+
+    //create response
+    // --if success, update offer
+    // ----if success, all of
+    // ----if error, delete response and throw UI alert 
+    // --if error, delete response
+
     this.submitButtonClicked = true;
     if (this.responseForm().valid()) {
       this.responseService.create(this.responseForm().value());
