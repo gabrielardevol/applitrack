@@ -1,5 +1,8 @@
+import { Injectable } from "@angular/core";
 import { environment } from "environments/environment.development";
-
+@Injectable({
+  providedIn: 'root'
+})
 export class LlmService<T> {
   private apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
   groqApiKey = environment.GROQ_KEY;

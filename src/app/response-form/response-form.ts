@@ -17,7 +17,6 @@ export class ResponseFormComponent {
   public RESPONSE_TYPES = RESPONSE_TYPES
   private response = signal<ResponseForm>(EMPTY_RESPONSE_FORM)
   private llmService = new LlmService<ResponseForm>;
-  //provide in root and type function?
   private offersService = new OffersService;
   offers = this.offersService.$listValue()
   formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
