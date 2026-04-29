@@ -72,6 +72,19 @@
         }
 
         @if (!updating) {
+        {{offer()?.salaryRange?.min}}K - {{offer()?.salaryRange?.max}}K
+        }
+
+        @if (updating) {
+        <label for="">
+            Experience range (years)
+        </label>
+        <input [formField]="offerForm.experienceRange.min" type="number">
+        <input [formField]="offerForm.experienceRange.max" type="number">
+        <hr>
+        }
+
+        @if (!updating) {
         👤 {{offer()?.recruiters}}
         }
         @if (updating) {

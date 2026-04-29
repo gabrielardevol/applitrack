@@ -10,6 +10,7 @@ export type Offer = {
     recruiters: string;
     originalText: string;
     salaryRange: { min: number | null, max: number | null };
+    experienceRange: { min: number | null, max: number | null }
     role: string;
     type: OFFER_TYPES;
     status: string;
@@ -34,6 +35,7 @@ export type OfferForm = {
     recruiters: string;
     originalText: string;
     salaryRange: { min: number | null, max: number | null };
+    experienceRange: { min: number | null, max: number | null };
     role: string;
     type: OFFER_TYPES;
     modality: OFFER_MODALITIES;

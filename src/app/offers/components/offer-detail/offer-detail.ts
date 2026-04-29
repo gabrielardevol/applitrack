@@ -61,7 +61,8 @@ export class OfferDetail {
         responses: this.offer()!.responses,
         responseIds: this.offer()!.responseIds,
         annotations: this.offer()!.annotations,
-        createdAt: this.offer()!.createdAt
+        createdAt: this.offer()!.createdAt,
+        experienceRange: this.offerForm().value().experienceRange
       }
     );
   }
