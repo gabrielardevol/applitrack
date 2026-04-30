@@ -29,6 +29,12 @@ export class OffersService extends BaseService<Offer, OfferListItem, OfferForm> 
     return super.getList()
   }
 
+  public override create(offer: OfferForm) {
+    let createdOffer = super.create(offer)
+    return createdOffer
+
+  }
+
   public addResponse(responseId: string, offerId: string) {
     let offer = super.getSingle(offerId)
     if (!offer) return;
