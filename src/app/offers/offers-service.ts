@@ -31,6 +31,16 @@ export class OffersService extends BaseService<Offer, OfferListItem, OfferForm> 
 
   }
 
+  public override delete(offerId: string) {
+    super.delete(offerId)
+
+    // delete offer's responses
+    // tech debt: might not work when persisting in server
+    this.responsesService.$listValue().filter(o => o.offerId == offerId).forEach(
+      o => this.responsesService.delete(o.id)
+    )
+  }
+
   public addResponse(responseId: string, offerId: string) {
     let offer = super.getSingle(offerId)
     if (!offer) return;
