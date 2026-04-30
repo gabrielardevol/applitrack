@@ -44,11 +44,12 @@
 
         <br>
         <label for="role">Role</label>
-        <select [formField]="offerForm.role">
-            <!-- TODO: update type with correct values -->
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend</option>
-            <option value="Fullstack">Fullstack</option>
+        <select [formField]="offerForm.role" [formControl]="roleFormControl">
+            <option [value]="OFFER_ROLES.UNDEFINED">Select a role</option>
+            <option [value]="OFFER_ROLES.FRONTEND">Frontend</option>
+            <option [value]="OFFER_ROLES.BACKEND">Backend</option>
+            <option [value]="OFFER_ROLES.FULLSTACK">Fullstack</option>
+            <option [value]="OFFER_ROLES.UX_UI">UX / UI</option>
         </select>
         @if ((offerForm.role().touched() || submitButtonClicked) && offerForm.role().invalid()) {
         @for (error of offerForm.role().errors(); track error) {
@@ -88,16 +89,23 @@
 
         </fieldset>
         <br>
+
+
+
         <fieldset>
             <legend>Type</legend>
-            <div>
+            <select [formField]="offerForm.type" [formControl]="typeFormControl">
+                <option [value]="OFFER_TYPES.APPLICATION">Application</option>
+                <option [value]="OFFER_TYPES.PROPOSAL">Proposal</option>
+            </select>
+            <!-- <div>
                 <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.APPLICATION" />
                 <label [for]="OFFER_TYPES.APPLICATION">Application</label>
             </div>
             <div>
                 <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
                 <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
-            </div>
+            </div> -->
             @if ((offerForm.type().touched() || submitButtonClicked) && offerForm.type().invalid()) {
             @for (error of offerForm.type().errors(); track error) {
             <li>{{ error.message }}</li>
@@ -108,9 +116,15 @@
         <br>
         <fieldset>
             <legend>Modality</legend>
-            <div>
+            <select [formField]="offerForm.modality" [formControl]="modalityFormControl">
+                <option [value]="OFFER_MODALITIES.UNDEFINED">Select a modality</option>
+                <option [value]="OFFER_MODALITIES.HYBRID">Hybrid</option>
+                <option [value]="OFFER_MODALITIES.ON_SITE">On site</option>
+                <option [value]="OFFER_MODALITIES.REMOTE">Remote</option>
+            </select>
+            <!-- <div>
                 <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.HYBRID" />
-                <label [for]="OFFER_MODALITIES.HYBRID">Hybrid</label>
+                <label [for]="OFFER_MODALITIES.HYBRID">Hybrid {{OFFER_MODALITIES.HYBRID}}</label>
             </div>
             <div>
                 <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.REMOTE" />
@@ -119,7 +133,7 @@
             <div>
                 <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.ON_SITE" />
                 <label [for]="OFFER_MODALITIES.ON_SITE">On site</label>
-            </div>
+            </div> -->
         </fieldset>
 
         <button (click)="$event.preventDefault(); submitForm()">Submit</button>

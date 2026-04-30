@@ -1,6 +1,7 @@
-import { Offer, OFFER_MODALITIES, OFFER_TYPES, OfferForm, RESPONSE_TYPES, ResponseForm } from "./types";
+import { Offer, OFFER_MODALITIES, OFFER_ROLES, OFFER_TYPES, OfferForm, RESPONSE_TYPES, ResponseForm } from "./types";
 
 export const EMPTY_OFFER_FORM: OfferForm = {
+    title: '',
     platform: '',
     skillsMust: '',
     skillsPlus: '',
@@ -13,9 +14,9 @@ export const EMPTY_OFFER_FORM: OfferForm = {
     experienceRange: {
         min: null, max: null
     },
-    role: '',
+    role: OFFER_ROLES.UNDEFINED,
     type: OFFER_TYPES.APPLICATION,
-    modality: OFFER_MODALITIES.HYBRID,
+    modality: OFFER_MODALITIES.UNDEFINED,
     location: '',
     company: '',
     id: '',

@@ -1,5 +1,6 @@
 export type Offer = {
     id: string;
+    title: string;
     responseIds: string[];
     responses: Response[];
     platform: string;
@@ -11,7 +12,7 @@ export type Offer = {
     originalText: string;
     salaryRange: { min: number | null, max: number | null };
     experienceRange: { min: number | null, max: number | null }
-    role: string;
+    role: OFFER_ROLES;
     type: OFFER_TYPES;
     status: string;
     annotations: Annotation[];
@@ -28,6 +29,7 @@ export type OfferListItem = {
 }
 
 export type OfferForm = {
+    title: string;
     platform: string;
     skillsMust: string;
     skillsPlus: string;
@@ -36,7 +38,7 @@ export type OfferForm = {
     originalText: string;
     salaryRange: { min: number | null, max: number | null };
     experienceRange: { min: number | null, max: number | null };
-    role: string;
+    role: OFFER_ROLES;
     type: OFFER_TYPES;
     modality: OFFER_MODALITIES;
     location: string;
@@ -112,7 +114,15 @@ export enum OFFER_TYPES {
 }
 
 export enum OFFER_MODALITIES {
-    REMOTE = 'REMOTE', ON_SITE = 'ON_SITE', HYBRID = 'HYBRID'
+    UNDEFINED = 'UNDEFINED', REMOTE = 'REMOTE', ON_SITE = 'ON_SITE', HYBRID = 'HYBRID'
+}
+
+export enum OFFER_ROLES {
+    UNDEFINED = 'UNDEFINED', FRONTEND = 'FRONTEND', BACKEND = 'BACKEND', FULLSTACK = 'FULLSTACK', UX_UI = "UX_UI"
+}
+
+export enum OFFER_STATUS {
+    ACTIVE_PROCESS = 'ACTIVE_PROCESS', REJECTED = 'REJECTED', INTERVIEWING = 'INTERVIEWING', SUCCESS = 'SUCCESS'
 }
 
 export type Tips = {

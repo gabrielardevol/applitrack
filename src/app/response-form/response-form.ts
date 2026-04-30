@@ -30,7 +30,7 @@ export class ResponseFormComponent {
            people: string; //recruiters name
            id: string;
            offerId: string;
-           type: RESPONSE_TYPES;
+          type: 'REJECTION' | 'INFORMATION_REQUEST' | 'INTERVIEW_SCHEDULE' | 'JOB_PROPOSAL';
            interviewDate?: Date;
            proposalAmount?: number | undefined,
        }`
@@ -63,7 +63,7 @@ export class ResponseFormComponent {
 
     if (!this.responseForm().value().offerId) {
       let newOffer = this.offersService.create(
-        { ...EMPTY_OFFER_FORM, role: "[auto-generated offer]" }
+        { ...EMPTY_OFFER_FORM, title: "[auto-generated offer]" }
       );
       if (newOffer) {
         this.responseForm().value().offerId = newOffer.id

@@ -33,8 +33,6 @@ export class OfferDetail {
       this.offer.set(offerDetail)
       this.offerForm().value.set(this.offer()!)
     }
-
-    console.log(offerDetail)
   }
 
   updateOffer() {
@@ -43,6 +41,7 @@ export class OfferDetail {
 
     this.offer.set(
       {
+        title: this.offerForm().value().title,
         platform: this.offerForm().value().platform,
         skillsMust: this.offerForm().value().skillsMust,
         skillsPlus: this.offerForm().value().skillsPlus,

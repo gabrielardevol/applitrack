@@ -1,13 +1,14 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { OFFER_MODALITIES, OFFER_TYPES, OfferForm } from '../types';
+import { OFFER_MODALITIES, OFFER_ROLES, OFFER_TYPES, OfferForm } from '../types';
 import { EMPTY_OFFER_FORM } from '../constants';
 import { OffersService } from '../../offers/offers-service';
 import { LlmService } from '../services/llm/llm-service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'appli-offer-form',
-    imports: [FormField],
+    imports: [FormField, ReactiveFormsModule],
     // providers: [LlmService],
     templateUrl: './offer-form.component.html',
     styleUrl: './offer-form.component.scss',
@@ -15,11 +16,15 @@ import { LlmService } from '../services/llm/llm-service';
 export class OfferFormComponent {
 
     public readonly OFFER_TYPES = OFFER_TYPES;
+    public readonly OFFER_ROLES = OFFER_ROLES;
+
     public readonly OFFER_MODALITIES = OFFER_MODALITIES;
     private offersService = inject(OffersService);
     private llmService = new LlmService<OfferForm>;
 
-
+    modalityFormControl = new FormControl()
+    roleFormControl = new FormControl()
+    typeFormControl = new FormControl()
     private offer = signal<OfferForm>(EMPTY_OFFER_FORM)
 
     public offerForm = form(this.offer, (schemaPath) => {
@@ -34,12 +39,17 @@ export class OfferFormComponent {
             skillsMust: string;
             skillsPlus: string;
             softSkills: string;
-            recruiters: string;
-            originalText: string;
-            salaryRange: { min: number | null, max: number | null };
-            role: string;
-            type: OFFER_TYPES;
-            modality: OFFER_MODALITIES;
+            recruiters: string; //HAS TO BE NAME + SURNAMES. IF MULTIPLE, SEPARATE WITH COMMA
+            salaryRange: { 
+            min: number | null, //MINIMUM GROSS SALARY PER YEAR
+            max: number | null //MAXIMUM GROSS SALARY PER YEAR
+            };
+                 experienceRange: { 
+            min: number | null, //MINIMUM EXPERIENCE IN YEARS
+            max: number | null //MAXIMUM EXPERIENCE IN YEARS
+            };
+            role: 'UNDEFINED' | 'FRONTEND' | 'BACKEND' | 'FULLSTACK' | 'UX_UI';
+            modality: 'UNDEFINED' | 'REMOTE' | 'ON_SITE' | 'HYBRID';
             location: string;
             company: string;
             id: string;
@@ -58,7 +68,12 @@ export class OfferFormComponent {
         this.llmService.callLlmApi(message).then(
             r => {
                 r.originalText = this.offerForm().value().originalText
+                r.modality = r.modality as OFFER_MODALITIES
+                r.role = r.role as OFFER_ROLES
                 this.offerForm().value.set(r)
+                this.roleFormControl.setValue(r.role)
+                this.modalityFormControl.setValue(r.modality)
+                this.typeFormControl.setValue(r.type || OFFER_TYPES.APPLICATION)
             }
         )
     }
