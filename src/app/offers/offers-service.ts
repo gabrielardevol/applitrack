@@ -13,9 +13,9 @@ export class OffersService extends BaseService<Offer, OfferListItem, OfferForm> 
     super('OFFERS', '/offers')
   }
 
-  public override update(offer: Partial<Offer>, id: string): Offer | null {
-    return super.update(offer, id)
-  }
+  // public override update(offer: Partial<Offer>, id: string): Offer | null {
+  //   return super.update(offer, id)
+  // }
 
   public override getSingle(id: string): Offer | null {
     let offer: Offer | null = super.getSingle(id);
