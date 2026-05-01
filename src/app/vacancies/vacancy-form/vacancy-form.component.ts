@@ -7,7 +7,7 @@ import { LlmService } from '@app/shared/services/llm/llm-service';
 import { EMPTY_VACANCY_FORM } from '@app/shared/constants';
 
 @Component({
-    selector: 'appli-vacancy-form',
+    selector: 'app-vacancy-form',
     imports: [FormField, ReactiveFormsModule],
     // providers: [LlmService],
     templateUrl: './vacancy-form.component.html',

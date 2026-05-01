@@ -7,7 +7,7 @@ import { LlmService } from '@app/shared/services/llm/llm-service';
 import { RESPONSE_TYPES, ResponseForm } from '@app/shared/types';
 
 @Component({
-  selector: 'appli-response-form',
+  selector: 'app-response-form',
   imports: [FormField,],
   templateUrl: './response-form.html',
   styleUrl: './response-form.scss',

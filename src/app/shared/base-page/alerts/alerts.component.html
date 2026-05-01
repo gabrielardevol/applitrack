@@ -1,0 +1,8 @@
+@for(alert of $alerts(); track alert.id){
+<dialog #dialog [id]="'dialog' + alert.id" open>
+    {{alert?.id}}
+    <button (click)="closeDialog(alert.id)">close</button>
+</dialog>
+}
+
+<button (click)="alertsService.createAlert('lorem', undefined, undefined)"> create alert </button>

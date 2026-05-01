@@ -1,5 +1,5 @@
 import { signal, WritableSignal } from "@angular/core";
-import { parse, v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export class BaseService<
   TSingle extends { id: string },
