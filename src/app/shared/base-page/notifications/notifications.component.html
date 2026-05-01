@@ -1,0 +1,6 @@
+<p>notifications-component works!</p>
+@for(notification of notifications(); track notification.id) {
+{{notification.message}}
+}
+
+<button (click)="createDummyNotification()">create</button>

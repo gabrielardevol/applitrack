@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base-service';
 
 
-export type Alert = {
+export type Notification = {
   id: string,
   message: string,
   createdAt: Date,
@@ -13,8 +13,8 @@ export type Alert = {
 @Injectable({
   providedIn: 'root',
 })
-export class AlertService extends BaseService<Alert, Alert, Alert> {
+export class NotificationService extends BaseService<Notification, Notification, Notification> {
   constructor() {
-    super('ALERTS', '/alerts')
+    super('NOTIFICATIONS', '/notifications')
   }
 }
