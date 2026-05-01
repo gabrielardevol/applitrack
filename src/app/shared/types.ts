@@ -1,4 +1,4 @@
-export type Offer = {
+export type Vacancy = {
     id: string;
     title: string;
     responseIds: string[];
@@ -12,23 +12,23 @@ export type Offer = {
     originalText: string;
     salaryRange: { min: number | null, max: number | null };
     experienceRange: { min: number | null, max: number | null }
-    role: OFFER_ROLES;
-    type: OFFER_TYPES;
+    role: VACANCY_ROLES;
+    type: VACANCY_TYPES;
     status: string;
     annotations: Annotation[];
-    modality: OFFER_MODALITIES;
+    modality: VACANCY_MODALITIES;
     location: string;
     company: string;
     createdAt?: Date;
 }
 
-export type OfferListItem = {
+export type VacancyListItem = {
     id: string;
     role: string;
     company: string;
 }
 
-export type OfferForm = {
+export type VacancyForm = {
     title: string;
     platform: string;
     skillsMust: string;
@@ -38,9 +38,9 @@ export type OfferForm = {
     originalText: string;
     salaryRange: { min: number | null, max: number | null };
     experienceRange: { min: number | null, max: number | null };
-    role: OFFER_ROLES;
-    type: OFFER_TYPES;
-    modality: OFFER_MODALITIES;
+    role: VACANCY_ROLES;
+    type: VACANCY_TYPES;
+    modality: VACANCY_MODALITIES;
     location: string;
     company: string;
     id: string;
@@ -52,7 +52,7 @@ export type Response = {
     originalText: string;
     people: string;
     id: string;
-    offerId: string;
+    vacancyId: string;
     type: RESPONSE_TYPES,
     interviewId?: string;
     interview?: Interview | undefined,
@@ -64,7 +64,7 @@ export type ResponseForm = {
     originalText: string;
     people: string;
     id: string;
-    offerId: string;
+    vacancyId: string;
     type: RESPONSE_TYPES,
     interviewDate?: Date | undefined,
 
@@ -108,20 +108,20 @@ export enum ANNOTATION_ENTITY_TYPES {
     INTERVIEW = 'INTERVIEW'
 }
 
-export enum OFFER_TYPES {
+export enum VACANCY_TYPES {
     PROPOSAL = 'PROPOSAL',
     APPLICATION = 'APPLICATION'
 }
 
-export enum OFFER_MODALITIES {
+export enum VACANCY_MODALITIES {
     UNDEFINED = 'UNDEFINED', REMOTE = 'REMOTE', ON_SITE = 'ON_SITE', HYBRID = 'HYBRID'
 }
 
-export enum OFFER_ROLES {
+export enum VACANCY_ROLES {
     UNDEFINED = 'UNDEFINED', FRONTEND = 'FRONTEND', BACKEND = 'BACKEND', FULLSTACK = 'FULLSTACK', UX_UI = "UX_UI"
 }
 
-export enum OFFER_STATUS {
+export enum VACANCY_STATUS {
     ACTIVE_PROCESS = 'ACTIVE_PROCESS', REJECTED = 'REJECTED', INTERVIEWING = 'INTERVIEWING', SUCCESS = 'SUCCESS'
 }
 

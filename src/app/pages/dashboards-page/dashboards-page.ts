@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { DashboardService } from '@app/shared/services/dashboard-service';
+import { DashboardService } from './dashboard-service';
 
 @Component({
   selector: 'app-dashboards-page',

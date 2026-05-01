@@ -5,61 +5,61 @@
     <form>
 
         <label for="platform">Original text</label>
-        <input [formField]="offerForm.originalText" type="text" (change)="updateForm()">
+        <input [formField]="vacancyForm.originalText" type="text" (change)="updateForm()">
         <br>
 
         <fieldset>
             <legend>Skills</legend>
 
             <label for="platform">Must</label>
-            <input [formField]="offerForm.skillsMust" type="text">
+            <input [formField]="vacancyForm.skillsMust" type="text">
             <br>
 
             <label for="platform">Plus</label>
-            <input [formField]="offerForm.skillsPlus" type="text">
+            <input [formField]="vacancyForm.skillsPlus" type="text">
             <br>
 
             <label for="platform">Soft</label>
-            <input [formField]="offerForm.softSkills" type="text">
+            <input [formField]="vacancyForm.softSkills" type="text">
         </fieldset>
 
         <br>
         <label for="platform">Company</label>
-        <input [formField]="offerForm.company" type="text">
+        <input [formField]="vacancyForm.company" type="text">
         <br>
-        @if ((offerForm.company().touched() || submitButtonClicked) && offerForm.company().invalid()) {
-        @for (error of offerForm.company().errors(); track error) {
+        @if ((vacancyForm.company().touched() || submitButtonClicked) && vacancyForm.company().invalid()) {
+        @for (error of vacancyForm.company().errors(); track error) {
         <li>{{ error.message }}</li>
         }
         }
 
         <label for="platform">Recruiters</label>
-        <input [formField]="offerForm.recruiters" type="text">
+        <input [formField]="vacancyForm.recruiters" type="text">
         <br>
 
 
         <br>
         <label for="platform">Platform</label>
-        <input [formField]="offerForm.platform" type="text">
+        <input [formField]="vacancyForm.platform" type="text">
 
         <br>
         <label for="role">Role</label>
-        <select [formField]="offerForm.role" [formControl]="roleFormControl">
-            <option [value]="OFFER_ROLES.UNDEFINED">Select a role</option>
-            <option [value]="OFFER_ROLES.FRONTEND">Frontend</option>
-            <option [value]="OFFER_ROLES.BACKEND">Backend</option>
-            <option [value]="OFFER_ROLES.FULLSTACK">Fullstack</option>
-            <option [value]="OFFER_ROLES.UX_UI">UX / UI</option>
+        <select [formField]="vacancyForm.role" [formControl]="roleFormControl">
+            <option [value]="VACANCY_ROLES.UNDEFINED">Select a role</option>
+            <option [value]="VACANCY_ROLES.FRONTEND">Frontend</option>
+            <option [value]="VACANCY_ROLES.BACKEND">Backend</option>
+            <option [value]="VACANCY_ROLES.FULLSTACK">Fullstack</option>
+            <option [value]="VACANCY_ROLES.UX_UI">UX / UI</option>
         </select>
-        @if ((offerForm.role().touched() || submitButtonClicked) && offerForm.role().invalid()) {
-        @for (error of offerForm.role().errors(); track error) {
+        @if ((vacancyForm.role().touched() || submitButtonClicked) && vacancyForm.role().invalid()) {
+        @for (error of vacancyForm.role().errors(); track error) {
         <li>{{ error.message }}</li>
         }
         }
 
         <br>
         <label for="location">Location</label>
-        <input [formField]="offerForm.location" type="text">
+        <input [formField]="vacancyForm.location" type="text">
 
 
         <fieldset>
@@ -67,11 +67,11 @@
 
 
             <label>Min</label>
-            <input [formField]="offerForm.salaryRange.min" type="number">
+            <input [formField]="vacancyForm.salaryRange.min" type="number">
 
             <br>
             <label>Max</label>
-            <input [formField]="offerForm.salaryRange.max" type="number">
+            <input [formField]="vacancyForm.salaryRange.max" type="number">
 
         </fieldset>
 
@@ -81,11 +81,11 @@
 
 
             <label>Min</label>
-            <input [formField]="offerForm.experienceRange.min" type="number">
+            <input [formField]="vacancyForm.experienceRange.min" type="number">
 
             <br>
             <label>Max</label>
-            <input [formField]="offerForm.experienceRange.max" type="number">
+            <input [formField]="vacancyForm.experienceRange.max" type="number">
 
         </fieldset>
         <br>
@@ -94,9 +94,9 @@
 
         <fieldset>
             <legend>Type</legend>
-            <select [formField]="offerForm.type" [formControl]="typeFormControl">
-                <option [value]="OFFER_TYPES.APPLICATION">Application</option>
-                <option [value]="OFFER_TYPES.PROPOSAL">Proposal</option>
+            <select [formField]="vacancyForm.type" [formControl]="typeFormControl">
+                <option [value]="VACANCY_TYPES.APPLICATION">Application</option>
+                <option [value]="VACANCY_TYPES.PROPOSAL">Proposal</option>
             </select>
             <!-- <div>
                 <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.APPLICATION" />
@@ -106,8 +106,8 @@
                 <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
                 <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
             </div> -->
-            @if ((offerForm.type().touched() || submitButtonClicked) && offerForm.type().invalid()) {
-            @for (error of offerForm.type().errors(); track error) {
+            @if ((vacancyForm.type().touched() || submitButtonClicked) && vacancyForm.type().invalid()) {
+            @for (error of vacancyForm.type().errors(); track error) {
             <li>{{ error.message }}</li>
             }
             }
@@ -116,11 +116,11 @@
         <br>
         <fieldset>
             <legend>Modality</legend>
-            <select [formField]="offerForm.modality" [formControl]="modalityFormControl">
-                <option [value]="OFFER_MODALITIES.UNDEFINED">Select a modality</option>
-                <option [value]="OFFER_MODALITIES.HYBRID">Hybrid</option>
-                <option [value]="OFFER_MODALITIES.ON_SITE">On site</option>
-                <option [value]="OFFER_MODALITIES.REMOTE">Remote</option>
+            <select [formField]="vacancyForm.modality" [formControl]="modalityFormControl">
+                <option [value]="VACANCY_MODALITIES.UNDEFINED">Select a modality</option>
+                <option [value]="VACANCY_MODALITIES.HYBRID">Hybrid</option>
+                <option [value]="VACANCY_MODALITIES.ON_SITE">On site</option>
+                <option [value]="VACANCY_MODALITIES.REMOTE">Remote</option>
             </select>
             <!-- <div>
                 <input [formField]="offerForm.modality" type="radio" [value]="OFFER_MODALITIES.HYBRID" />

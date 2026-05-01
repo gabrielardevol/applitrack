@@ -1,0 +1,186 @@
+<button (click)="viewVacancy()">Detail</button>
+
+<dialog #dialog>
+    <button (click)="dialog.close(); updating = false;">close</button>
+    <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
+        changes'}}</button>
+    <form action="">
+        <header>
+            @if (!updating) {}
+            <h1>
+                {{vacancy()?.role}} at {{vacancy()?.company}}
+            </h1>
+
+            @if (updating) {
+            <label for="vacancyForm.role">Role</label>
+            <input [formField]="vacancyForm.role" type="text">
+            }
+
+            @if (updating) {
+            <label for="vacancyForm.role">Company</label>
+            <input [formField]="vacancyForm.company" type="text">
+            }
+            @if (vacancyForm.company().touched() && vacancyForm.company().invalid()) {
+            @for (error of vacancyForm.company().errors(); track error) {
+            <li>{{ error.message }}</li>
+            }
+            }
+
+            @if (!updating) {
+            <span>
+                {{vacancy()?.status}}
+            </span>
+            }
+            @if (updating) {
+            Status
+            <input [formField]="vacancyForm.status" type="text">
+            }
+            <br>
+            @if (!updating) {
+            {{vacancy()?.createdAt | date:'dd/MM/yy' }}
+            @if (vacancy()?.location) {
+            , {{vacancy()?.location}}
+            }
+            @if (vacancy()?.modality) {
+            ({{vacancy()?.modality}})
+            }
+            }
+
+        </header>
+        <hr>
+
+        @if (updating) {
+        Location
+        <input [formField]="vacancyForm.location" type="text">
+        }
+
+        @if (updating) { Modality
+        <input [formField]="vacancyForm.modality" type="text">
+        <hr>
+        }
+
+        @if (!updating) {
+        {{vacancy()?.salaryRange?.min}}K - {{vacancy()?.salaryRange?.max}}K
+        }
+
+        @if (updating) {
+        <label for="">
+            Salary range (annual gross K)
+        </label>
+        <input [formField]="vacancyForm.salaryRange.min" type="number">
+        <input [formField]="vacancyForm.salaryRange.max" type="number">
+        <hr>
+        }
+
+        @if (!updating) {
+        {{vacancy()?.salaryRange?.min}}K - {{vacancy()?.salaryRange?.max}}K
+        }
+
+        @if (updating) {
+        <label for="">
+            Experience range (years)
+        </label>
+        <input [formField]="vacancyForm.experienceRange.min" type="number">
+        <input [formField]="vacancyForm.experienceRange.max" type="number">
+        <hr>
+        }
+
+        @if (!updating) {
+        👤 {{vacancy()?.recruiters}}
+        }
+        @if (updating) {
+        <label for="offerForm.recruiters">
+            Recruiter
+        </label>
+        <input [formField]="vacancyForm.recruiters" type="text">
+        <hr>
+        }
+
+
+        @let skillsPlus = (vacancy()?.skillsPlus?.split(',') || []).filter(string => string != "");
+        @let skillsMust = (vacancy()?.skillsMust?.split(',') || []).filter(string => string != "");
+        @let softSkills = (vacancy()?.softSkills?.split(',') || []).filter(string => string != "");
+
+        @if (!updating) {
+        Skills <br>
+        @if(skillsMust.length > 0) { <b>Must have:</b>}
+        @for(skill of skillsMust; track skill) {
+        {{skill}} |
+        }
+        @if(skillsMust.length > 0) { <br>}
+
+        @if(skillsPlus.length > 0) { <b>Valued:</b>}
+        @for(skill of skillsPlus; track skill) {
+        {{skill}} |
+        }
+        @if(skillsMust.length > 0) { <br>}
+
+        @if(softSkills.length > 0) { <b>Soft skills:</b>}
+        @for(skill of softSkills; track skill) {
+        {{skill}} |
+        }
+        }
+
+        @if (updating) {
+        <label for="">Skills</label> <br>
+        Must have:
+        <input [formField]="vacancyForm.skillsMust" type="text">
+        <br>
+        Valued:
+        <input [formField]="vacancyForm.skillsPlus" type="text">
+        <br>
+        Soft skills:
+        <input [formField]="vacancyForm.softSkills" type="text">
+        <hr>
+        }
+
+
+        @if (!updating) {
+        <br>
+        Platform / job board:
+        {{vacancy()?.platform}}
+        }
+        @if (updating) {
+        <label for="offerForm.platform"> Platform / job board:
+        </label>
+        <input [formField]="vacancyForm.platform" type="string">
+        <hr>
+        }
+
+
+        @if (!updating) {
+        <br>
+        Type:
+        {{vacancy()?.type}}
+        }
+        @if (updating) {
+        <fieldset>
+            <div>
+                <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.APPLICATION" />
+                <label [for]="VACANCY_TYPES.APPLICATION">Application</label>
+            </div>
+            <div>
+                <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.PROPOSAL" />
+                <label [for]="VACANCY_TYPES.PROPOSAL">Proposal</label>
+            </div>
+        </fieldset>
+        <hr>
+        }
+
+        @if (!updating) {
+        <br>
+        Original text:
+        {{vacancy()?.originalText}}
+        }
+        @if (updating) {
+        <label for="vacancyForm.originalText">Original text</label> <br>
+        <textarea [formField]="vacancyForm.originalText" type="text"> </textarea>
+        <hr>
+        }
+
+        @if (!updating) {
+        Responses
+        <br> {{vacancy()?.responseIds}}
+        }
+    </form>
+</dialog>

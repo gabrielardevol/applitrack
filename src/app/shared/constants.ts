@@ -1,6 +1,6 @@
-import { Offer, OFFER_MODALITIES, OFFER_ROLES, OFFER_TYPES, OfferForm, RESPONSE_TYPES, ResponseForm } from "./types";
+import { Vacancy, VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm, RESPONSE_TYPES, ResponseForm } from "./types";
 
-export const EMPTY_OFFER_FORM: OfferForm = {
+export const EMPTY_VACANCY_FORM: VacancyForm = {
     title: '',
     platform: '',
     skillsMust: '',
@@ -14,9 +14,9 @@ export const EMPTY_OFFER_FORM: OfferForm = {
     experienceRange: {
         min: null, max: null
     },
-    role: OFFER_ROLES.UNDEFINED,
-    type: OFFER_TYPES.APPLICATION,
-    modality: OFFER_MODALITIES.UNDEFINED,
+    role: VACANCY_ROLES.UNDEFINED,
+    type: VACANCY_TYPES.APPLICATION,
+    modality: VACANCY_MODALITIES.UNDEFINED,
     location: '',
     company: '',
     id: '',
@@ -26,7 +26,7 @@ export const EMPTY_OFFER_FORM: OfferForm = {
 
 export const EMPTY_RESPONSE_FORM: ResponseForm = {
     id: '',
-    offerId: '',
+    vacancyId: '',
     type: RESPONSE_TYPES.INFORMATION_REQUEST,
     people: '',
     originalText: '',

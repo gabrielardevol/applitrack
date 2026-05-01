@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { ContactsPage } from './pages/contacts-page/contacts-page';
 import { DashboardsPage } from './pages/dashboards-page/dashboards-page';
-import { OffersPage } from './offers/offers.page';
 import { TipsPage } from './pages/tips-page/tips-page';
 import { RoutinePage } from './pages/routine-page/routine-page';
 import { BaseLayoutComponent } from './shared/base-page/base-layout.component';
+import { VacanciesPage } from './vacancies/vacancies.page';
 
 export const routes: Routes = [
     {
@@ -21,7 +21,7 @@ export const routes: Routes = [
             },
             {
                 path: 'offers',
-                component: OffersPage
+                component: VacanciesPage
             },
             {
                 path: 'tips',

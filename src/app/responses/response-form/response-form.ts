@@ -1,8 +1,8 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { OffersService } from '@app/offers/offers-service';
+import { VacanciesService } from '@app/vacancies/vacancy-service';
 import { ResponsesService } from '@app/responses/responses-service';
-import { EMPTY_OFFER_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
+import { EMPTY_VACANCY_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
 import { LlmService } from '@app/shared/services/llm/llm-service';
 import { RESPONSE_TYPES, ResponseForm } from '@app/shared/types';
 
@@ -16,8 +16,8 @@ export class ResponseFormComponent {
   public RESPONSE_TYPES = RESPONSE_TYPES
   private response = signal<ResponseForm>(EMPTY_RESPONSE_FORM)
   private llmService = new LlmService<ResponseForm>;
-  private offersService = new OffersService;
-  offers = this.offersService.$listValue()
+  private vacanciesService = new VacanciesService;
+  vacancies = this.vacanciesService.$listValue()
   formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
 
   public responseService = inject(ResponsesService)
@@ -54,19 +54,12 @@ export class ResponseFormComponent {
 
   public submitForm() {
 
-    console.log("submitted form")
-    //create response
-    // --if success, update offer
-    // ----if success, all of
-    // ----if error, delete response and throw UI alert 
-    // --if error, delete response
-
-    if (!this.responseForm().value().offerId) {
-      let newOffer = this.offersService.create(
-        { ...EMPTY_OFFER_FORM, title: "[auto-generated offer]" }
+    if (!this.responseForm().value().vacancyId) {
+      let newVacancy = this.vacanciesService.create(
+        { ...EMPTY_VACANCY_FORM, title: "[auto-generated offer]" }
       );
-      if (newOffer) {
-        this.responseForm().value().offerId = newOffer.id
+      if (newVacancy) {
+        this.responseForm().value().vacancyId = newVacancy.id
       } else {
         //throw error and stop
       }

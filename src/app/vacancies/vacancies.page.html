@@ -1,4 +1,4 @@
-{{offers().length}} offers
+{{vacancies().length}} vacanciesies
 
 <table>
     <thead>
@@ -10,19 +10,19 @@
         </tr>
     </thead>
     <tbody>
-        @for (offer of offers(); track offer) {
+        @for (vacancy of vacancies(); track vacancy) {
         <tr>
             <td>
-                {{offer.role}}
+                {{vacancy.role}}
             </td>
             <td>
-                {{offer.company}}
+                {{vacancy.company}}
             </td>
             <td>
-                <appli-offer-detail [offerId]="offer.id"></appli-offer-detail>
+                <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
             </td>
             <td>
-                <button (click)="deleteOffer(offer.id)">Delete</button>
+                <button (click)="deleteVacancy(vacancy.id)">Delete</button>
             </td>
         </tr>
         }

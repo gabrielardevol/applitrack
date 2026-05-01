@@ -1,40 +1,40 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { OFFER_MODALITIES, OFFER_ROLES, OFFER_TYPES, OfferForm } from '../types';
-import { EMPTY_OFFER_FORM } from '../constants';
-import { OffersService } from '../../offers/offers-service';
-import { LlmService } from '../services/llm/llm-service';
+import { VacanciesService } from '../vacancy-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm } from '@app/shared/types';
+import { LlmService } from '@app/shared/services/llm/llm-service';
+import { EMPTY_VACANCY_FORM } from '@app/shared/constants';
 
 @Component({
-    selector: 'appli-offer-form',
+    selector: 'appli-vacancy-form',
     imports: [FormField, ReactiveFormsModule],
     // providers: [LlmService],
-    templateUrl: './offer-form.component.html',
-    styleUrl: './offer-form.component.scss',
+    templateUrl: './vacancy-form.component.html',
+    styleUrl: './vacancy-form.component.scss',
 })
-export class OfferFormComponent {
+export class VacancyFormComponent {
 
-    public readonly OFFER_TYPES = OFFER_TYPES;
-    public readonly OFFER_ROLES = OFFER_ROLES;
+    public readonly VACANCY_TYPES = VACANCY_TYPES;
+    public readonly VACANCY_ROLES = VACANCY_ROLES;
 
-    public readonly OFFER_MODALITIES = OFFER_MODALITIES;
-    private offersService = inject(OffersService);
-    private llmService = new LlmService<OfferForm>;
+    public readonly VACANCY_MODALITIES = VACANCY_MODALITIES;
+    private vacanciesService = inject(VacanciesService);
+    private llmService = new LlmService<VacancyForm>;
 
     modalityFormControl = new FormControl()
     roleFormControl = new FormControl()
     typeFormControl = new FormControl()
-    private offer = signal<OfferForm>(EMPTY_OFFER_FORM)
+    private vacancy = signal<VacancyForm>(EMPTY_VACANCY_FORM)
 
-    public offerForm = form(this.offer, (schemaPath) => {
+    public vacancyForm = form(this.vacancy, (schemaPath) => {
         required(schemaPath.role, { message: 'Required field' });
         required(schemaPath.type, { message: 'Required field' });
         required(schemaPath.company, { message: 'Required field' });
     })
 
     type = `
-        export type OfferForm = {
+        export type VacancyForm = {
             platform: string;
             skillsMust: string;
             skillsPlus: string;
@@ -60,20 +60,20 @@ export class OfferFormComponent {
 
     updateForm() {
         let message = `
-        Return a json object of OFFER_TYPE based on the data on JOB_BOARD_MESSAGE. Do not add any extra words; it has to be a json object to be parsed. Your response has to start with '{' and end with '}'.
+        Return a json object of VACANCY based on the data on JOB_BOARD_MESSAGE. Do not add any extra words; it has to be a json object to be parsed. Your response has to start with '{' and end with '}'.
         OFFER_TYPE: ${this.type}
-        JOB_BOARD_MESSAGE: ${this.offerForm().value().originalText}
+        JOB_BOARD_MESSAGE: ${this.vacancyForm().value().originalText}
         `
 
         this.llmService.callLlmApi(message).then(
             r => {
-                r.originalText = this.offerForm().value().originalText
-                r.modality = r.modality as OFFER_MODALITIES
-                r.role = r.role as OFFER_ROLES
-                this.offerForm().value.set(r)
+                r.originalText = this.vacancyForm().value().originalText
+                r.modality = r.modality as VACANCY_MODALITIES
+                r.role = r.role as VACANCY_ROLES
+                this.vacancyForm().value.set(r)
                 this.roleFormControl.setValue(r.role)
                 this.modalityFormControl.setValue(r.modality)
-                this.typeFormControl.setValue(r.type || OFFER_TYPES.APPLICATION)
+                this.typeFormControl.setValue(r.type || VACANCY_TYPES.APPLICATION)
             }
         )
     }
@@ -83,10 +83,10 @@ export class OfferFormComponent {
 
     public submitForm() {
         this.submitButtonClicked = true;
-        if (this.offerForm().valid()) {
-            this.offersService.create(this.offerForm().value());
-            this.offerForm().value.set(EMPTY_OFFER_FORM)
-            this.offerForm().reset()
+        if (this.vacancyForm().valid()) {
+            this.vacanciesService.create(this.vacancyForm().value());
+            this.vacancyForm().value.set(EMPTY_VACANCY_FORM)
+            this.vacancyForm().reset()
             this.submitButtonClicked = false;
         }
     }

@@ -17,10 +17,10 @@
         <label>
             offer
         </label>
-        <select name="offer" id="">
+        <select name="vacancy" id="">
             <option value=""></option>
-            @for(offer of offers; track offer.id) {
-            <option [value]="offer.id">{{offer.role}} at {{offer.company}}</option>
+            @for(vacancy of vacancies; track vacancy.id) {
+            <option [value]="vacancy.id">{{vacancy.role}} at {{vacancy.company}}</option>
 
             }
         </select>
