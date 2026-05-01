@@ -5,9 +5,9 @@ import { ResponseFormComponent } from '@app/response-form/response-form';
 import { AlertsComponent } from './alerts/alerts.component';
 
 @Component({
-  selector: 'app-base-page',
+  selector: 'app-base-layout',
   imports: [RouterOutlet, RouterLink, OfferFormComponent, ResponseFormComponent, AlertsComponent],
-  templateUrl: './base-page.component.html',
-  styleUrl: './base-page.component.scss',
+  templateUrl: './base-layout.component.html',
+  styleUrl: './base-layout.component.scss',
 })
-export class BasePageComponent { }
+export class BaseLayoutComponent { }

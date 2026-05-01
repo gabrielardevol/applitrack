@@ -4,12 +4,12 @@ import { DashboardsPage } from './pages/dashboards-page/dashboards-page';
 import { OffersPage } from './offers/offers.page';
 import { TipsPage } from './pages/tips-page/tips-page';
 import { RoutinePage } from './pages/routine-page/routine-page';
-import { BasePageComponent } from './shared/base-page/base-page.component';
+import { BaseLayoutComponent } from './shared/base-page/base-layout.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: BasePageComponent,
+        component: BaseLayoutComponent,
         children: [
             {
                 path: 'contacts',
