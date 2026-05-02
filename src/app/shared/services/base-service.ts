@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class BaseService<
   TSingle extends { id: string },
   TList extends { id: string },
-  TCreate extends { id: null | string, createdAt?: Date },
+  TCreate,
 > {
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
@@ -15,9 +15,7 @@ export class BaseService<
   }
 
   public create(item: TCreate): TSingle | null {
-    item.id = uuidv4()
-    item.createdAt = new Date()
-    let createdItem = this.createLocal(item);
+    let createdItem = this.createLocal({ ...item, id: uuidv4(), createdAt: new Date() });
     if (createdItem) {
       this.$listValue.set([...this.$listValue(), item as unknown as TList])
       return createdItem;
@@ -27,7 +25,7 @@ export class BaseService<
     }
   }
 
-  private createLocal(item: TCreate): TSingle | null {
+  private createLocal(item: TCreate & { id: string }): TSingle | null {
     let items = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
     let parsedItems = JSON.parse(items);
     try {

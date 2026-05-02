@@ -55,7 +55,7 @@ export type Response = {
     vacancyId: string;
     type: RESPONSE_TYPES,
     interviewId?: string;
-    interview?: Interview | undefined,
+    interview?: InterviewCreation | undefined,
     proposalAmount?: number | undefined,
     createdAt: Date;
 }
@@ -67,15 +67,21 @@ export type ResponseForm = {
     vacancyId: string;
     type: RESPONSE_TYPES,
     interviewDate?: Date | undefined,
-
     proposalAmount?: number | undefined,
 }
 
-export type Interview = {
+export type InterviewCreation = {
     responseId: string,
     scheduledDate: Date,
-    people: Contact[],
-    annotations: Annotation[]
+    // people: Contact[],
+    // annotations: Annotation[]
+}
+
+export type Interview = {
+    id: string;
+    responseId: string,
+    scheduledDate: Date,
+    createdAt: Date,
 
 }
 

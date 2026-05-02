@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { VacanciesService } from '@app/vacancies/vacancy-service';
 import { ResponsesService } from '@app/responses/responses-service';
+import { InterviewService } from '@app/shared/services/interview.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,11 @@ import { ResponsesService } from '@app/responses/responses-service';
 export class DashboardService {
   private readonly responsesService = inject(ResponsesService);
   private readonly vacanciesService = inject(VacanciesService);
-  public responsesCount = this.responsesService.$listValue().length
-  public vacanciesCount = this.vacanciesService.$listValue().length
+  public readonly interviewsService = inject(InterviewService);
+  public responsesCount = computed(() => this.responsesService.$listValue().length)
+  public vacanciesCount = computed(() => this.vacanciesService.$listValue().length)
+  public interviewsCount = computed(() => this.interviewsService.$listValue().length)
   //inject offer service and response service
-  //store in a public variable the amount of application
   //store in a public variable the amount of reciprocated vacancies
   //store in a public variable the amount of interviews
   //store in a public variable the amount of successful job vacancies

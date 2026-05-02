@@ -20,7 +20,7 @@ export const routes: Routes = [
                 component: DashboardsPage
             },
             {
-                path: 'offers',
+                path: 'vacancies',
                 component: VacanciesPage
             },
             {

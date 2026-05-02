@@ -13,8 +13,9 @@ export type Notification = {
 @Injectable({
   providedIn: 'root',
 })
-export class NotificationService extends BaseService<Notification, Notification, Notification> {
+export class NotificationService extends BaseService<Notification, Notification, { message: string }> {
   constructor() {
     super('NOTIFICATIONS', '/notifications')
   }
+
 }

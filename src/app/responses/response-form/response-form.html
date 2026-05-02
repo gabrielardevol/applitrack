@@ -32,8 +32,9 @@
         <br>
 
         <label for="interviewDate">Interview</label>
-        <input [disabled]="responseForm().value().type != RESPONSE_TYPES.INTERVIEW_SCHEDULE" type="datetime-local"
-            name="" id="">
+        <input [formControl]="interviewDateFormControl"
+            [disabled]="responseForm().value().type != RESPONSE_TYPES.INTERVIEW_SCHEDULE" type="datetime-local" name=""
+            id="">
         <br>
 
         <label for="responseForm.people">People</label>

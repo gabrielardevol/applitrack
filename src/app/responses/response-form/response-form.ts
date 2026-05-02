@@ -5,10 +5,11 @@ import { ResponsesService } from '@app/responses/responses-service';
 import { EMPTY_VACANCY_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
 import { LlmService } from '@app/shared/services/llm/llm-service';
 import { RESPONSE_TYPES, ResponseForm } from '@app/shared/types';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-response-form',
-  imports: [FormField,],
+  imports: [FormField, ReactiveFormsModule],
   templateUrl: './response-form.html',
   styleUrl: './response-form.scss',
 })
@@ -20,6 +21,7 @@ export class ResponseFormComponent {
   vacancies = this.vacanciesService.$listValue()
   formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
 
+  interviewDateFormControl = new FormControl()
   public responseService = inject(ResponsesService)
   public responseForm = form(this.response, (schemaPath) => {
     // required(schemaPath.role, { message: 'Required field' });
@@ -66,14 +68,17 @@ export class ResponseFormComponent {
     }
     if (this.responseForm().valid()) {
 
-      let response = this.responseService.create(this.responseForm().value());
-      console.log(response)
+      let responseData = {
+        ...this.responseForm().value(),
+        interviewDate: this.interviewDateFormControl.value
+      }
+      console.log('responseData', responseData)
+      let createdResponse = this.responseService.create(responseData);
 
       this.submitButtonClicked = true;
-      if (!response) {
+      if (!createdResponse) {
         // handle error
       } else {
-
         this.resetForm()
       }
     }

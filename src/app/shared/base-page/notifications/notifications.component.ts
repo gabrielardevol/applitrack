@@ -13,11 +13,6 @@ export class NotificationsComponent {
   public notifications = this.notificationsService.$listValue
 
   public createDummyNotification() {
-    let dummyNotification: Notification = {
-      id: '', //tech debt; base-service creation type does not need this property
-      message: 'Lorem ipsum',
-      createdAt: new Date() //tech debt; base-service creation type does not need this property
-    }
-    this.notificationsService.create(dummyNotification)
+    this.notificationsService.create({ message: 'dummyNotification' })
   }
 }
