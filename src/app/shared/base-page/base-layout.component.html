@@ -2,9 +2,11 @@
     <nav class="border-b">
         <b>Applitrack</b>
 
-        <a routerLink="/contacts">Contacts</a> &nbsp;
-        <a routerLink="/dashboard">Dashboard</a> &nbsp;
         <a routerLink="/vacancies">Vacancies</a> &nbsp;
+        <a routerLink="/dashboard">Dashboard</a> &nbsp;
+        <a routerLink="/dashboard">Calendar</a> &nbsp;
+
+        <a routerLink="/contacts">Contacts</a> &nbsp;
         <a routerLink="/tips">Tips</a> &nbsp;
         <a routerLink="/routine">Routine</a> &nbsp;
     </nav>
@@ -17,7 +19,9 @@
             <app-response-form></app-response-form>
         </nav>
         <hr>
-        <router-outlet></router-outlet>
+        <div class="flex-1">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 
 </main>

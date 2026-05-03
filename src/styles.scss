@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
+// @tailwind base;
+// @tailwind components;
 @tailwind utilities;
 
-h2 {
-    @apply text-xl font-bold;
-}
+// h2 {
+//     @apply text-xl font-bold;
+// }
 
-button {
-    @apply bg-[#d9d9d9] px-[6px]
-}
+// button {
+//     @apply bg-[#d9d9d9] px-[6px]
+// }
 
 table {
     @apply border
