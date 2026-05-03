@@ -1,5 +1,6 @@
-Applitrack
 <nav>
+    Applitrack
+
     <a routerLink="/contacts">Contacts</a> &nbsp;
     <a routerLink="/dashboard">Dashboard</a> &nbsp;
     <a routerLink="/vacancies">Vacancies</a> &nbsp;
@@ -7,10 +8,13 @@ Applitrack
     <a routerLink="/routine">Routine</a> &nbsp;
 </nav>
 
-<app-notifications></app-notifications>
-<app-vacancy-form></app-vacancy-form>
-<app-response-form></app-response-form>
+<nav>
+    <app-vacancy-form></app-vacancy-form>
+    <app-response-form></app-response-form>
+</nav>
+<!-- <app-notifications></app-notifications> -->
+
 <hr>
 <router-outlet></router-outlet>
 
-<app-alerts></app-alerts>
+<!-- <app-alerts></app-alerts> -->

@@ -1,7 +1,7 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { VacanciesService } from '@app/vacancies/vacancy-service';
-import { ResponsesService } from '@app/responses/responses-service';
+import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
+import { ResponsesService } from '@app/shared/services/responses/responses-service';
 import { EMPTY_VACANCY_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
 import { LlmService } from '@app/shared/services/llm/llm-service';
 import { RESPONSE_TYPES, ResponseForm } from '@app/shared/types';

@@ -1,5 +1,5 @@
 import { Component, computed, ElementRef, inject, input, Signal, signal, viewChild, WritableSignal } from '@angular/core';
-import { VacanciesService as VacanciesService } from '../../vacancy-service';
+import { VacanciesService as VacanciesService } from '../../../shared/services/vacancies/vacancy-service';
 import { form, required, FormField } from '@angular/forms/signals';
 import { DatePipe } from '@angular/common';
 import { Vacancy, VACANCY_MODALITIES, VACANCY_TYPES } from '../../../shared/types';

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { VacanciesService } from './vacancy-service';
+import { VacanciesService } from '../shared/services/vacancies/vacancy-service';
 import { VacancyDetail } from "./components/vacancy-detail/vacancy-detail";
 import { VacancyFormComponent } from './vacancy-form/vacancy-form.component';
 import { ResponseFormComponent } from '@app/responses/response-form/response-form';

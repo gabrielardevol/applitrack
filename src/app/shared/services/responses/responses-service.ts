@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { Response, RESPONSE_TYPES, ResponseForm } from '../shared/types';
-import { BaseService } from '../shared/services/base-service';
-import { NotificationService } from '@app/shared/services/notification-service';
-import { InterviewService } from '@app/shared/services/interview.service';
+import { Response, RESPONSE_TYPES, ResponseForm } from '../../types';
+import { BaseService } from '../base-service';
+import { NotificationService } from '@app/shared/services/notifications/notification-service';
+import { InterviewService } from '@app/shared/services/interviews/interview.service';
 
 @Injectable({
   providedIn: 'root',

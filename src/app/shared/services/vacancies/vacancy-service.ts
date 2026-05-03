@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ResponsesService } from '../responses/responses-service';
-import { Vacancy, VacancyForm, VacancyListItem } from '../shared/types';
-import { BaseService } from '../shared/services/base-service';
+import { Vacancy, VacancyForm, VacancyListItem } from '../../types';
+import { BaseService } from '../base-service';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment.development';
 @Injectable({

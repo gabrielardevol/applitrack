@@ -1,7 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { VacanciesService } from '@app/vacancies/vacancy-service';
-import { ResponsesService } from '@app/responses/responses-service';
-import { InterviewService } from '@app/shared/services/interview.service';
+import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
+import { ResponsesService } from '@app/shared/services/responses/responses-service';
+import { InterviewService } from '@app/shared/services/interviews/interview.service';
 import { RESPONSE_TYPES, VACANCY_STATUS } from '@app/shared/types';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { VacanciesService } from '../vacancy-service';
+import { VacanciesService } from '../../shared/services/vacancies/vacancy-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm } from '@app/shared/types';
 import { LlmService } from '@app/shared/services/llm/llm-service';
