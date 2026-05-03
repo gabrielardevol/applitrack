@@ -1,20 +1,27 @@
-<nav>
-    Applitrack
+<main>
+    <nav class="border-b">
+        <b>Applitrack</b>
 
-    <a routerLink="/contacts">Contacts</a> &nbsp;
-    <a routerLink="/dashboard">Dashboard</a> &nbsp;
-    <a routerLink="/vacancies">Vacancies</a> &nbsp;
-    <a routerLink="/tips">Tips</a> &nbsp;
-    <a routerLink="/routine">Routine</a> &nbsp;
-</nav>
+        <a routerLink="/contacts">Contacts</a> &nbsp;
+        <a routerLink="/dashboard">Dashboard</a> &nbsp;
+        <a routerLink="/vacancies">Vacancies</a> &nbsp;
+        <a routerLink="/tips">Tips</a> &nbsp;
+        <a routerLink="/routine">Routine</a> &nbsp;
+    </nav>
 
-<nav>
-    <app-vacancy-form></app-vacancy-form>
-    <app-response-form></app-response-form>
-</nav>
+
+    <div class="flex">
+        <nav class="border-r">
+            <app-vacancy-form></app-vacancy-form>
+            <br>
+            <app-response-form></app-response-form>
+        </nav>
+        <hr>
+        <router-outlet></router-outlet>
+    </div>
+
+</main>
 <!-- <app-notifications></app-notifications> -->
 
-<hr>
-<router-outlet></router-outlet>
 
 <!-- <app-alerts></app-alerts> -->
