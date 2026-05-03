@@ -83,7 +83,6 @@ export class BaseService<
   }
 
   private updateLocal(offer: Partial<TSingle>, id: string): TSingle | null {
-    console.log('updatelocal', offer)
     try {
       let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
       let parsedList = JSON.parse(list);

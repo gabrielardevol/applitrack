@@ -18,14 +18,26 @@ export type Vacancy = {
     annotations: Annotation[];
     modality: VACANCY_MODALITIES;
     location: string;
+    geolocation?: { lat: number, lon: number }
     company: string;
     createdAt?: Date;
+    positiveResponse: boolean
 }
 
 export type VacancyListItem = {
     id: string;
     role: string;
     company: string;
+    status: string;
+    salaryRange: {
+        min: number,
+        max: number
+    },
+    geolocation?: { lat: number, lon: number },
+    positiveResponse: boolean,
+    skillsMust: string;
+    skillsPlus: string;
+    softSkills: string;
 }
 
 export type VacancyForm = {
@@ -46,6 +58,7 @@ export type VacancyForm = {
     id: string;
     date: Date | null;
     status: string;
+    positiveResponse: boolean
 }
 
 export type Response = {
@@ -119,16 +132,19 @@ export enum VACANCY_TYPES {
     APPLICATION = 'APPLICATION'
 }
 
+export enum VACANCY_STATUS {
+    APPLIED = 'APPLIED',
+    IN_PROCESS = 'IN_PROCESS',
+    REJECTED = 'REJECTED',
+    RECIPROCATED = 'RECIPROCATED'
+}
+
 export enum VACANCY_MODALITIES {
     UNDEFINED = 'UNDEFINED', REMOTE = 'REMOTE', ON_SITE = 'ON_SITE', HYBRID = 'HYBRID'
 }
 
 export enum VACANCY_ROLES {
     UNDEFINED = 'UNDEFINED', FRONTEND = 'FRONTEND', BACKEND = 'BACKEND', FULLSTACK = 'FULLSTACK', UX_UI = "UX_UI"
-}
-
-export enum VACANCY_STATUS {
-    ACTIVE_PROCESS = 'ACTIVE_PROCESS', REJECTED = 'REJECTED', INTERVIEWING = 'INTERVIEWING', SUCCESS = 'SUCCESS'
 }
 
 export type Tips = {

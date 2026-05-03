@@ -21,7 +21,8 @@ export const EMPTY_VACANCY_FORM: VacancyForm = {
     company: '',
     id: '',
     date: null,
-    status: '' //OFFER_STATUS
+    positiveResponse: false,
+    status: '', //OFFER_STATUS
 }
 
 export const EMPTY_RESPONSE_FORM: ResponseForm = {

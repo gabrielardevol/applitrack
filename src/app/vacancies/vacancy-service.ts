@@ -2,7 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { ResponsesService } from '../responses/responses-service';
 import { Vacancy, VacancyForm, VacancyListItem } from '../shared/types';
 import { BaseService } from '../shared/services/base-service';
-
+import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'environments/environment.development';
 @Injectable({
   providedIn: 'root',
 })
@@ -27,6 +28,7 @@ export class VacanciesService extends BaseService<Vacancy, VacancyListItem, Vaca
 
   public override create(vacancy: VacancyForm) {
     let createdVacancy = super.create(vacancy)
+    createdVacancy && vacancy.location && this.adressToLatLon(vacancy.location, createdVacancy.id);
     return createdVacancy
 
   }
@@ -52,5 +54,19 @@ export class VacanciesService extends BaseService<Vacancy, VacancyListItem, Vaca
     super.update({
       responseIds: vacancy?.responseIds
     }, offerId)
+  }
+
+  async adressToLatLon(query: string, vacancyId: string) {
+    let geocodeUrl = `https://geocode.maps.co/search?q=${query}&api_key=${environment.GEOCODE_API_KEY}`
+
+    const data = await fetch(geocodeUrl, {
+      method: 'POST',
+    })
+
+    await data.json().then((r) => {
+      console.log(r),
+        this.update({ geolocation: { lat: r[0]['lat'], lon: r[0]['lon'] } }, vacancyId)
+    }
+    )
   }
 }

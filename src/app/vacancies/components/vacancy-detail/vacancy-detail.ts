@@ -61,7 +61,8 @@ export class VacancyDetail {
         responseIds: this.vacancy()!.responseIds,
         annotations: this.vacancy()!.annotations,
         createdAt: this.vacancy()!.createdAt,
-        experienceRange: this.vacancyForm().value().experienceRange
+        experienceRange: this.vacancyForm().value().experienceRange,
+        positiveResponse: this.vacancyForm().value().positiveResponse
       }
     );
   }
