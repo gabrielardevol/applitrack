@@ -21,9 +21,9 @@ export class VacanciesService extends BaseService<Vacancy, VacancyListItem, Vaca
     return vacancy;
   }
 
-  public getFilteredList(): VacancyListItem[] {
-    return super.getList()
-  }
+  // public getFilteredList(): VacancyListItem[] {
+  //   return super.getList()
+  // }
 
   public override create(vacancy: VacancyForm) {
     let createdVacancy = super.create(vacancy)

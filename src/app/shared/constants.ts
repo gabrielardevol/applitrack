@@ -31,5 +31,7 @@ export const EMPTY_RESPONSE_FORM: ResponseForm = {
     type: RESPONSE_TYPES.INFORMATION_REQUEST,
     people: '',
     originalText: '',
+    proposalAmount: 0,
+    interviewDate: null
 
 }

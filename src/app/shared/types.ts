@@ -80,8 +80,8 @@ export type ResponseForm = {
     id: string;
     vacancyId: string;
     type: RESPONSE_TYPES,
-    interviewDate?: Date | undefined,
-    proposalAmount?: number | undefined,
+    interviewDate: Date | null,
+    proposalAmount: number,
 }
 
 export type InterviewCreation = {

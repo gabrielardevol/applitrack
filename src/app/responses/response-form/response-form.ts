@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
-import { form, FormField, required } from '@angular/forms/signals';
+import { disabled, form, FormField, required } from '@angular/forms/signals';
 import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
 import { ResponsesService } from '@app/shared/services/responses/responses-service';
 import { EMPTY_VACANCY_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
@@ -78,7 +78,7 @@ export class ResponseFormComponent {
     }
     if (this.responseForm().valid()) {
 
-      let createdResponse = this.responseService.create(responseData);
+      let createdResponse = this.responseService.create(responseData as ResponseForm);
 
       if (!createdResponse) {
         // handle error
@@ -97,8 +97,8 @@ export class ResponseFormComponent {
             this.vacanciesService.update({ status: VACANCY_STATUS.REJECTED }, createdResponse.vacancyId)
             break;
         }
+        this.vacanciesService.getList()
         this.submitButtonClicked = true;
-
         this.resetForm()
       }
     }
@@ -107,6 +107,8 @@ export class ResponseFormComponent {
   resetForm() {
     this.responseForm().value.set(EMPTY_RESPONSE_FORM)
     this.responseForm().reset()
+    this.interviewDateFormControl.reset();
+    this.vacancyFormControl.reset();
     this.submitButtonClicked = false;
   }
 }
