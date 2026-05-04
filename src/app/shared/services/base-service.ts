@@ -30,7 +30,8 @@ export class BaseService<
     let parsedItems = JSON.parse(items);
     try {
       window.localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...parsedItems, item]));
-      return this.getSingle(item.id!);
+      let createdItem = this.getSingle(item.id!);
+      return createdItem;
     } catch {
       console.error('Error saving new item to localstorage');
       return null;
@@ -60,7 +61,7 @@ export class BaseService<
     try {
       let list = window.localStorage.getItem(this.STORAGE_KEY) || "[]";
       let parsedList = JSON.parse(list);
-      let selectedItem = (parsedList as TSingle[]).filter(item => item.id = id)[0] || null
+      let selectedItem = (parsedList as TSingle[]).filter(item => item.id == id)[0] || null
       return selectedItem
     } catch {
       console.error('Error retrieving item from localstorage');

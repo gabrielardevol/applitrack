@@ -109,11 +109,11 @@
                 <input [formField]="offerForm.type" type="radio" [value]="OFFER_TYPES.PROPOSAL" />
                 <label [for]="OFFER_TYPES.PROPOSAL">Proposal</label>
             </div> -->
-            @if ((vacancyForm.type().touched() || submitButtonClicked) && vacancyForm.type().invalid()) {
+            <!-- @if ((vacancyForm.type().touched() || submitButtonClicked) && vacancyForm.type().invalid()) {
             @for (error of vacancyForm.type().errors(); track error) {
             <li>{{ error.message }}</li>
             }
-            }
+            } -->
         </fieldset>
 
         <br>

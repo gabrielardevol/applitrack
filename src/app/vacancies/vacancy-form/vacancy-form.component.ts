@@ -83,7 +83,6 @@ export class VacancyFormComponent {
 
     public submitForm() {
         this.submitButtonClicked = true;
-        console.log(this.vacancyForm().value())
         if (this.vacancyForm().valid()) {
             this.vacanciesService.create({ ...this.vacancyForm().value(), status: VACANCY_STATUS.APPLIED }); //tech debt: why is it not getting the property from EMPTY_FORM?
             this.vacancyForm().value.set(EMPTY_VACANCY_FORM)

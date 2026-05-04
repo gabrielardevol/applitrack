@@ -63,8 +63,8 @@ export class VacanciesService extends BaseService<Vacancy, VacancyListItem, Vaca
     })
 
     await data.json().then((r) => {
-      console.log(r),
-        this.update({ geolocation: { lat: r[0]['lat'], lon: r[0]['lon'] } }, vacancyId)
+      // console.log(r),
+      this.update({ geolocation: { lat: r[0]['lat'], lon: r[0]['lon'] } }, vacancyId)
     }
     )
   }
