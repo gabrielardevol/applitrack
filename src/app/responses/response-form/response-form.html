@@ -15,12 +15,12 @@
         <br>
 
         <label>
-            offer
+            Vacancy
         </label>
-        <select name="vacancy" id="">
+        <select name="vacancy" [formControl]="vacancyFormControl">
             <option value=""></option>
             @for(vacancy of vacancies; track vacancy.id) {
-            <option [value]="vacancy.id">{{vacancy.role}} at {{vacancy.company}}</option>
+            <option [value]="vacancy.id">{{vacancy.role}} at {{vacancy.company}} -- {{vacancy.id}}</option>
 
             }
         </select>

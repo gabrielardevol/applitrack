@@ -4,7 +4,7 @@ import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service
 import { ResponsesService } from '@app/shared/services/responses/responses-service';
 import { EMPTY_VACANCY_FORM, EMPTY_RESPONSE_FORM } from '@app/shared/constants';
 import { LlmService } from '@app/shared/services/llm/llm-service';
-import { RESPONSE_TYPES, ResponseForm } from '@app/shared/types';
+import { RESPONSE_TYPES, ResponseForm, VACANCY_STATUS } from '@app/shared/types';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -21,6 +21,7 @@ export class ResponseFormComponent {
   vacancies = this.vacanciesService.$listValue()
   formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
 
+  vacancyFormControl = new FormControl()
   interviewDateFormControl = new FormControl()
   public responseService = inject(ResponsesService)
   public responseForm = form(this.response, (schemaPath) => {
@@ -56,29 +57,45 @@ export class ResponseFormComponent {
 
   public submitForm() {
 
-    if (!this.responseForm().value().vacancyId) {
+    let responseData = {
+      ...this.responseForm().value(),
+      interviewDate: this.interviewDateFormControl.value,
+      vacancyId: this.vacancyFormControl.value
+    }
+
+    if (!responseData.vacancyId) {
       let newVacancy = this.vacanciesService.create(
         { ...EMPTY_VACANCY_FORM, title: "[auto-generated offer]" }
       );
       if (newVacancy) {
-        this.responseForm().value().vacancyId = newVacancy.id
+        responseData.vacancyId = newVacancy.id
       } else {
         //throw error and stop
       }
     }
     if (this.responseForm().valid()) {
 
-      let responseData = {
-        ...this.responseForm().value(),
-        interviewDate: this.interviewDateFormControl.value
-      }
-      console.log('responseData', responseData)
       let createdResponse = this.responseService.create(responseData);
 
-      this.submitButtonClicked = true;
       if (!createdResponse) {
         // handle error
       } else {
+        switch (createdResponse.type) {
+          case RESPONSE_TYPES.INFORMATION_REQUEST:
+            this.vacanciesService.update({ status: VACANCY_STATUS.IN_PROCESS }, createdResponse.vacancyId)
+            break;
+          case RESPONSE_TYPES.INTERVIEW_SCHEDULE:
+            this.vacanciesService.update({ status: VACANCY_STATUS.IN_PROCESS }, createdResponse.vacancyId)
+            break;
+          case RESPONSE_TYPES.JOB_PROPOSAL:
+            this.vacanciesService.update({ status: VACANCY_STATUS.RECIPROCATED }, createdResponse.vacancyId)
+            break;
+          case RESPONSE_TYPES.REJECTION:
+            this.vacanciesService.update({ status: VACANCY_STATUS.REJECTED }, createdResponse.vacancyId)
+            break;
+        }
+        this.submitButtonClicked = true;
+
         this.resetForm()
       }
     }
