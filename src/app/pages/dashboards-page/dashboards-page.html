@@ -11,8 +11,13 @@
         Total interviews: {{dashboardService.interviewsCount()}}
     </div>
     <div class="metric">
-        Positively responded vacancies: {{dashboardService.interviewsCount()}}
+        Positively responded vacancies: {{dashboardService.positivelyRespondedVacancies().length}}
     </div>
-</div>
+    <div class="metric">
+        Positive response ratio: {{(dashboardService.positiveResponseRatio() * 100).toFixed(2)}}%
+    </div>
+    <div class="metric">
+        Reciprocated vacancies count: {{(dashboardService.reciprocatedVacanciesCount)}}
+    </div>
 
-{{dashboardService.positiveResponseOffers()}}
+</div>

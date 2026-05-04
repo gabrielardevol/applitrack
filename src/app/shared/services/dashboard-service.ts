@@ -23,15 +23,15 @@ export class DashboardService {
   // public vacanciesWithThreeInterviews
   // public vacanciesWithFourInterviews
 
-  public positiveResponseOffers = computed(() => {
+  public positivelyRespondedVacancies = computed(() => {
     let vacancyIds = this.vacanciesService.$listValue().filter(v => v.status != VACANCY_STATUS.REJECTED && v.status != VACANCY_STATUS.APPLIED).map(v => v.id)
     let responseVacancyIds = this.responsesService.$listValue().filter(r => r.type != RESPONSE_TYPES.REJECTION).map(r => r.vacancyId)
-    let allVacancyIds = [...new Set([...vacancyIds, responseVacancyIds])][0];
+    let allVacancyIds = [...new Set([...vacancyIds, ...responseVacancyIds])];
     return allVacancyIds
   })
 
   public positiveResponseRatio = computed(() => {
-    return this.positiveResponseOffers().length / this.vacanciesCount()
+    return this.positivelyRespondedVacancies().length / this.vacanciesCount()
   })
 
   private readonly reciprocatedVacancies = computed(() => this.vacanciesService.$listValue().filter(v => v.status == VACANCY_STATUS.RECIPROCATED))
