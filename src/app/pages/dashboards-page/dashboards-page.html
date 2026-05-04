@@ -1,4 +1,15 @@
 <h2>Dashboard</h2>
-Total responses: {{dashboardService.responsesCount()}}
-Total applications: {{dashboardService.vacanciesCount()}}
-Total interviews: {{dashboardService.interviewsCount()}}
+
+<div class="flex">
+    <div class="metric">
+        Total responses: {{dashboardService.responsesCount()}}
+    </div>
+    <div class="metric">
+        Total applications: {{dashboardService.vacanciesCount()}}
+    </div>
+    <div class="metric">
+        Total interviews: {{dashboardService.interviewsCount()}}
+    </div>
+</div>
+
+{{dashboardService.positiveResponseOffers()}}-
