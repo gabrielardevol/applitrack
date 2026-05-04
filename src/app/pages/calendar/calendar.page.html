@@ -1,0 +1,13 @@
+<div class="flex">
+    <button (click)="prev()">prev</button>
+    <h1>{{monthNames[displayedMonth]}} {{displayedYear}}</h1>
+    <button (click)="next()">next</button>
+</div>
+<div class="grid grid-cols-7">
+    @for(day of dayNames; track day ) {
+    <div>{{day}}</div>
+    }
+    @for(day of monthDays(); track day) {
+    <div [ngClass]="day == currentDay() && displayedMonth == currentMonth() ? 'font-bold' : ''">{{day}}</div>
+    }
+</div>

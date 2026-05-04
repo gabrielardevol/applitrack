@@ -5,6 +5,7 @@ import { TipsPage } from './pages/tips-page/tips-page';
 import { RoutinePage } from './pages/routine-page/routine-page';
 import { BaseLayoutComponent } from './shared/base-page/base-layout.component';
 import { VacanciesPage } from './vacancies/vacancies.page';
+import { CalendarPage } from './pages/calendar/calendar.page';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,10 @@ export const routes: Routes = [
             {
                 path: 'routine',
                 component: RoutinePage
+            },
+            {
+                path: 'calendar',
+                component: CalendarPage
             }
         ]
     }
