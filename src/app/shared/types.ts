@@ -25,10 +25,11 @@ export type Vacancy = {
 }
 
 export type VacancyListItem = {
+    title: string;
     id: string;
     role: string;
     company: string;
-    status: string;
+    status: VACANCY_STATUS;
     salaryRange: {
         min: number,
         max: number

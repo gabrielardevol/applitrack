@@ -2,7 +2,7 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { VacanciesService } from '../../shared/services/vacancies/vacancy-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm } from '@app/shared/types';
+import { VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_STATUS, VACANCY_TYPES, VacancyForm } from '@app/shared/types';
 import { LlmService } from '@app/shared/services/llm/llm-service';
 import { EMPTY_VACANCY_FORM } from '@app/shared/constants';
 
@@ -35,6 +35,7 @@ export class VacancyFormComponent {
 
     type = `
         export type VacancyForm = {
+            title: string;
             platform: string;
             skillsMust: string;
             skillsPlus: string;
@@ -54,7 +55,6 @@ export class VacancyFormComponent {
             company: string;
             id: string;
             date: Date | null;
-            status: string;
         };`
 
 
@@ -83,8 +83,9 @@ export class VacancyFormComponent {
 
     public submitForm() {
         this.submitButtonClicked = true;
+        console.log(this.vacancyForm().value())
         if (this.vacancyForm().valid()) {
-            this.vacanciesService.create(this.vacancyForm().value());
+            this.vacanciesService.create({ ...this.vacancyForm().value(), status: VACANCY_STATUS.APPLIED }); //tech debt: why is it not getting the property from EMPTY_FORM?
             this.vacancyForm().value.set(EMPTY_VACANCY_FORM)
             this.vacancyForm().reset()
             this.submitButtonClicked = false;

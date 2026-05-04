@@ -17,10 +17,10 @@ export class BaseService<
   public create(item: TCreate): TSingle | null {
     let createdItem = this.createLocal({ ...item, id: uuidv4(), createdAt: new Date() });
     if (createdItem) {
-      this.$listValue.set([...this.$listValue(), item as unknown as TList])
+      this.$listValue.set([...this.$listValue(), createdItem as unknown as TList])
       return createdItem;
     } else {
-      console.error('Response could not be created')
+      console.error('item could not be created')
       return null;
     }
   }

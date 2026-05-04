@@ -19,4 +19,5 @@ export class VacanciesPage {
     this.vacanciesService.delete(id)
   }
 
+  console = console;
 }

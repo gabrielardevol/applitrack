@@ -7,6 +7,9 @@
         <label for="platform">Original text</label>
         <input [formField]="vacancyForm.originalText" type="text" (change)="updateForm()">
         <br>
+        <label for="title">Title</label>
+        <input [formField]="vacancyForm.title" type="text">
+
 
         <fieldset>
             <legend>Skills</legend>
@@ -94,7 +97,7 @@
 
         <fieldset>
             <legend>Type</legend>
-            <select [formField]="vacancyForm.type" [formControl]="typeFormControl">
+            <select [formControl]="typeFormControl">
                 <option [value]="VACANCY_TYPES.APPLICATION">Application</option>
                 <option [value]="VACANCY_TYPES.PROPOSAL">Proposal</option>
             </select>

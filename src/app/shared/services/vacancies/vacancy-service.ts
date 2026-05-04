@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { ResponsesService } from '../responses/responses-service';
 import { Vacancy, VacancyForm, VacancyListItem } from '../../types';
 import { BaseService } from '../base-service';
-import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment.development';
 @Injectable({
   providedIn: 'root',

@@ -1,12 +1,16 @@
 <h2>Vacancies</h2>
 
 {{vacancies().length}} vacancies
-
+<button (click)="console.log(vacancies())">console.log(</button>
 <table>
     <thead>
         <tr>
+            <th>Id</th>
+
             <th>Role</th>
             <th>company</th>
+            <th>Status</th>
+
             <th></th>
             <th></th>
         </tr>
@@ -15,10 +19,18 @@
         @for (vacancy of vacancies(); track vacancy) {
         <tr>
             <td>
+                {{vacancy.id}}
+            </td>
+            <td>
                 {{vacancy.role}}
             </td>
             <td>
                 {{vacancy.company}}
+            </td>
+            <td>
+                <span class="border rounded-full">
+                    {{vacancy.status}}
+                </span>
             </td>
             <td>
                 <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>

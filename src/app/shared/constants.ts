@@ -1,4 +1,4 @@
-import { Vacancy, VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm, RESPONSE_TYPES, ResponseForm } from "./types";
+import { Vacancy, VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm, RESPONSE_TYPES, ResponseForm, VACANCY_STATUS } from "./types";
 
 export const EMPTY_VACANCY_FORM: VacancyForm = {
     title: '',
@@ -22,7 +22,7 @@ export const EMPTY_VACANCY_FORM: VacancyForm = {
     id: '',
     date: null,
     positiveResponse: false,
-    status: '', //OFFER_STATUS
+    status: VACANCY_STATUS.APPLIED,
 }
 
 export const EMPTY_RESPONSE_FORM: ResponseForm = {
