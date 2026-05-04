@@ -11,6 +11,13 @@
 //     @apply bg-[#d9d9d9] px-[6px]
 // }
 
-table {
-    @apply border
+// table {
+//     @apply border
+// }
+table,
+th,
+td {
+    border-bottom: 1px solid rgb(185, 185, 185);
+    border-collapse: collapse;
+
 }

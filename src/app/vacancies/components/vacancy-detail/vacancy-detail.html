@@ -1,14 +1,17 @@
 <button (click)="viewVacancy()">Detail</button>
 
-<dialog #dialog class="w-1/2 max-w-[700px]">
-    <button (click)="dialog.close(); updating = false;">close</button>
-    <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
-        changes'}}</button>
+<dialog #dialog class="w-full sm:w-1/2 max-w-[700px]">
+    <div class="flex justify-end">
+        <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
+            changes'}}</button>
+        <button (click)="dialog.close(); updating = false;">close</button>
+    </div>
+
     <header class="bg-[#d9d9d9]">
         <h1 class="inline">
             {{vacancy()?.title}}
         </h1>
-        <span class="inline">
+        <span class="inline bg-white">
             {{vacancy()?.status}}
         </span>
         <h2> {{vacancy()?.company}}</h2>
@@ -83,9 +86,11 @@
     </details>
     <hr>
     }
+    @if(vacancy()?.responses) {
+
     Responses
     <br> {{vacancy()?.responseIds}}
-    }
+    }}
 
     @if (updating) {
     <form>
