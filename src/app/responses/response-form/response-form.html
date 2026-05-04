@@ -19,7 +19,7 @@
         </label>
         <select name="vacancy" [formControl]="vacancyFormControl">
             <option value=""></option>
-            @for(vacancy of vacancies; track vacancy.id) {
+            @for(vacancy of vacancies(); track vacancy) {
             <option [value]="vacancy.id">{{vacancy.role}} at {{vacancy.company}} -- {{vacancy.id}}</option>
 
             }

@@ -18,10 +18,15 @@ export class DashboardService {
 
   public interviewsCount = computed(() => this.interviewsService.$listValue().length)
 
+  // public vacanciesWithOneInterview
+  // public vacanciesWithTwoInterviews
+  // public vacanciesWithThreeInterviews
+  // public vacanciesWithFourInterviews
+
   public positiveResponseOffers = computed(() => {
     let vacancyIds = this.vacanciesService.$listValue().filter(v => v.status != VACANCY_STATUS.REJECTED && v.status != VACANCY_STATUS.APPLIED).map(v => v.id)
     let responseVacancyIds = this.responsesService.$listValue().filter(r => r.type != RESPONSE_TYPES.REJECTION).map(r => r.vacancyId)
-    let allVacancyIds = [...new Set([...vacancyIds, responseVacancyIds])];
+    let allVacancyIds = [...new Set([...vacancyIds, responseVacancyIds])][0];
     return allVacancyIds
   })
 

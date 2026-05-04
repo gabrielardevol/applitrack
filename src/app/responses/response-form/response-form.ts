@@ -1,4 +1,4 @@
-import { Component, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
 import { ResponsesService } from '@app/shared/services/responses/responses-service';
@@ -17,8 +17,8 @@ export class ResponseFormComponent {
   public RESPONSE_TYPES = RESPONSE_TYPES
   private response = signal<ResponseForm>(EMPTY_RESPONSE_FORM)
   private llmService = new LlmService<ResponseForm>;
-  private vacanciesService = new VacanciesService;
-  vacancies = this.vacanciesService.$listValue()
+  private vacanciesService = inject(VacanciesService);
+  public vacancies = this.vacanciesService.$listValue;
   formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
 
   vacancyFormControl = new FormControl()
