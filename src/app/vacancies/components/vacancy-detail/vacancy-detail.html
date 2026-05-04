@@ -169,8 +169,12 @@
 
         @if (!updating) {
         <br>
-        Original text:
-        {{vacancy()?.originalText}}
+        <details>
+            <summary> Original text</summary>
+            <p> {{vacancy()?.originalText}}
+            </p>
+        </details>
+
         }
         @if (updating) {
         <label for="vacancyForm.originalText">Original text</label> <br>
