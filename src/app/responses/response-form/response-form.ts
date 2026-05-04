@@ -14,19 +14,22 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './response-form.scss',
 })
 export class ResponseFormComponent {
+
   public RESPONSE_TYPES = RESPONSE_TYPES
-  private response = signal<ResponseForm>(EMPTY_RESPONSE_FORM)
+
   private llmService = new LlmService<ResponseForm>;
   private vacanciesService = inject(VacanciesService);
-  public vacancies = this.vacanciesService.$listValue;
-  formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
-
-  vacancyFormControl = new FormControl()
-  interviewDateFormControl = new FormControl()
   public responseService = inject(ResponsesService)
+
+  public vacancies = this.vacanciesService.$listValue;
+  private response = signal<ResponseForm>(EMPTY_RESPONSE_FORM)
+
   public responseForm = form(this.response, (schemaPath) => {
     // required(schemaPath.role, { message: 'Required field' });
   })
+  // formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
+  vacancyFormControl = new FormControl()
+  interviewDateFormControl = new FormControl()
 
   type = `
        export type ResponseForm = {

@@ -1,7 +1,7 @@
 <button (click)="dialog.showModal()">track response</button>
 <dialog #dialog>
     <button (click)="dialog.close()">close</button>
-    <form #responseFormTemplate>
+    <form>
         <label for="platform">Original text</label>
         <input [formField]="responseForm.originalText" type="text" (change)="updateForm()">
         <br>
