@@ -1,5 +1,12 @@
-@for(notification of notifications(); track notification.id) {
-{{notification.message}}
-}
+<div class="absolute bottom-0 right-0">
 
-<button (click)="createDummyNotification()">create notification</button>
+    @for(notification of notifications(); track notification.id) {
+    <div>
+
+        {{notification.message}}
+        <button (click)="notificationsService.delete(notification.id)">Delete</button>
+    </div>
+    }
+</div>
+
+<!-- <button (click)="notificationsService.createTemporaryNotification('lorem')">create notification</button> -->

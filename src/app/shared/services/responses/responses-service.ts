@@ -23,34 +23,23 @@ export class ResponsesService extends BaseService<Response, Response, ResponseFo
     let createdItem = super.create(item)
 
     if (createdItem) {
-      this.notificationService.create({ message: 'Response succesfully registered.' })
+      this.notificationService.createTemporaryNotification('Response succesfully registered.')
       if (createdItem.type == RESPONSE_TYPES.INTERVIEW_SCHEDULE) {
         this.createInterview(item)
       }
-      // if (item.people) {
-      //   this.createContacts(item)
-      // }
     } else {
-      this.notificationService.create({ message: 'Failed to register response.' })
+      this.notificationService.createTemporaryNotification('Failed to register response.')
       console.error('Error creating response')
     }
     return createdItem || null
   }
-
-  // createContacts(item: ResponseForm) {
-  //   let contacts = item.people.split(',');
-  //   contacts.forEach(
-  //     c => this.contactsService.create({ name: c, company: '' })
-  //   )
-
-  // }
 
   createInterview(item: ResponseForm) {
     let interview = item.interviewDate ? this.interviewService.create({
       responseId: item.id,
       scheduledDate: item.interviewDate
     }) : null
-    interview ? this.notificationService.create({ message: 'Interview succesfully registered.' }) :
-      this.notificationService.create({ message: 'Failed to register interview.' })
+    interview ? this.notificationService.createTemporaryNotification('Interview succesfully registered.') :
+      this.notificationService.createTemporaryNotification('Failed to register interview.')
   }
 }

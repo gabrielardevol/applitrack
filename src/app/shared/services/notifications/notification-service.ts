@@ -18,4 +18,14 @@ export class NotificationService extends BaseService<Notification, Notification,
     super('NOTIFICATIONS', '/notifications')
   }
 
+  createTemporaryNotification(message: string, milliseconds: number = 10000) {
+    let createdNotification = super.create({ message: message })
+    if (createdNotification) {
+      setTimeout(() => {
+        super.delete(createdNotification.id);
+        super.getList()
+      }, milliseconds)
+    }
+  }
+
 }

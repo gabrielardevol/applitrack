@@ -5,6 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_STATUS, VACANCY_TYPES, VacancyForm } from '@app/shared/types';
 import { LlmService } from '@app/shared/services/llm/llm-service';
 import { EMPTY_VACANCY_FORM } from '@app/shared/constants';
+import { NotificationService } from '@app/shared/services/notifications/notification-service';
 
 @Component({
     selector: 'app-vacancy-form',
@@ -21,6 +22,7 @@ export class VacancyFormComponent {
     public readonly VACANCY_MODALITIES = VACANCY_MODALITIES;
     private vacanciesService = inject(VacanciesService);
     private llmService = new LlmService<VacancyForm>;
+    private notificationsService = inject(NotificationService);
 
     modalityFormControl = new FormControl()
     roleFormControl = new FormControl()
@@ -87,6 +89,7 @@ export class VacancyFormComponent {
             this.vacanciesService.create({ ...this.vacancyForm().value(), status: VACANCY_STATUS.APPLIED }); //tech debt: why is it not getting the property from EMPTY_FORM?
             this.vacancyForm().value.set(EMPTY_VACANCY_FORM)
             this.vacancyForm().reset()
+            this.notificationsService.createTemporaryNotification('Vacancy succesfully created')
             this.submitButtonClicked = false;
         }
     }

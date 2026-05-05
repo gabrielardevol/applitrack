@@ -67,11 +67,12 @@ export class ResponseFormComponent {
 
     let company = this.vacanciesService.getSingle(this.vacancyFormControl.value)?.company
 
+    let people = this.responseForm().value().people
     let responseData: ResponseForm = {
       ...this.responseForm().value(),
       interviewDate: this.interviewDateFormControl.value,
       vacancyId: this.vacancyFormControl.value,
-      people: this.createContacts(this.responseForm().value().people as string, company!)
+      people: this.createContacts(people as string, company!)
     }
 
     if (!responseData.vacancyId) {
@@ -82,21 +83,20 @@ export class ResponseFormComponent {
       if (newVacancy) {
         responseData.vacancyId = newVacancy.id
       } else {
-        this.notificationService.create({ message: 'New vacancy asociated to response could not be created.' })
+        this.notificationService.createTemporaryNotification('New vacancy asociated to response could not be created.')
       }
     }
 
-    // if (this.responseForm().valid()) {
     let createdResponse = this.responseService.create(responseData as ResponseForm);
     if (createdResponse) {
       this.updateVacancyStatus(createdResponse.type, createdResponse.vacancyId)
+      this.notificationService.createTemporaryNotification('Response created succesfully.')
 
       this.submitButtonClicked = true;
       this.resetForm()
     } else {
-      this.notificationService.create({ message: 'Response could not be created.' })
+      this.notificationService.createTemporaryNotification('Response could not be created.')
     }
-    // }
   }
 
   resetForm() {
@@ -122,11 +122,14 @@ export class ResponseFormComponent {
         this.vacanciesService.update({ status: VACANCY_STATUS.REJECTED }, vacancyId)
         break;
     }
+    this.notificationService.createTemporaryNotification('Vacancy status updated.')
+
     this.vacanciesService.getList() //refresh state 
   }
 
   createContacts(people: string, company: string): string {
-    console.log('company', company)
+    if (!people) return '';
+    this.notificationService.createTemporaryNotification('Contacts created.')
     return people.split(',').map(
       p => this.contactsService.create({
         name: p,

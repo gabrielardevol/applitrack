@@ -14,7 +14,7 @@ import { AnnotationsComponent } from '@app/shared/components/annotations/annotat
 })
 export class VacancyDetail {
   modal = viewChild<ElementRef<HTMLDialogElement>>('dialog');
-  private vacanciesService = inject(VacanciesService);
+  public vacanciesService = inject(VacanciesService);
   vacancyId = input.required<string>();
   vacancy: WritableSignal<Vacancy | null> = signal(null);
   updating: boolean = false;

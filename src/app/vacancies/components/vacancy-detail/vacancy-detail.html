@@ -4,7 +4,7 @@
     <div class="flex justify-end sticky top-0">
         <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
             changes'}}</button>
-        <button (click)="dialog.close(); updating = false;">close</button>
+        <button (click)="vacanciesService.getList(); dialog.close(); updating = false;">close</button>
     </div>
 
     <header class="bg-[#d9d9d9]">

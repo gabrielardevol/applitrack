@@ -9,10 +9,7 @@ import { Notification, NotificationService } from '@app/shared/services/notifica
 })
 export class NotificationsComponent {
 
-  private notificationsService = inject(NotificationService)
+  public notificationsService = inject(NotificationService)
   public notifications = this.notificationsService.$listValue
 
-  public createDummyNotification() {
-    this.notificationsService.create({ message: 'dummyNotification' })
-  }
 }
