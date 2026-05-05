@@ -43,7 +43,8 @@ export class DashboardService {
       v => {
         let max = v.salaryRange.max || null;
         let min = v.salaryRange.min || null;
-        if (min && max) { return min + max / 2 };
+        console.log(min, max)
+        if (min && max) { return (min + max) / 2 };
         if (min) return min;
         if (max) return max;
         return undefined;
