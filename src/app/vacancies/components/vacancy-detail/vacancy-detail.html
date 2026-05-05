@@ -33,9 +33,16 @@
     @let minSalary = vacancy()?.salaryRange?.min;
     @let maxSalary = vacancy()?.salaryRange?.max;
     @if(minSalary || maxSalary) {
-    Salary range: {{vacancy()?.salaryRange?.min || '???'}}K - {{vacancy()?.salaryRange?.max || '???'}}K
+    Salary range: {{minSalary || '???'}}K - {{maxSalary || '???'}}K
     <hr>
 
+    }
+
+    @let minExperience = vacancy()?.experienceRange?.min;
+    @let maxExperience = vacancy()?.experienceRange?.max;
+    @if(minSalary || maxSalary) {
+    Experience range: {{minExperience || '???'}} years - {{maxExperience || '???'}} years
+    <hr>
     }
     @if(vacancy()?.recruiters) {
     👤 {{vacancy()?.recruiters}}
