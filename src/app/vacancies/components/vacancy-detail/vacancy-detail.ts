@@ -2,23 +2,26 @@ import { Component, computed, ElementRef, inject, input, Signal, signal, viewChi
 import { VacanciesService as VacanciesService } from '../../../shared/services/vacancies/vacancy-service';
 import { form, required, FormField } from '@angular/forms/signals';
 import { DatePipe } from '@angular/common';
-import { Vacancy, VACANCY_MODALITIES, VACANCY_TYPES } from '../../../shared/types';
+import { ANNOTATION_ENTITY_TYPES, Vacancy, VACANCY_MODALITIES, VACANCY_TYPES } from '../../../shared/types';
 import { EMPTY_VACANCY_FORM } from '../../../shared/constants';
+import { AnnotationsComponent } from '@app/shared/components/annotations/annotations.component';
 
 @Component({
   selector: 'appli-vacancy-detail',
-  imports: [FormField, DatePipe],
+  imports: [FormField, DatePipe, AnnotationsComponent],
   templateUrl: './vacancy-detail.html',
   styleUrl: './vacancy-detail.scss',
 })
 export class VacancyDetail {
-  modal = viewChild<ElementRef<HTMLDialogElement>>('dialog')
+  modal = viewChild<ElementRef<HTMLDialogElement>>('dialog');
   private vacanciesService = inject(VacanciesService);
-  vacancyId = input.required<string>()
+  vacancyId = input.required<string>();
   vacancy: WritableSignal<Vacancy | null> = signal(null);
   updating: boolean = false;
+
   public readonly VACANCY_TYPES = VACANCY_TYPES;
   public readonly VACANCY_MODALITIES = VACANCY_MODALITIES;
+  public readonly ANNOTATION_ENTITY_TYPES = ANNOTATION_ENTITY_TYPES;
 
   public vacancyForm = form(signal(EMPTY_VACANCY_FORM), (schemaPath) => {
     required(schemaPath.role, { message: 'Required field' });

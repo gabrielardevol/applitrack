@@ -128,7 +128,14 @@ export type ContactForm = {
 }
 
 export type Annotation = {
-    date: Date,
+    id: string,
+    createdAt: | string,
+    message: string,
+    relatedId: string,
+    relatedType: ANNOTATION_ENTITY_TYPES
+}
+
+export type AnnotationForm = {
     message: string,
     relatedId: string,
     relatedType: ANNOTATION_ENTITY_TYPES

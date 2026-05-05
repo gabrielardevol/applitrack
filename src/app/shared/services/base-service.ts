@@ -58,6 +58,21 @@ export class BaseService<
     return this.getSingleLocal(id)
   }
 
+  public getByParams(params: Partial<TSingle>): TList[] | null {
+    return this.getByParamsLocal(params)
+  }
+  private getByParamsLocal(params: Partial<TSingle>) {
+
+    let filteredItems: TList[] = this.$listValue()
+    Object.keys(params).forEach(k => {
+      let filtered = filteredItems.filter(
+        li => (li as any)[k] == (params as any)[k]
+      )
+      filteredItems = filtered
+    })
+    return filteredItems
+  }
+
   public delete(id: string) {
     let filteredList = this.$listValue().filter(item => item.id != id);
     this.$listValue.set(filteredList);
@@ -105,17 +120,17 @@ export class BaseService<
     }
   }
 
-  public addComment(id: string, comment: Comment): Comment {
-    return {} as Comment
-  }
+  // public addComment(id: string, comment: Comment): Comment {
+  //   return {} as Comment
+  // }
 
-  public updateComment(id: string, comment: Comment): Comment {
-    return {} as Comment
-  }
+  // public updateComment(id: string, comment: Comment): Comment {
+  //   return {} as Comment
+  // }
 
-  public deleteComment(id: string): { success: boolean } {
-    return { success: true }
-  }
+  // public deleteComment(id: string): { success: boolean } {
+  //   return { success: true }
+  // }
 
   private getListLocal(): TList[] {
     return []
@@ -146,29 +161,29 @@ export class BaseService<
     return {} as TList
   }
 
-  private addCommentLocal(id: string, comment: Comment): Comment {
-    return {} as Comment
-  }
+  // private addCommentLocal(id: string, comment: Comment): Comment {
+  //   return {} as Comment
+  // }
 
-  private addCommentApi(id: string, comment: Comment): Comment {
-    return {} as Comment
-  }
+  // private addCommentApi(id: string, comment: Comment): Comment {
+  //   return {} as Comment
+  // }
 
-  private updateCommentLocal(id: string, comment: Comment): Comment {
-    return {} as Comment
-  }
+  // private updateCommentLocal(id: string, comment: Comment): Comment {
+  //   return {} as Comment
+  // }
 
-  private updateCommentApi(id: string, comment: Comment): Comment {
-    return {} as Comment
-  }
+  // private updateCommentApi(id: string, comment: Comment): Comment {
+  //   return {} as Comment
+  // }
 
-  private deleteCommentLocal(id: string): { success: boolean } {
-    return { success: true }
-  }
+  // private deleteCommentLocal(id: string): { success: boolean } {
+  //   return { success: true }
+  // }
 
-  private deleteCommentApi(id: string): { success: boolean } {
-    return { success: true }
-  }
+  // private deleteCommentApi(id: string): { success: boolean } {
+  //   return { success: true }
+  // }
 
   private apiPersist(): { success: boolean } {
     return { success: true }

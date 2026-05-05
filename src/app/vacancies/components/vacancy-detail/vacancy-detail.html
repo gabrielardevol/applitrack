@@ -90,7 +90,14 @@
 
     Responses
     <br> {{vacancy()?.responseIds}}
-    }}
+    }
+
+    @let id = vacancy()?.id;
+    @if(id) {
+    <app-annotations-component [entityId]="id" [entityType]="ANNOTATION_ENTITY_TYPES.OFFER" />
+    }
+
+    }
 
     @if (updating) {
     <form>
