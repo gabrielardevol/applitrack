@@ -1,6 +1,13 @@
 <h2>Vacancies</h2>
 
 <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">{{view == 'table' ? 'grid' : 'table'}}</button>
+
+<!-- <select [formField]="sortForm.property">
+    <option value="createdAt">Date</option>
+    <option value="title">Name</option>
+    <option value="status">Status</option>
+    <option value="company">Company</option>
+</select> -->
 {{vacancies().length}} vacancies
 @if (view == 'table') {
 <table>
