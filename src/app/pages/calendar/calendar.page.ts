@@ -1,5 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { InterviewService } from '@app/shared/services/interviews/interview.service';
+import { ResponsesService } from '@app/shared/services/responses/responses-service';
 import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
 
 @Component({
@@ -48,25 +50,27 @@ export class CalendarPage {
     else { this.displayedMonth = 0; this.displayedYear = this.displayedYear + 1 }
   }
 
-  vacanciesService = inject(VacanciesService)
-  vacanciesDateDistribution = this.vacanciesService.$listValue().map(v => { return { createdAt: v.createdAt } }).reduce(
-    (acc, curr) => {
-      let date = new Date(curr.createdAt)
-      let key = date.toISOString().split('T')[0];
-      (acc as any)[key] ? (acc as any)[key] = (acc as any)[key] + 1 : (acc as any)[key] = 1;
-      return acc
-    }, {}
-  )
-  getVacancyCount(day: string | number | null) {
+  services = {
+    vacancies: inject(VacanciesService),
+    interviews: inject(InterviewService),
+    responses: inject(ResponsesService),
+  }
 
+
+  getCount(type: 'vacancies' | 'interviews' | 'responses', day: string | number | null) {
     let month = `${this.displayedMonth + 1}`;
     if (!day) { return; }
     if (day.toString().length == 1) { day = `0${day}` }
     if (month.toString().length == 1) { month = `0${month}` }
-    let count = (this.vacanciesDateDistribution as any)[`${this.displayedYear}-${month}-${day}`]
+    let count = (this.services[type].$listDateDistribution() as any)[`${this.displayedYear}-${month}-${day}`]
     if (count) {
-      return count > 1 ? `${count} vacancies` : `${count} vacancy`
+      return count > 1 ? `${count} ${type}` : `${count} ${this.SINGULAR_WORDS[type]}`
     } else { return null }
-    return count
+
+  }
+  private readonly SINGULAR_WORDS = {
+    vacancies: 'vacancy',
+    interviews: 'interview',
+    responses: 'response'
   }
 }

@@ -130,7 +130,7 @@ export class ResponseFormComponent {
     return people.split(',').map(
       p => this.contactsService.create({
         name: p,
-        company: company
+        company: company,
       })?.id
     ).toString()
   }

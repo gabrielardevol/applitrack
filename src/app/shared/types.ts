@@ -20,12 +20,12 @@ export type Vacancy = {
     location: string;
     geolocation?: { lat: number, lon: number }
     company: string;
-    createdAt?: Date;
+    createdAt: Date | string;
     positiveResponse: boolean
 }
 
 export type VacancyListItem = {
-    createdAt: Date;
+    createdAt: Date | string
     title: string;
     id: string;
     role: string;
@@ -96,7 +96,7 @@ export type Interview = {
     id: string;
     responseId: string,
     scheduledDate: Date,
-    createdAt: Date,
+    createdAt: Date | string
 
 }
 
@@ -108,6 +108,7 @@ export enum RESPONSE_TYPES {
 }
 
 export type Contact = {
+    createdAt: Date | string
     id: string,
     name: string,
     company: string,
@@ -117,7 +118,14 @@ export type Contact = {
     phone?: string
 }
 
-export type ContactCreation = Omit<Contact, 'id'>
+export type ContactForm = {
+    name: string,
+    company: string,
+    position?: string,
+    lastContact?: Date,
+    mail?: string,
+    phone?: string
+}
 
 export type Annotation = {
     date: Date,

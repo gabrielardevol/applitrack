@@ -1,13 +1,21 @@
-import { signal, WritableSignal } from "@angular/core";
+import { computed, signal, WritableSignal } from "@angular/core";
 import { v4 as uuidv4 } from 'uuid';
 
 export class BaseService<
-  TSingle extends { id: string },
-  TList extends { id: string },
+  TSingle extends { id: string, createdAt: string | Date },
+  TList extends { id: string, createdAt: string | Date },
   TCreate,
 > {
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
+  public $listDateDistribution = computed(() => this.$listValue().map(i => { return { createdAt: i.createdAt } }).reduce(
+    (acc, curr) => {
+      let date = new Date(curr.createdAt);
+      let key = date.toISOString().split('T')[0];
+      (acc as any)[key] ? (acc as any)[key] = (acc as any)[key] + 1 : (acc as any)[key] = 1;
+      return acc
+    }
+  ))
 
   constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
     this.getList()

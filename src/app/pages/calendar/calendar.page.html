@@ -10,9 +10,19 @@
     @for(day of monthDays(); track day) {
     <div [ngClass]="day == currentDay() && displayedMonth == currentMonth() ? 'font-bold' : ''">{{day}}
 
-        @let vacancies = getVacancyCount(day);
+        @let vacancies = getCount('vacancies', day);
         @if(vacancies) {
-        <span class="border-solid border">{{ vacancies}}</span>
+        <span class="border-solid border block">{{ vacancies}}</span>
+        }
+
+        @let interviews = getCount('interviews',day);
+        @if(interviews) {
+        <span class="border-solid border block">{{ interviews}}</span>
+        }
+
+        @let responses =getCount('responses', day);
+        @if(responses) {
+        <span class="border-solid border block">{{ responses}}</span>
         }
     </div>
     }
