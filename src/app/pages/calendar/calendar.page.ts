@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
 
 @Component({
   selector: 'app-calendar.page',
@@ -45,5 +46,27 @@ export class CalendarPage {
   next() {
     if (this.displayedMonth <= 10) { this.displayedMonth = this.displayedMonth + 1 }
     else { this.displayedMonth = 0; this.displayedYear = this.displayedYear + 1 }
+  }
+
+  vacanciesService = inject(VacanciesService)
+  vacanciesDateDistribution = this.vacanciesService.$listValue().map(v => { return { createdAt: v.createdAt } }).reduce(
+    (acc, curr) => {
+      let date = new Date(curr.createdAt)
+      let key = date.toISOString().split('T')[0];
+      (acc as any)[key] ? (acc as any)[key] = (acc as any)[key] + 1 : (acc as any)[key] = 1;
+      return acc
+    }, {}
+  )
+  getVacancyCount(day: string | number | null) {
+
+    let month = `${this.displayedMonth + 1}`;
+    if (!day) { return; }
+    if (day.toString().length == 1) { day = `0${day}` }
+    if (month.toString().length == 1) { month = `0${month}` }
+    let count = (this.vacanciesDateDistribution as any)[`${this.displayedYear}-${month}-${day}`]
+    if (count) {
+      return count > 1 ? `${count} vacancies` : `${count} vacancy`
+    } else { return null }
+    return count
   }
 }

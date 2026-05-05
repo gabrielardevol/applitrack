@@ -25,6 +25,7 @@ export type Vacancy = {
 }
 
 export type VacancyListItem = {
+    createdAt: Date;
     title: string;
     id: string;
     role: string;

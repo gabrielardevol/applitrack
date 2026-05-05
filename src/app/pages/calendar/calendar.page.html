@@ -5,9 +5,15 @@
 </div>
 <div class="grid grid-cols-7">
     @for(day of dayNames; track day ) {
-    <div>{{day}}</div>
+    <div>{{day}} </div>
     }
     @for(day of monthDays(); track day) {
-    <div [ngClass]="day == currentDay() && displayedMonth == currentMonth() ? 'font-bold' : ''">{{day}}</div>
+    <div [ngClass]="day == currentDay() && displayedMonth == currentMonth() ? 'font-bold' : ''">{{day}}
+
+        @let vacancies = getVacancyCount(day);
+        @if(vacancies) {
+        <span class="border-solid border">{{ vacancies}}</span>
+        }
+    </div>
     }
 </div>
