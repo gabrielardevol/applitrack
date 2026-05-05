@@ -14,7 +14,7 @@ import { NgClass } from '@angular/common';
 export class VacanciesPage {
   private vacanciesService = inject(VacanciesService);
   public vacancies = this.vacanciesService.$listValue;
-
+  view: 'table' | 'grid' = 'table';
 
   deleteVacancy(id: string) {
     this.vacanciesService.delete(id)

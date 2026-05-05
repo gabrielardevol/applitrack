@@ -1,6 +1,8 @@
 <h2>Vacancies</h2>
 
+<button (click)="view == 'grid' ? view = 'table' : view = 'grid'">{{view == 'table' ? 'grid' : 'table'}}</button>
 {{vacancies().length}} vacancies
+@if (view == 'table') {
 <table>
     <thead>
         <tr>
@@ -36,3 +38,19 @@
         }
     </tbody>
 </table>
+}
+
+@if (view == 'grid') {
+
+<div class="grid grid-cols-5">
+    @for (vacancy of vacancies(); track vacancy) {
+    <div class="border-solid border">
+        {{vacancy.title}} {{vacancy.company}} <span class="status-chip" [ngClass]="vacancy.status">
+            {{vacancy.status}}
+        </span>
+        <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
+        <button (click)="deleteVacancy(vacancy.id)">Delete</button>
+    </div>
+    }
+</div>
+}
