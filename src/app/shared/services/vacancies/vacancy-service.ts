@@ -14,10 +14,11 @@ export class VacanciesService extends BaseService<Vacancy, VacancyListItem, Vaca
   }
 
   public override getSingle(id: string): Vacancy | null {
+    console.log('vacancy id', id)
     let vacancy: Vacancy | null = super.getSingle(id);
+    console.log('vacancyToRetuurn', vacancy)
 
     if (!vacancy) return null;
-
     return vacancy;
   }
 

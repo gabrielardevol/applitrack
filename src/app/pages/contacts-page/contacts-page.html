@@ -1,1 +1,8 @@
 <p>contacts-page works!</p>
+<ul>
+    @for(contact of contacts(); track contact.id) {
+    <li>
+        {{contact.name}}, {{contact.company}}
+    </li>
+    }
+</ul>

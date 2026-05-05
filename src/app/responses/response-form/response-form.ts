@@ -64,7 +64,8 @@ export class ResponseFormComponent {
 
   public submitForm() {
 
-    let company = this.vacanciesService.getSingle(this.responseForm().value().vacancyId)?.company
+
+    let company = this.vacanciesService.getSingle(this.vacancyFormControl.value)?.company
 
     let responseData: ResponseForm = {
       ...this.responseForm().value(),
@@ -125,6 +126,7 @@ export class ResponseFormComponent {
   }
 
   createContacts(people: string, company: string): string {
+    console.log('company', company)
     return people.split(',').map(
       p => this.contactsService.create({
         name: p,

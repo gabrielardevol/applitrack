@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ContactsService } from '@app/shared/services/contacts/contacts.service';
 
 @Component({
   selector: 'app-contacts-page',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './contacts-page.html',
   styleUrl: './contacts-page.scss',
 })
-export class ContactsPage {}
+export class ContactsPage {
+  contactsService = inject(ContactsService);
+  contacts = this.contactsService.$listValue
+}
