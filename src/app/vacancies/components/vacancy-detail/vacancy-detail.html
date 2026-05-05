@@ -1,20 +1,22 @@
 <button (click)="viewVacancy()">Detail</button>
 
 <dialog #dialog class="w-full sm:w-1/2 max-w-[700px]">
-    <div class="flex justify-end sticky top-0">
+    <div class="flex justify-end sticky top-0 p-2">
         <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
             changes'}}</button>
         <button (click)="vacanciesService.getList(); dialog.close(); updating = false;">close</button>
     </div>
 
-    <header class="bg-[#d9d9d9]">
-        <h1 class="inline">
-            {{vacancy()?.title}}
-        </h1>
-        <span class="inline bg-white">
-            {{vacancy()?.status}}
-        </span>
-        <h2> {{vacancy()?.company}}</h2>
+    <header class="bg-[#d9d9d9] p-2">
+        <div class="flex">
+            <h2 class="inline flex-1">
+                {{vacancy()?.title}}
+            </h2>
+            <span class="inline bg-white h-min">
+                {{vacancy()?.status}}
+            </span>
+        </div>
+        <h3> {{vacancy()?.company}}</h3>
 
         @if (vacancy()?.location) {
         {{vacancy()?.location}}
@@ -26,153 +28,155 @@
     </header>
 
 
+    <main class="p-2">
 
-    @if (!updating) {
-    Applied at: {{vacancy()?.createdAt | date:'dd/MM/yy' }}
-    <hr>
-    @let minSalary = vacancy()?.salaryRange?.min;
-    @let maxSalary = vacancy()?.salaryRange?.max;
-    @if(minSalary || maxSalary) {
-    Salary range: {{minSalary || '???'}}K - {{maxSalary || '???'}}K
-    <hr>
+        @if (!updating) {
+        Applied at: {{vacancy()?.createdAt | date:'dd/MM/yy' }}
+        <hr>
+        @let minSalary = vacancy()?.salaryRange?.min;
+        @let maxSalary = vacancy()?.salaryRange?.max;
+        @if(minSalary || maxSalary) {
+        Salary range: {{minSalary || '???'}}K - {{maxSalary || '???'}}K
+        <hr>
 
-    }
-
-    @let minExperience = vacancy()?.experienceRange?.min;
-    @let maxExperience = vacancy()?.experienceRange?.max;
-    @if(minSalary || maxSalary) {
-    Experience range: {{minExperience || '???'}} years - {{maxExperience || '???'}} years
-    <hr>
-    }
-    @if(vacancy()?.recruiters) {
-    👤 {{vacancy()?.recruiters}}
-    <hr>}
-    <!--********************skills************************-->
-    @let skillsPlus = (vacancy()?.skillsPlus?.split(',') || []).filter(string => string != "");
-    @let skillsMust = (vacancy()?.skillsMust?.split(',') || []).filter(string => string != "");
-    @let softSkills = (vacancy()?.softSkills?.split(',') || []).filter(string => string != "");
-    @let anySkill = skillsPlus || skillsMust || softSkills;
-
-    @if(anySkill) {
-    Skills <br>
-    @if(skillsMust.length > 0) { <b>Must have:</b>
-    @for(skill of skillsMust; track skill) {
-    {{skill}} | }
-    <br>
-    }
-    @if(skillsPlus.length > 0) { <b>Valued:</b>
-    @for(skill of skillsPlus; track skill) {
-    {{skill}} |
-    }
-    <br>
-    }
-
-    @if(softSkills.length > 0) { <b>Soft skills:</b>
-    @for(skill of softSkills; track skill) {
-    {{skill}} |
-    }}
-    <hr>
-    }
-
-    @if(vacancy()?.platform) {
-    Job board:
-    {{vacancy()?.platform}}
-    <hr> }
-
-    @if(vacancy()?.type) {
-    Type:
-    {{vacancy()?.type}}
-    <hr>
-    }
-
-    @if(vacancy()?.originalText) {
-    <details>
-        <summary> Original text</summary>
-        <p> {{vacancy()?.originalText}}
-        </p>
-    </details>
-    <hr>
-    }
-    @if(vacancy()?.responses) {
-
-    Responses
-    <br> {{vacancy()?.responseIds}}
-    }
-
-    @let id = vacancy()?.id;
-    @if(id) {
-    <app-annotations-component [entityId]="id" [entityType]="ANNOTATION_ENTITY_TYPES.OFFER" />
-    }
-
-    }
-
-    @if (updating) {
-    <form>
-        <label for="vacancyForm.company">Company</label>
-        <input [formField]="vacancyForm.company" type="text">
-        @if (vacancyForm.company().touched() && vacancyForm.company().invalid()) {
-        @for (error of vacancyForm.company().errors(); track error) {
-        <li>{{ error.message }}</li>
         }
+
+        @let minExperience = vacancy()?.experienceRange?.min;
+        @let maxExperience = vacancy()?.experienceRange?.max;
+        @if(minSalary || maxSalary) {
+        Experience range: {{minExperience || '???'}} years - {{maxExperience || '???'}} years
+        <hr>
         }
-        <hr>
-        <label for="vacancyForm.role">Role</label>
-        <input [formField]="vacancyForm.role" type="text">
-        <hr>
-        <label for="vacancyForm.status">Status</label>
-        <input [formField]="vacancyForm.status" type="text">
-        <hr>
-        <label for="vacancyForm.location">Location</label>
-        <input [formField]="vacancyForm.location" type="text">
-        <hr>
-        <label for="vacancyForm.modality">Modality</label>
-        <input [formField]="vacancyForm.modality" type="text">
-        <hr>
-        <label for="">
-            Salary range (annual gross K)
-        </label>
-        <input [formField]="vacancyForm.salaryRange.min" type="number">
-        <input [formField]="vacancyForm.salaryRange.max" type="number">
-        <hr>
-        <label for="">
-            Experience range (years)
-        </label>
-        <input [formField]="vacancyForm.experienceRange.min" type="number">
-        <input [formField]="vacancyForm.experienceRange.max" type="number">
-        <hr>
-        <label for="offerForm.recruiters">
-            Recruiter
-        </label>
-        <input [formField]="vacancyForm.recruiters" type="text">
-        <hr>
-        <label for="">Skills</label> <br>
-        Must have:
-        <input [formField]="vacancyForm.skillsMust" type="text">
+        @if(vacancy()?.recruiters) {
+        👤 {{vacancy()?.recruiters}}
+        <hr>}
+        <!--********************skills************************-->
+        @let skillsPlus = (vacancy()?.skillsPlus?.split(',') || []).filter(string => string != "");
+        @let skillsMust = (vacancy()?.skillsMust?.split(',') || []).filter(string => string != "");
+        @let softSkills = (vacancy()?.softSkills?.split(',') || []).filter(string => string != "");
+        @let anySkill = skillsPlus || skillsMust || softSkills;
+
+        @if(anySkill) {
+        Skills <br>
+        @if(skillsMust.length > 0) { <b>Must have:</b>
+        @for(skill of skillsMust; track skill) {
+        {{skill}} | }
         <br>
-        Valued:
-        <input [formField]="vacancyForm.skillsPlus" type="text">
+        }
+        @if(skillsPlus.length > 0) { <b>Valued:</b>
+        @for(skill of skillsPlus; track skill) {
+        {{skill}} |
+        }
         <br>
-        Soft skills:
-        <input [formField]="vacancyForm.softSkills" type="text">
+        }
+
+        @if(softSkills.length > 0) { <b>Soft skills:</b>
+        @for(skill of softSkills; track skill) {
+        {{skill}} |
+        }}
         <hr>
-        <label for="offerForm.platform"> Platform / job board:
-        </label>
-        <input [formField]="vacancyForm.platform" type="string">
+        }
+
+        @if(vacancy()?.platform) {
+        Job board:
+        {{vacancy()?.platform}}
+        <hr> }
+
+        @if(vacancy()?.type) {
+        Type:
+        {{vacancy()?.type}}
         <hr>
-        <fieldset>
-            <div>
-                <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.APPLICATION" />
-                <label [for]="VACANCY_TYPES.APPLICATION">Application</label>
-            </div>
-            <div>
-                <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.PROPOSAL" />
-                <label [for]="VACANCY_TYPES.PROPOSAL">Proposal</label>
-            </div>
-        </fieldset>
+        }
+
+        @if(vacancy()?.originalText) {
+        <details>
+            <summary> Original text</summary>
+            <p> {{vacancy()?.originalText}}
+            </p>
+        </details>
         <hr>
-        <label for="vacancyForm.originalText">Original text</label> <br>
-        <textarea [formField]="vacancyForm.originalText" type="text"> </textarea>
-        <hr>
-    </form>
-    }
+        }
+        @if(vacancy()?.responses) {
+
+        Responses
+        <br> {{vacancy()?.responseIds}}
+        }
+
+        @let id = vacancy()?.id;
+        @if(id) {
+        <app-annotations-component [entityId]="id" [entityType]="ANNOTATION_ENTITY_TYPES.OFFER" />
+        }
+
+        }
+
+        @if (updating) {
+        <form>
+            <label for="vacancyForm.company">Company</label>
+            <input [formField]="vacancyForm.company" type="text">
+            @if (vacancyForm.company().touched() && vacancyForm.company().invalid()) {
+            @for (error of vacancyForm.company().errors(); track error) {
+            <li>{{ error.message }}</li>
+            }
+            }
+            <hr>
+            <label for="vacancyForm.role">Role</label>
+            <input [formField]="vacancyForm.role" type="text">
+            <hr>
+            <label for="vacancyForm.status">Status</label>
+            <input [formField]="vacancyForm.status" type="text">
+            <hr>
+            <label for="vacancyForm.location">Location</label>
+            <input [formField]="vacancyForm.location" type="text">
+            <hr>
+            <label for="vacancyForm.modality">Modality</label>
+            <input [formField]="vacancyForm.modality" type="text">
+            <hr>
+            <label for="">
+                Salary range (annual gross K)
+            </label>
+            <input [formField]="vacancyForm.salaryRange.min" type="number">
+            <input [formField]="vacancyForm.salaryRange.max" type="number">
+            <hr>
+            <label for="">
+                Experience range (years)
+            </label>
+            <input [formField]="vacancyForm.experienceRange.min" type="number">
+            <input [formField]="vacancyForm.experienceRange.max" type="number">
+            <hr>
+            <label for="offerForm.recruiters">
+                Recruiter
+            </label>
+            <input [formField]="vacancyForm.recruiters" type="text">
+            <hr>
+            <label for="">Skills</label> <br>
+            Must have:
+            <input [formField]="vacancyForm.skillsMust" type="text">
+            <br>
+            Valued:
+            <input [formField]="vacancyForm.skillsPlus" type="text">
+            <br>
+            Soft skills:
+            <input [formField]="vacancyForm.softSkills" type="text">
+            <hr>
+            <label for="offerForm.platform"> Platform / job board:
+            </label>
+            <input [formField]="vacancyForm.platform" type="string">
+            <hr>
+            <fieldset>
+                <div>
+                    <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.APPLICATION" />
+                    <label [for]="VACANCY_TYPES.APPLICATION">Application</label>
+                </div>
+                <div>
+                    <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.PROPOSAL" />
+                    <label [for]="VACANCY_TYPES.PROPOSAL">Proposal</label>
+                </div>
+            </fieldset>
+            <hr>
+            <label for="vacancyForm.originalText">Original text</label> <br>
+            <textarea [formField]="vacancyForm.originalText" type="text"> </textarea>
+            <hr>
+        </form>
+        }
+    </main>
 </dialog>

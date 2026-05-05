@@ -1,29 +1,40 @@
-<div class="flex">
-    <button (click)="prev()">prev</button>
-    <h2>{{monthNames[displayedMonth]}} {{displayedYear}}</h2>
-    <button (click)="next()">next</button>
-</div>
-<div class="grid grid-cols-7">
-    @for(day of dayNames; track day ) {
-    <div>{{day}} </div>
-    }
-    @for(day of monthDays(); track day) {
-    <div [ngClass]="day == currentDay() && displayedMonth == currentMonth() ? 'font-bold' : ''">{{day}}
+<div class="h-full flex flex-col p-2">
 
-        @let vacancies = getCount('vacancies', day);
-        @if(vacancies) {
-        <span class="border-solid border block">{{ vacancies}}</span>
-        }
-
-        @let interviews = getCount('interviews',day);
-        @if(interviews) {
-        <span class="border-solid border block">{{ interviews}}</span>
-        }
-
-        @let responses =getCount('responses', day);
-        @if(responses) {
-        <span class="border-solid border block">{{ responses}}</span>
+    <div class="flex w-full">
+        <button (click)="prev()">prev</button>
+        <h2 class="w-full text-center">{{monthNames[displayedMonth]}} {{displayedYear}}</h2>
+        <button (click)="next()">next</button>
+    </div>
+    <div class="grid grid-cols-7  gap-[1px] ">
+        @for(day of dayNames; track day ) {
+        <div>{{day}} </div>
         }
     </div>
-    }
+    <div class="grid grid-cols-7 border-solid flex-1 grid-rows-[1fr,1fr,1fr,1fr,1fr] gap-[1px] bg-black">
+
+        @for(day of monthDays(); track day) {
+        <div class="flex bg-white"
+            [ngClass]="day == currentDay() && displayedMonth == currentMonth() ? 'font-bold' : ''">
+            {{day}}
+
+            <div>
+
+                @let vacancies = getCount('vacancies', day);
+                @if(vacancies) {
+                <span class="border-solid border block">{{ vacancies}}</span>
+                }
+
+                @let interviews = getCount('interviews',day);
+                @if(interviews) {
+                <span class="border-solid border block">{{ interviews}}</span>
+                }
+
+                @let responses =getCount('responses', day);
+                @if(responses) {
+                <span class="border-solid border block">{{ responses}}</span>
+                }
+            </div>
+        </div>
+        }
+    </div>
 </div>

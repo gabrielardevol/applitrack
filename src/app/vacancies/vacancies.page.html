@@ -1,67 +1,71 @@
-<h2>Vacancies</h2>
+<header class="sticky top-0 bg-white border-[0px] border-solid border-b-[1px] p-2">
 
-<button (click)="view == 'grid' ? view = 'table' : view = 'grid'">{{view == 'table' ? 'grid' : 'table'}}</button>
+    <h2>Vacancies</h2>
 
-<select [formControl]="sortPropertyFC" (change)="onSortChanges()">
-    <option value="createdAt">Date</option>
-    <option value="title">Name</option>
-    <option value="status">Status</option>
-    <option value="company">Company</option>
-</select>
-<select [formControl]="sortOrderFC" (change)="onSortChanges()">
-    <option value="ASC">Ascendent</option>
-    <option value="DESC">Descendent</option>
-</select>
-{{vacancies().length}} vacancies
-@if (view == 'table') {
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th>company</th>
-            <th>Status</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">{{view == 'table' ? 'grid' : 'table'}}</button>
+
+    <select [formControl]="sortPropertyFC" (change)="onSortChanges()">
+        <option value="createdAt">Date</option>
+        <option value="title">Name</option>
+        <option value="status">Status</option>
+        <option value="company">Company</option>
+    </select>
+    <select [formControl]="sortOrderFC" (change)="onSortChanges()">
+        <option value="ASC">Ascendent</option>
+        <option value="DESC">Descendent</option>
+    </select>
+</header>
+<div class="flex-1">
+    @if (view == 'table') {
+    <table class="w-full">
+        <thead>
+            <tr>
+                <th></th>
+                <th>company</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (vacancy of vacancies(); track vacancy) {
+            <tr>
+                <td>
+                    {{vacancy.title}}
+                </td>
+
+                <td>
+                    {{vacancy.company}}
+                </td>
+                <td>
+                    <span class="status-chip" [ngClass]="vacancy.status">
+                        {{vacancy.status}}
+                    </span>
+                </td>
+                <td>
+                    <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
+                    <button (click)="deleteVacancy(vacancy.id)">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+
+    @if (view == 'grid') {
+
+    <div class="grid grid-cols-5">
         @for (vacancy of vacancies(); track vacancy) {
-        <tr>
-            <td>
-                {{vacancy.title}}
-            </td>
-
-            <td>
-                {{vacancy.company}}
-            </td>
-            <td>
-                <span class="status-chip" [ngClass]="vacancy.status">
-                    {{vacancy.status}}
-                </span>
-            </td>
-            <td>
-                <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
-            </td>
-            <td>
-                <button (click)="deleteVacancy(vacancy.id)">Delete</button>
-            </td>
-        </tr>
+        <div class="border-solid border">
+            {{vacancy.title}} {{vacancy.company}} <span class="status-chip" [ngClass]="vacancy.status">
+                {{vacancy.status}}
+            </span>
+            <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
+            <button (click)="deleteVacancy(vacancy.id)">Delete</button>
+        </div>
         }
-    </tbody>
-</table>
-}
-
-@if (view == 'grid') {
-
-<div class="grid grid-cols-5">
-    @for (vacancy of vacancies(); track vacancy) {
-    <div class="border-solid border">
-        {{vacancy.title}} {{vacancy.company}} <span class="status-chip" [ngClass]="vacancy.status">
-            {{vacancy.status}}
-        </span>
-        <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
-        <button (click)="deleteVacancy(vacancy.id)">Delete</button>
     </div>
     }
 </div>
-}
+<div class="sticky bottom-0 bg-white border-[0px] border-solid border-t-[1px] p-2">
+    {{vacancies().length}} vacancies
+</div>

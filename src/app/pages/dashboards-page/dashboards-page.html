@@ -1,27 +1,31 @@
-<h2>Dashboard</h2>
-
-<div class="flex">
-    <div class="metric">
-        Total responses: {{dashboardService.responsesCount()}}
-    </div>
-    <div class="metric">
-        Total applications: {{dashboardService.vacanciesCount()}}
-    </div>
-    <div class="metric">
-        Total interviews: {{dashboardService.interviewsCount()}}
-    </div>
-    <div class="metric">
-        Positively responded vacancies: {{dashboardService.positivelyRespondedVacancies().length}}
-    </div>
-    <div class="metric">
-        Positive response ratio: {{(dashboardService.positiveResponseRatio() * 100).toFixed(2)}}%
-    </div>
-    <div class="metric">
-        Reciprocated vacancies count: {{(dashboardService.reciprocatedVacanciesCount)}}
-    </div>
-    <div class="metric">
-        averageReciprocatedSalary: {{dashboardService.averageReciprocatedSalary()}}
-    </div>
+<div class="p-2">
 
 
+    <h2>Dashboard</h2>
+
+    <div class="flex">
+        <div class="metric">
+            Total responses: {{dashboardService.responsesCount()}}
+        </div>
+        <div class="metric">
+            Total applications: {{dashboardService.vacanciesCount()}}
+        </div>
+        <div class="metric">
+            Total interviews: {{dashboardService.interviewsCount()}}
+        </div>
+        <div class="metric">
+            Positively responded vacancies: {{dashboardService.positivelyRespondedVacancies().length}}
+        </div>
+        <div class="metric">
+            Positive response ratio: {{(dashboardService.positiveResponseRatio() * 100).toFixed(2)}}%
+        </div>
+        <div class="metric">
+            Reciprocated vacancies count: {{(dashboardService.reciprocatedVacanciesCount)}}
+        </div>
+        <div class="metric">
+            averageReciprocatedSalary: {{dashboardService.averageReciprocatedSalary()}}
+        </div>
+
+
+    </div>
 </div>

@@ -1,24 +1,35 @@
-<main>
-    <nav class="border-b">
-        <b>Applitrack</b>
+<main class="h-[100vh] overflow-hidden flex flex-col">
+    <nav class="sm:hidden border-b-[1px] border-t-0 flex justify-between border-solid border-x-0 p-1">
+        <div class="w-0">
 
+            <button (click)="menu.classList.remove('hidden')">menu</button>
+        </div>
+        <b>Applitrack</b>
+        <div></div>
+        <!-- 
         <a routerLink="/vacancies">Vacancies</a> &nbsp;
         <a routerLink="/dashboard">Dashboard</a> &nbsp;
         <a routerLink="/calendar">Calendar</a> &nbsp;
-        <a routerLink="/contacts">Contacts</a> &nbsp;
-        <!-- <a routerLink="/tips">Tips</a> &nbsp; -->
-        <!-- <a routerLink="/routine">Routine</a> &nbsp; -->
+        <a routerLink="/contacts">Contacts</a> &nbsp; -->
     </nav>
 
 
-    <div class="flex">
-        <nav class="border-r">
+    <div class="flex overflow-hidden flex-1">
+        <nav #menu
+            class="hidden sm:flex border-solid sm:border-r-[1px] sm:border-l-0 sm:border-solid sm:border-y-0 p-2 absolute sm:relative bg-white sm:bg-none z-10 m-2 sm:m-0 flex flex-col gap-2">
+            <button class="sm:hidden block" (click)="menu.classList.add('hidden')">close</button>
+
+            <b class="hidden sm:block">Applitrack</b>
+            <a routerLink="/vacancies">Vacancies</a>
+            <a routerLink="/dashboard">Dashboard</a>
+            <a routerLink="/calendar">Calendar</a>
+            <a routerLink="/contacts">Contacts</a>
+            <hr class="w-full">
             <app-vacancy-form></app-vacancy-form>
-            <br>
             <app-response-form></app-response-form>
         </nav>
-        <hr>
-        <div class="flex-1">
+
+        <div class="flex-1 overflow-auto relative">
             <router-outlet></router-outlet>
         </div>
     </div>

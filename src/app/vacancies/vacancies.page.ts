@@ -12,6 +12,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   imports: [VacancyDetail, NgClass, ReactiveFormsModule],
   templateUrl: './vacancies.page.html',
   styleUrl: './vacancies.page.scss',
+  styles: `:host {display: flex; flex-flow: column; height: 100%}`
 })
 export class VacanciesPage {
   private vacanciesService = inject(VacanciesService);

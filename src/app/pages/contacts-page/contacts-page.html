@@ -1,8 +1,10 @@
-<p>contacts-page works!</p>
-<ul>
-    @for(contact of contacts(); track contact.id) {
-    <li>
-        {{contact.name}}, {{contact.company}}
-    </li>
-    }
-</ul>
+<div class="p-2">
+    <h2>Contacts</h2>
+    <ul>
+        @for(contact of contacts(); track contact.id) {
+        <li>
+            {{contact.name}}, {{contact.company}}
+        </li>
+        }
+    </ul>
+</div>

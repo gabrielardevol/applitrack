@@ -1,6 +1,7 @@
-<p>annotations.component works!</p>
 <input type="text" [formControl]="formControl"> <button (click)="createAnnotation()">submit</button>
-@for(annotation of annotations(); track annotation.id) {
-{{annotation.message}}
-<button (click)="annotationService.delete(annotation.id)">delete</button>
-}
+<div>
+    @for(annotation of annotations(); track annotation.id) {
+    {{annotation.message}}
+    <button (click)="annotationService.delete(annotation.id)">delete</button>
+    }
+</div>

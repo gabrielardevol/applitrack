@@ -9,6 +9,7 @@ import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service
   imports: [NgClass],
   templateUrl: './calendar.page.html',
   styleUrl: './calendar.page.scss',
+  styles: ``
 })
 export class CalendarPage {
   public currentMonth = () => new Date().getMonth();

@@ -1,7 +1,7 @@
 <div class="absolute bottom-0 right-0">
 
     @for(notification of notifications(); track notification.id) {
-    <div>
+    <div class="bg-white border border-solid">
 
         {{notification.message}}
         <button (click)="notificationsService.delete(notification.id)">Delete</button>
