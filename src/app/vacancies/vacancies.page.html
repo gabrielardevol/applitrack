@@ -2,12 +2,16 @@
 
 <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">{{view == 'table' ? 'grid' : 'table'}}</button>
 
-<!-- <select [formField]="sortForm.property">
+<select [formControl]="sortPropertyFC" (change)="onSortChanges()">
     <option value="createdAt">Date</option>
     <option value="title">Name</option>
     <option value="status">Status</option>
     <option value="company">Company</option>
-</select> -->
+</select>
+<select [formControl]="sortOrderFC" (change)="onSortChanges()">
+    <option value="ASC">Ascendent</option>
+    <option value="DESC">Descendent</option>
+</select>
 {{vacancies().length}} vacancies
 @if (view == 'table') {
 <table>
