@@ -107,13 +107,16 @@ export enum RESPONSE_TYPES {
 }
 
 export type Contact = {
+    id: string,
     name: string,
     company: string,
-    position: string,
-    lastContact: Date,
-    mail: string,
-    phone: string
+    position?: string,
+    lastContact?: Date,
+    mail?: string,
+    phone?: string
 }
+
+export type ContactCreation = Omit<Contact, 'id'>
 
 export type Annotation = {
     date: Date,
