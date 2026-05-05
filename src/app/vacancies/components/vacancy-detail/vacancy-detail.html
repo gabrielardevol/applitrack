@@ -1,7 +1,7 @@
 <button (click)="viewVacancy()">Detail</button>
 
 <dialog #dialog class="w-full sm:w-1/2 max-w-[700px]">
-    <div class="flex justify-end">
+    <div class="flex justify-end sticky top-0">
         <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
             changes'}}</button>
         <button (click)="dialog.close(); updating = false;">close</button>

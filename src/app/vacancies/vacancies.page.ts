@@ -3,10 +3,11 @@ import { VacanciesService } from '../shared/services/vacancies/vacancy-service';
 import { VacancyDetail } from "./components/vacancy-detail/vacancy-detail";
 import { VacancyFormComponent } from './vacancy-form/vacancy-form.component';
 import { ResponseFormComponent } from '@app/responses/response-form/response-form';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-vacancies-page',
-  imports: [VacancyDetail],
+  imports: [VacancyDetail, NgClass],
   templateUrl: './vacancies.page.html',
   styleUrl: './vacancies.page.scss',
 })

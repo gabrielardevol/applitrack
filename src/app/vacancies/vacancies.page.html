@@ -5,11 +5,8 @@
     <thead>
         <tr>
             <th></th>
-
-            <th>Role</th>
             <th>company</th>
             <th>Status</th>
-
             <th></th>
             <th></th>
         </tr>
@@ -20,14 +17,12 @@
             <td>
                 {{vacancy.title}}
             </td>
-            <td>
-                {{vacancy.role}}
-            </td>
+
             <td>
                 {{vacancy.company}}
             </td>
             <td>
-                <span class="border rounded-full">
+                <span class="status-chip" [ngClass]="vacancy.status">
                     {{vacancy.status}}
                 </span>
             </td>

@@ -1,0 +1,15 @@
+.status-chip {
+    @apply border-solid border rounded-full px-1;
+}
+
+.REJECTED {
+    background-color: #afafaf38;
+}
+
+.IN_PROCESS {
+    background-color: #0051ff38;
+}
+
+.RECIPROCATED {
+    background-color: #00ff2638;
+}
