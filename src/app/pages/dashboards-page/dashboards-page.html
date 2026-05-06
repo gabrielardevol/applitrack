@@ -26,6 +26,17 @@
             averageReciprocatedSalary: {{dashboardService.averageReciprocatedSalary()}}
         </div>
 
+    </div>
+    <div class="flex">
 
+        <app-basic-chart-component class="w-20"></app-basic-chart-component>
+        <app-basic-chart-component [type]="'bar'" class="h-auto"></app-basic-chart-component>
+        <app-basic-chart-component [type]="'line'"></app-basic-chart-component>
+        <app-basic-chart-component [type]="'pie'"></app-basic-chart-component>
+
+        <app-mixed-chart-component></app-mixed-chart-component>
+        <app-scatter-chart-component></app-scatter-chart-component>
+        <app-radar-chart-component></app-radar-chart-component>
+        <app-timeline-chart-component></app-timeline-chart-component>
     </div>
 </div>
