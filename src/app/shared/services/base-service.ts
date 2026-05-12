@@ -8,6 +8,7 @@ export class BaseService<
 > {
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
+
   public $listDateDistribution = computed(() => this.$listValue().map(i => { return { createdAt: i.createdAt } }).reduce(
     (acc, curr) => {
       let date = new Date(curr.createdAt);
@@ -20,6 +21,16 @@ export class BaseService<
   constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
     this.getList()
 
+  }
+
+  public sortedList(property: keyof TSingle): TList[] {
+    //this.getList();
+    return this.$listValue().sort(
+      (a, b) => {
+        let comparison = (a as any)[property].localeCompare((b as any)[property]);
+        return comparison;
+      }
+    )
   }
 
   public create(item: TCreate): TSingle | null {

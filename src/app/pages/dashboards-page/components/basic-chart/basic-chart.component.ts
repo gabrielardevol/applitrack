@@ -13,10 +13,7 @@ export class BasicChartComponent {
   private chartRef!: ElementRef;
   private chart!: Chart;
 
-  // data = [2478, 5267, 734, 784, 433]
-  // labels = ["Africa", "Asia", "Europe", "Latin America", "North America"]
-  // type: 'line' | 'bar' | 'doughnut' = 'doughnut'
-  data = input([2478, 5267, 734, 784, 433])
+  data = input<{ data: number[], label: string }[]>([{ data: [2478, 5267, 734, 784, 433], label: 'yass' }, { data: [2478, 5267, 734, 784, 433], label: 'naaaawrl' }])
   labels = input(["Africa", "Asia", "Europe", "Latin America", "North America"])
   type = input<'line' | 'bar' | 'doughnut' | 'pie'>('doughnut')
   constructor() { }
@@ -26,15 +23,11 @@ export class BasicChartComponent {
       type: this.type(),
       data: {
         labels: this.labels(),
-        datasets: [
-          {
-            label: "Population (millions)",
-            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-            data: this.data()
-          }
-        ]
+        datasets: this.data()
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: false },
           title: {

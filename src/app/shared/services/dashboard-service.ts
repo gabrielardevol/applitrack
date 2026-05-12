@@ -91,4 +91,92 @@ export class DashboardService {
       )
     }
   )
+
+  public vacanciesCountTimeline = computed(
+    () => {
+      return [this.vacanciesService.sortedList('createdAt')].map(
+        (vacancies) => {
+          let firstDate = new Date(vacancies[0].createdAt)
+          let lastDate = new Date(vacancies[vacancies.length - 1].createdAt)
+          var iterableDate = new Date(firstDate)
+          let allDates: Date[] = [firstDate]
+          while (iterableDate.getDate() != lastDate.getDate()) {
+            iterableDate.setDate(iterableDate.getDate() + 1)
+            allDates.push(new Date(iterableDate.getTime()))
+          }
+          let datesObj = allDates.reduce((acc, curr) => {
+            return {
+              ...acc,
+              [`${curr.getDate()}-${curr.getMonth() + 1}-${curr.getFullYear()}`]: 0
+            }
+          }, {});
+
+          vacancies.map(v => {
+            let date = new Date(v.createdAt);
+            let key = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+            (datesObj as any)[key] = (datesObj as any)[key] + 1
+          }
+          )
+          return datesObj;
+        }
+      )[0]
+    }
+  )
+
+  public responsesCountTimeline = computed(
+    () => {
+      return [this.responsesService.sortedList('createdAt')].map(
+        (responses) => {
+          let firstDate = new Date(responses[0].createdAt)
+          let lastDate = new Date(responses[responses.length - 1].createdAt)
+          var iterableDate = new Date(firstDate)
+          let allDates: Date[] = [firstDate]
+          while (iterableDate.getDate() != lastDate.getDate()) {
+            iterableDate.setDate(iterableDate.getDate() + 1)
+            allDates.push(new Date(iterableDate.getTime()))
+          }
+          let objectWithKeys = allDates.reduce((acc, curr) => {
+            return {
+              ...acc,
+              [`${curr.getDate()}-${curr.getMonth() + 1}-${curr.getFullYear()}`]: 0
+            }
+          }, {});
+
+          responses.map(v => {
+            let date = new Date(v.createdAt);
+            let key = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+            (objectWithKeys as any)[key] = (objectWithKeys as any)[key] + 1
+          }
+          )
+          return objectWithKeys;
+        }
+      )[0]
+    }
+  )
+
+  public vacanciesAndResponsesCountTimeline = computed(
+    () => {
+      let vks = Object.keys(this.vacanciesCountTimeline())
+      let rks = Object.keys(this.responsesCountTimeline())
+      let mergedDates = new Set(
+        [...vks,
+        ...rks
+        ],
+      )
+      let newObject = Array.from(mergedDates).reduce((acc, curr) => {
+        return {
+          ...acc,
+          [curr]: {
+            vacancies: (this.vacanciesCountTimeline() as any)[curr] || 0,
+            responses: (this.responsesCountTimeline() as any)[curr] || 0
+          }
+
+        }
+      }
+        , {})
+
+      return newObject
+
+    }
+  )
 }
