@@ -1,11 +1,12 @@
 <button (click)="dialog.showModal()">track vacancy</button>
 
-<dialog #dialog>
-    <button (click)="dialog.close()">close</button>
+<dialog class="relative" #dialog>
+    <button class="sticky top-0" (click)="dialog.close()">close</button>
     <form>
 
         <label for="platform">Original text</label>
-        <input [formField]="vacancyForm.originalText" type="text" (change)="updateForm()">
+        <input [formField]="vacancyForm.originalText" type="text"> <button
+            (click)="$event.preventDefault(); updateForm()">Fill with AI</button>
         <br>
         <label for="title">Title</label>
         <input [formField]="vacancyForm.title" type="text">

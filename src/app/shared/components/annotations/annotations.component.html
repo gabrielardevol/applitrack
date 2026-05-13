@@ -1,7 +1,11 @@
-<input type="text" [formControl]="formControl"> <button (click)="createAnnotation()">submit</button>
+Annotations <br>
+
+<input type="text" placeholder="write a comment" [formControl]="formControl"> <button
+    (click)="createAnnotation(); formControl.reset()">submit</button>
 <div>
     @for(annotation of annotations(); track annotation.id) {
-    {{annotation.message}}
+    {{annotation.message}} | {{annotation.createdAt}}
     <button (click)="annotationService.delete(annotation.id)">delete</button>
+    <br>
     }
 </div>

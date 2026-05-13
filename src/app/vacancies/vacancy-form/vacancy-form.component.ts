@@ -69,6 +69,7 @@ export class VacancyFormComponent {
 
         this.llmService.callLlmApi(message).then(
             r => {
+                console.log('received vacancy llm response:', r)
                 r.originalText = this.vacancyForm().value().originalText
                 r.modality = r.modality as VACANCY_MODALITIES
                 r.role = r.role as VACANCY_ROLES

@@ -21,8 +21,8 @@
         <thead>
             <tr>
                 <th></th>
-                <th>company</th>
-                <th>Status</th>
+                <th class="text-left">company</th>
+                <th class="text-left">Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -53,7 +53,7 @@
 
     @if (view == 'grid') {
 
-    <div class="grid grid-cols-5">
+    <div class="grid grid-cols-5 gap-2 p-2">
         @for (vacancy of vacancies(); track vacancy) {
         <div class="border-solid border">
             {{vacancy.title}} {{vacancy.company}} <span class="status-chip" [ngClass]="vacancy.status">
