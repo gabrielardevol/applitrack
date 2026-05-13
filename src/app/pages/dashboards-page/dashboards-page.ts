@@ -4,9 +4,10 @@ import { BasicChartComponent } from './components/basic-chart/basic-chart.compon
 import { MixedChartComponent } from './components/mixed-chart/mixed-chart.component';
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
 import { RadarChartComponent } from './components/radar-chart/radar-chart.component';
+import { MapChartComponent } from './components/map-chart/map-chart.component';
 @Component({
   selector: 'app-dashboards-page',
-  imports: [BasicChartComponent, MixedChartComponent, ScatterChartComponent, RadarChartComponent,],
+  imports: [BasicChartComponent, MapChartComponent, MixedChartComponent, ScatterChartComponent, RadarChartComponent,],
   templateUrl: './dashboards-page.html',
   styleUrl: './dashboards-page.scss',
 })

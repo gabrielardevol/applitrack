@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, input, Signal, signal, viewChild, WritableSignal } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnChanges, OnInit, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { VacanciesService as VacanciesService } from '../../../shared/services/vacancies/vacancy-service';
 import { form, required, FormField } from '@angular/forms/signals';
 import { DatePipe } from '@angular/common';
@@ -12,10 +12,12 @@ import { AnnotationsComponent } from '@app/shared/components/annotations/annotat
   templateUrl: './vacancy-detail.html',
   styleUrl: './vacancy-detail.scss',
 })
-export class VacancyDetail {
+export class VacancyDetail implements OnInit {
   modal = viewChild<ElementRef<HTMLDialogElement>>('dialog');
   public vacanciesService = inject(VacanciesService);
   vacancyId = input.required<string>();
+  visible = input(false);
+
   vacancy: WritableSignal<Vacancy | null> = signal(null);
   updating: boolean = false;
 
@@ -28,6 +30,13 @@ export class VacancyDetail {
     required(schemaPath.type, { message: 'Required field' });
     required(schemaPath.company, { message: 'Required field' });
   })
+
+  ngOnInit() {
+    console.log('changes')
+    if (this.visible()) {
+      this.modal()?.nativeElement.showModal()
+    }
+  }
 
   viewVacancy() {
     let vacancyDetail = this.vacanciesService.getSingle(this.vacancyId())

@@ -53,7 +53,7 @@ export class VacancyFormComponent {
             };
             role: 'UNDEFINED' | 'FRONTEND' | 'BACKEND' | 'FULLSTACK' | 'UX_UI';
             modality: 'UNDEFINED' | 'REMOTE' | 'ON_SITE' | 'HYBRID';
-            location: string;
+            location: string; //HAS TO BE A LOCATION PREFERABLE IN ENGLISH
             company: string;
             id: string;
             date: Date | null;

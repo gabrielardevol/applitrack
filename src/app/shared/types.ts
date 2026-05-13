@@ -36,6 +36,8 @@ export type VacancyListItem = {
         max: number
     },
     geolocation?: { lat: number, lon: number },
+    location: string;
+
     positiveResponse: boolean,
     skillsMust: string;
     skillsPlus: string;
