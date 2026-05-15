@@ -1,4 +1,44 @@
 .metric {
+    @apply rounded-md bg-gray-200;
+    padding: 4px 6px;
+    font-size: smaller;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-weight: 200;
+
+    span {
+        display: block;
+        font-size: medium;
+        font-weight: 500;
+    }
+}
+
+.chart {
+    @apply p-2 border-solid rounded-lg border-[1px] w-full bg-white h-[260px] flex flex-col;
+}
+
+
+.tab-container {
     border: 1px solid black;
-    padding: 8px;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    border-bottom: 0;
+    margin-bottom: -1px;
+    z-index: 1;
+    //    border-bottom: 1px solid red;
+
+}
+
+.tab {
+    padding: 2px 14px;
+    background: rgb(226, 226, 226);
+    border-bottom: 1px solid black;
+
+}
+
+.tab.selected {
+    border-bottom: 1px solid white;
+    background: white;
+
 }

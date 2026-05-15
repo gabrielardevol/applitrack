@@ -5,6 +5,7 @@ import { NgClass } from '@angular/common';
 import { VacancyListItem } from '@app/shared/types';
 import { form } from '@angular/forms/signals';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { VACANCY_STATUS_DISPLAY } from '@app/shared/constants';
 
 @Component({
   selector: 'app-vacancies-page',
@@ -17,6 +18,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class VacanciesPage {
   private vacanciesService = inject(VacanciesService);
 
+  public selectedVacancy?: string;
+  public viewDetail: boolean = false;
   private sortBy: WritableSignal<{ property: keyof VacancyListItem; order: 'ASC' | 'DESC' }> = signal({ property: 'createdAt', order: 'ASC' })
 
   sortPropertyFC = new FormControl('createdAt')
@@ -44,6 +47,10 @@ export class VacanciesPage {
       }
     }
     )
+  }
+
+  getStatusString(key: keyof VACANCY_STATUS_DISPLAY | string) {
+    return (VACANCY_STATUS_DISPLAY as any)[key]
   }
 
 }

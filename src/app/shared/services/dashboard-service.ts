@@ -96,6 +96,7 @@ export class DashboardService {
     () => {
       return [this.vacanciesService.sortedList('createdAt')].map(
         (vacancies) => {
+          if (vacancies.length == 0) return {};
           let firstDate = new Date(vacancies[0].createdAt)
           let lastDate = new Date(vacancies[vacancies.length - 1].createdAt)
           var iterableDate = new Date(firstDate)
@@ -127,8 +128,9 @@ export class DashboardService {
     () => {
       return [this.responsesService.sortedList('createdAt')].map(
         (responses) => {
-          let firstDate = new Date(responses[0].createdAt)
-          let lastDate = new Date(responses[responses.length - 1].createdAt)
+          if (responses.length == 0) return {};
+          let firstDate = new Date(responses[0]?.createdAt)
+          let lastDate = new Date(responses[responses.length - 1]?.createdAt)
           var iterableDate = new Date(firstDate)
           let allDates: Date[] = [firstDate]
           while (iterableDate.getDate() != lastDate.getDate()) {

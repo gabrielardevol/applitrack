@@ -8,18 +8,22 @@ export class LlmService<T> {
   groqApiKey = environment.GROQ_KEY;
   constructor() { }
 
-  async callLlmApi(message: string): Promise<T> {
-    const data = await fetch(this.apiUrl, {
+  async apiCall(message: string, model: string) {
+    return fetch(this.apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.groqApiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: model,
         messages: [{ role: 'user', content: message }]
       }),
     })
+  }
+
+  async callLlmApi(message: string): Promise<T> {
+    let data = await this.apiCall(message, 'llama-3.3-70b-versatile')
 
     let response = await data.json().then(
       //todo: impleent groq sdk ?
@@ -30,6 +34,22 @@ export class LlmService<T> {
     ).catch(
       error => console.error('error fetching LLM:', error)
     )
+
+    if (!response) {
+      data = await this.apiCall(message, 'meta-llama/llama-4-scout-17b-16e-instruct')
+      response = await data.json().then(
+        r => {
+          let message = (r as any)['choices']?.[0]?.['message']?.['content'];
+          console.log('message', message)
+          return JSON.parse(message.replace(/^```|```$/g, "").trim())
+        }
+      ).catch(
+        error => console.error('error fetching LLM:', error)
+      )
+    }
+
+    console.log('response', response)
+
     return response ?? "";
   }
 

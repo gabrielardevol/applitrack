@@ -19,6 +19,7 @@ export class ResponseFormComponent {
 
   public RESPONSE_TYPES = RESPONSE_TYPES
 
+  public EMPTY_RESPONSE_FORM = EMPTY_RESPONSE_FORM;
   private llmService = new LlmService<ResponseForm>;
   private vacanciesService = inject(VacanciesService);
   public responseService = inject(ResponsesService)

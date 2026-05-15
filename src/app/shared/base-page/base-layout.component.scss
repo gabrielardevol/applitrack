@@ -1,0 +1,10 @@
+a {
+    @apply p-1;
+    text-decoration: none;
+    color: unset;
+
+}
+
+a:hover {
+    @apply bg-gray-200;
+}

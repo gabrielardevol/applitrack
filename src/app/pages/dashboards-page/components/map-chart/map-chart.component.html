@@ -1,2 +1,6 @@
-<div id="map">hola</div>
-<appli-vacancy-detail [vacancyId]="vacancyId || 'ree'" [visible]="true"></appli-vacancy-detail>
+@if (selectedVacancy()) {
+<appli-vacancy-detail [vacancyId]="selectedVacancy()!" [visible]="false"
+    (onClose)="selectedVacancy.set(undefined);"></appli-vacancy-detail>
+}
+
+<div id="map"></div>

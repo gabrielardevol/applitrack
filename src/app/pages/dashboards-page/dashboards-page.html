@@ -1,43 +1,89 @@
-<div class="p-2">
+<div>
 
+    <div class="flex px-2 pt-2 gap-2">
+        <h2>
 
-    <h2>Dashboard</h2>
+            Dashboard
+        </h2>
+        <div class="tab-container flex gap-[1px] bg-black">
 
-    <app-map-chart></app-map-chart>
-    <div class="flex gap-2 ">
-        <div class="metric">
-            Total applications: {{dashboardService.vacanciesCount()}}
+            <div class="tab selected">Overview</div>
+            <div class="tab">Skills</div>
+            <div class="tab">Locations</div>
         </div>
-        <!-- <div class="metric">
-            Total responses: {{dashboardService.responsesCount()}}
-        </div> -->
-
-        <div class="metric">
-            Total interviews: {{dashboardService.interviewsCount()}}
-        </div>
-        <div class="metric">
-            Positively responded vacancies: {{dashboardService.positivelyRespondedVacancies().length}}
-
-            ({{(dashboardService.positiveResponseRatio() * 100).toFixed(2)}}%)
-        </div>
-        <div class="metric">
-            Reciprocated vacancies count: {{(dashboardService.reciprocatedVacanciesCount)}}
-        </div>
-        <div class="metric">
-            averageReciprocatedSalary: {{dashboardService.averageReciprocatedSalary()}}
-        </div>
-
     </div>
-    <div class="flex w-full">
 
-        <!-- <app-basic-chart-component class="w-20"></app-basic-chart-component> -->
-        <app-basic-chart-component [type]="'bar'" [data]="VRTimelineData().data" [labels]="VRTimelineData().labels"
-            class="h-full w-full"></app-basic-chart-component>
-        <!-- <app-basic-chart-component [type]="'line'"></app-basic-chart-component>
-        <app-basic-chart-component [type]="'pie'"></app-basic-chart-component>
+    <div class="flex-1 relative" style="border-top: 1px solid black">
 
-        <app-mixed-chart-component></app-mixed-chart-component>
-        <app-scatter-chart-component></app-scatter-chart-component>
-        <app-radar-chart-component></app-radar-chart-component> -->
+        <div class="absolute top-2 left-2 z-[401]">
+
+            <!-- <h2>Overview</h2> -->
+            <div class="flex gap-2 w-full py-1">
+                <div class="metric">
+                    Total applications:
+                    <span>
+                        {{dashboardService.vacanciesCount()}}
+                    </span>
+                </div>
+                <!-- <div class="metric">
+                    Total responses: {{dashboardService.responsesCount()}}
+                </div> -->
+
+                <div class="metric">
+                    Total interviews:
+                    <span>
+                        {{dashboardService.interviewsCount()}}
+                    </span>
+                </div>
+                <div class="metric">
+                    Positively responded vacancies:
+                    <span>
+                        {{dashboardService.positivelyRespondedVacancies().length}}
+                        ({{((dashboardService.positiveResponseRatio() || 0) * 100).toFixed(2)}}%)
+                    </span>
+                </div>
+                <div class="metric">
+                    Reciprocated vacancies count:
+                    <span>
+                        {{(dashboardService.reciprocatedVacanciesCount)}}
+                    </span>
+                </div>
+                <div class="metric">
+                    Average reciprocated salary:
+                    <span>
+                        {{dashboardService.averageReciprocatedSalary()}}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <app-map-chart></app-map-chart>
+        <div class="p-2 absolute top-[66vh] w-full z-[401] flex flex-col gap-2">
+
+
+
+            <div class="flex w-full">
+
+                <!-- <app-basic-chart-component class="w-20"></app-basic-chart-component> -->
+                <div class="chart">
+                    <label>Applications and responses</label>
+                    <app-basic-chart-component [type]="'bar'" [data]="VRTimelineData().data"
+                        [labels]="VRTimelineData().labels" class="h-full flex-1 w-full"></app-basic-chart-component>
+                </div>
+                <!-- <app-basic-chart-component [type]="'line'"></app-basic-chart-component>
+            <app-basic-chart-component [type]="'pie'"></app-basic-chart-component>
+            
+            <app-mixed-chart-component></app-mixed-chart-component>
+            <app-scatter-chart-component></app-scatter-chart-component>
+            <app-radar-chart-component></app-radar-chart-component> -->
+            </div>
+        </div>
     </div>
+
+    <!-- <aside>
+        lorem
+    </aside> -->
+
 </div>

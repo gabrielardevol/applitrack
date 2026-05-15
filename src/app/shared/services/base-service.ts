@@ -15,7 +15,7 @@ export class BaseService<
       let key = date.toISOString().split('T')[0];
       (acc as any)[key] ? (acc as any)[key] = (acc as any)[key] + 1 : (acc as any)[key] = 1;
       return acc
-    }
+    }, {}
   ))
 
   constructor(private readonly STORAGE_KEY: string, private readonly API: string) {

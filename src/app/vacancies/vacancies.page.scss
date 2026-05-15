@@ -1,9 +1,13 @@
 .status-chip {
-    @apply border-solid border rounded-full px-1;
+    @apply rounded-full px-2 py-[2px] w-min h-min;
+}
+
+.APPLIED {
+    background-color: rgb(224, 224, 224);
 }
 
 .REJECTED {
-    background-color: #afafaf38;
+    background-color: #ffcdcd38;
 }
 
 .IN_PROCESS {
@@ -12,4 +16,9 @@
 
 .RECIPROCATED {
     background-color: #00ff2638;
+}
+
+tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.042);
+    cursor: pointer
 }

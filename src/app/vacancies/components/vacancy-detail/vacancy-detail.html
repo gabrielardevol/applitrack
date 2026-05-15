@@ -1,24 +1,27 @@
-<button (click)="viewVacancy()">Detail</button>
+<!-- <button (click)="viewVacancy()"><i class="bi bi-eye-fill"></i></button> -->
 
-<dialog #dialog class="w-full sm:w-1/2 max-w-[700px]">
-    <div class="flex justify-end sticky top-0 p-2">
-        <button (click)="updating && updateVacancy(); updating = !updating; ">{{!updating ? 'Edit' : 'Save
-            changes'}}</button>
-        <button (click)="vacanciesService.getList(); dialog.close(); updating = false;">close</button>
+<dialog #dialog class="w-full sm:w-2/3 max-w-[700px]">
+    <div class="flex justify-end sticky top-0 p-2 gap-2 bg-white">
+        <button (click)="updating && updateVacancy(); updating = !updating; ">
+            @if(updating){<i class="bi bi-floppy2-fill"></i>}@else{<i class="bi bi-pencil-fill"></i>}
+            {{!updating ? 'Edit' : 'Save'}}
+        </button>
+        <button (click)="onClose.emit()"><i class="bi bi-x-lg"></i></button>
     </div>
 
-    <header class="bg-[#d9d9d9] p-2">
+    <header class="bg-gray-200 p-2">
         <div class="flex">
-            <h2 class="inline flex-1">
+            <h2 class="inline flex-1 ">
                 {{vacancy()?.title}}
             </h2>
-            <span class="inline bg-white h-min">
-                {{vacancy()?.status}}
+            <span class="inline bg-white h-min px-2 rounded-full ">
+                {{ getStatusString(vacancy()?.status!)}}
             </span>
         </div>
-        <h3> {{vacancy()?.company}}</h3>
+        <h3 class="py-2"> {{vacancy()?.company}}</h3>
 
         @if (vacancy()?.location) {
+        <i class="bi bi-geo-alt-fill"></i>
         {{vacancy()?.location}}
         }
         @if (vacancy()?.modality) {
@@ -60,19 +63,22 @@
         Skills <br>
         @if(skillsMust.length > 0) { <b>Must have:</b>
         @for(skill of skillsMust; track skill) {
-        {{skill}} | }
+        <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+        }
         <br>
         }
         @if(skillsPlus.length > 0) { <b>Valued:</b>
         @for(skill of skillsPlus; track skill) {
-        {{skill}} |
+        <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+
         }
         <br>
         }
 
         @if(softSkills.length > 0) { <b>Soft skills:</b>
         @for(skill of softSkills; track skill) {
-        {{skill}} |
+        <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+
         }}
         <hr>
         }
@@ -91,7 +97,7 @@
         @if(vacancy()?.originalText) {
         <details>
             <summary> Original text</summary>
-            <p> {{vacancy()?.originalText}}
+            <p class="text-xs"> {{vacancy()?.originalText}}
             </p>
         </details>
         <hr>
@@ -134,41 +140,55 @@
             <label for="">
                 Salary range (annual gross K)
             </label>
-            <input [formField]="vacancyForm.salaryRange.min" type="number">
-            <input [formField]="vacancyForm.salaryRange.max" type="number">
+            <div class="flex gap-2">
+
+                <input [formField]="vacancyForm.salaryRange.min" type="number">
+                <input [formField]="vacancyForm.salaryRange.max" type="number">
+            </div>
             <hr>
             <label for="">
                 Experience range (years)
             </label>
-            <input [formField]="vacancyForm.experienceRange.min" type="number">
-            <input [formField]="vacancyForm.experienceRange.max" type="number">
+            <div class="flex gap-2">
+
+                <input [formField]="vacancyForm.experienceRange.min" type="number">
+                <input [formField]="vacancyForm.experienceRange.max" type="number">
+            </div>
             <hr>
             <label for="offerForm.recruiters">
                 Recruiter
             </label>
             <input [formField]="vacancyForm.recruiters" type="text">
             <hr>
-            <label for="">Skills</label> <br>
-            Must have:
-            <input [formField]="vacancyForm.skillsMust" type="text">
-            <br>
-            Valued:
-            <input [formField]="vacancyForm.skillsPlus" type="text">
-            <br>
-            Soft skills:
-            <input [formField]="vacancyForm.softSkills" type="text">
+            <label for="">Skills</label>
+            <ul>
+                <li>
+                    Must have:
+                    <input [formField]="vacancyForm.skillsMust" type="text">
+                </li>
+                <li>
+                    Valued:
+                    <input [formField]="vacancyForm.skillsPlus" type="text">
+                </li>
+                <li>
+
+                    Soft skills:
+                    <input [formField]="vacancyForm.softSkills" type="text">
+                </li>
+            </ul>
             <hr>
             <label for="offerForm.platform"> Platform / job board:
             </label>
             <input [formField]="vacancyForm.platform" type="string">
             <hr>
             <fieldset>
-                <div>
-                    <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.APPLICATION" />
+                <div class="flex">
+                    <input class="w-min" [formField]="vacancyForm.type" type="radio"
+                        [value]="VACANCY_TYPES.APPLICATION" />
                     <label [for]="VACANCY_TYPES.APPLICATION">Application</label>
                 </div>
-                <div>
-                    <input [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.PROPOSAL" />
+                <div class="flex">
+                    <input class="w-min" [formField]="vacancyForm.type" type="radio" [value]="VACANCY_TYPES.PROPOSAL" />
                     <label [for]="VACANCY_TYPES.PROPOSAL">Proposal</label>
                 </div>
             </fieldset>

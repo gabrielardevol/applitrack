@@ -19,8 +19,8 @@ export class AnnotationsComponent {
   formControl = new FormControl()
 
   createAnnotation() {
-    let message = this.formControl.value
+    let message = this.formControl.value;
+    if (!message) return;
     let createdItem = this.annotationService.create({ message: message, relatedId: this.entityId(), relatedType: this.entityType() })
-    console.log(createdItem)
   }
 }

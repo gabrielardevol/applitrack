@@ -1,50 +1,77 @@
 <button (click)="dialog.showModal()">track response</button>
-<dialog #dialog>
-    <button (click)="dialog.close()">close</button>
-    <form>
+<dialog #dialog class="w-max-[700px] w-2/3">
+    <div class="sticky top-0 justify-end flex gap-2 p-2 bg-white border border-b border-x-0 border-t-0 border-solid">
+
+        <button (click)="responseForm().value.set(EMPTY_RESPONSE_FORM)"> <i class="bi bi-eraser-fill"></i></button>
+        <button (click)="dialog.close(); responseForm().value.set(EMPTY_RESPONSE_FORM)"> <i
+                class="bi bi-x-lg"></i></button>
+    </div>
+    <form class="p-2">
+
         <label for="platform">Original text</label>
-        <input [formField]="responseForm.originalText" type="text" (change)="updateForm()">
-        <br>
-        <label for="type">Type</label>
-        <select [formField]="responseForm.type">
-            <option value="REJECTION">Rejection</option>
-            <option value="INFORMATION_REQUEST">Information request</option>
-            <option value="INTERVIEW_SCHEDULE">Interview schedule</option>
-            <option value="JOB_PROPOSAL">Job proposal</option>
-        </select>
-        <br>
+        <div class="flex gap-2">
+            <textarea [formField]="responseForm.originalText" type="text" class="flex-1"> </textarea>
+            <button class="h-min" (click)="$event.preventDefault(); updateForm()"><i class="bi bi-stars"></i>
+                Auto-fill
+            </button>
+        </div>
+        <hr>
+        <div class="grid grid-cols-2 gap-2">
+            <div>
 
-        <label>
-            Vacancy
-        </label>
-        <select name="vacancy" [formControl]="vacancyFormControl">
-            <option value=""></option>
-            @for(vacancy of vacancies(); track vacancy) {
-            <option [value]="vacancy.id">{{vacancy.role}} at {{vacancy.company}} -- {{vacancy.id}}</option>
+                <label for="type">Type</label>
+                <select [formField]="responseForm.type">
+                    <option value="REJECTION">Rejection</option>
+                    <option value="INFORMATION_REQUEST">Information request</option>
+                    <option value="INTERVIEW_SCHEDULE">Interview schedule</option>
+                    <option value="JOB_PROPOSAL">Job proposal</option>
+                </select>
+            </div>
 
+            <div>
+
+                <label>
+                    Vacancy
+                </label>
+                <select name="vacancy" [formControl]="vacancyFormControl">
+                    <option value=""></option>
+                    @for(vacancy of vacancies(); track vacancy) {
+                    <option [value]="vacancy.id">{{vacancy.company}} --- {{vacancy.title}}</option>
+
+                    }
+                </select>
+            </div>
+
+
+            @if(responseForm().value().type == RESPONSE_TYPES.JOB_PROPOSAL) {
+            <div>
+
+                <label for="proposalAmount">
+                    Proposal amount
+                </label>
+                <input type="number" [formField]="responseForm.proposalAmount">
+            </div>
             }
-        </select>
-        <br>
 
-        @if(responseForm().value().type == RESPONSE_TYPES.JOB_PROPOSAL) {
-        <label for="proposalAmount">
-            Proposal amount
-        </label>
-        <input type="number" [formField]="responseForm.proposalAmount">
-        <br>
-        }
+            @if(responseForm().value().type == RESPONSE_TYPES.INTERVIEW_SCHEDULE) {
+            <div>
 
-        @if(responseForm().value().type == RESPONSE_TYPES.INTERVIEW_SCHEDULE) {
-        <label for="interviewDate">Interview</label>
-        <input [formControl]="interviewDateFormControl" type="datetime-local" name="" id="">
-        <br>
-        }
+                <label for="interviewDate">Interview</label>
+                <input [formControl]="interviewDateFormControl" type="datetime-local" name="" id="">
+            </div>
+            }
 
+            <div>
 
-        <label for="responseForm.people">People</label>
-        <input type="text" [formField]="responseForm.people">
-        <!-- people -->
-        <button (click)="$event.preventDefault(); submitForm()">Submit</button>
+                <label for="responseForm.people">People</label>
+                <input type="text" [formField]="responseForm.people">
+            </div>
+            <!-- people -->
+
+        </div>
+        <div class="flex justify-end">
+            <button (click)="$event.preventDefault(); submitForm()">Submit</button>
+        </div>
 
     </form>
 </dialog>

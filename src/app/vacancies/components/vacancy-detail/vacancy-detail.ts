@@ -1,9 +1,9 @@
-import { Component, computed, ElementRef, inject, input, OnChanges, OnInit, Signal, signal, viewChild, WritableSignal } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnChanges, OnInit, output, Signal, signal, TemplateRef, viewChild, WritableSignal } from '@angular/core';
 import { VacanciesService as VacanciesService } from '../../../shared/services/vacancies/vacancy-service';
 import { form, required, FormField } from '@angular/forms/signals';
 import { DatePipe } from '@angular/common';
 import { ANNOTATION_ENTITY_TYPES, Vacancy, VACANCY_MODALITIES, VACANCY_TYPES } from '../../../shared/types';
-import { EMPTY_VACANCY_FORM } from '../../../shared/constants';
+import { EMPTY_VACANCY_FORM, VACANCY_STATUS_DISPLAY } from '../../../shared/constants';
 import { AnnotationsComponent } from '@app/shared/components/annotations/annotations.component';
 
 @Component({
@@ -17,6 +17,7 @@ export class VacancyDetail implements OnInit {
   public vacanciesService = inject(VacanciesService);
   vacancyId = input.required<string>();
   visible = input(false);
+  onClose = output<void>();
 
   vacancy: WritableSignal<Vacancy | null> = signal(null);
   updating: boolean = false;
@@ -24,6 +25,7 @@ export class VacancyDetail implements OnInit {
   public readonly VACANCY_TYPES = VACANCY_TYPES;
   public readonly VACANCY_MODALITIES = VACANCY_MODALITIES;
   public readonly ANNOTATION_ENTITY_TYPES = ANNOTATION_ENTITY_TYPES;
+  public VACANCY_STATUS_DISPLAY = VACANCY_STATUS_DISPLAY;
 
   public vacancyForm = form(signal(EMPTY_VACANCY_FORM), (schemaPath) => {
     required(schemaPath.role, { message: 'Required field' });
@@ -32,10 +34,12 @@ export class VacancyDetail implements OnInit {
   })
 
   ngOnInit() {
+    this.viewVacancy()
+  }
+
+  ngOnChanges() {
     console.log('changes')
-    if (this.visible()) {
-      this.modal()?.nativeElement.showModal()
-    }
+    if (this.visible()) { console.log('changes -- visible') }
   }
 
   viewVacancy() {
@@ -44,13 +48,14 @@ export class VacancyDetail implements OnInit {
       this.modal()?.nativeElement.showModal()
       this.vacancy.set(vacancyDetail)
       this.vacancyForm().value.set(this.vacancy()!)
+    } else {
+      //handle error
     }
   }
 
+
   updateVacancy() {
-
     this.vacanciesService.update(this.vacancyForm().value() as Partial<Vacancy>, this.vacancy()!.id)
-
     this.vacancy.set(
       {
         title: this.vacancyForm().value().title,
@@ -77,5 +82,9 @@ export class VacancyDetail implements OnInit {
         positiveResponse: this.vacancyForm().value().positiveResponse
       }
     );
+  }
+
+  getStatusString(key: keyof VACANCY_STATUS_DISPLAY | string) {
+    return (VACANCY_STATUS_DISPLAY as any)[key]
   }
 }

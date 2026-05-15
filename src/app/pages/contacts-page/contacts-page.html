@@ -1,5 +1,8 @@
 <div class="p-2">
     <h2>Contacts</h2>
+    @if(contacts().length == 0) {
+    No contacts yet
+    }
     <ul>
         @for(contact of contacts(); track contact.id) {
         <li>

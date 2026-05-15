@@ -1,34 +1,55 @@
 <header class="sticky top-0 bg-white border-[0px] border-solid border-b-[1px] p-2">
 
     <h2>Vacancies</h2>
+    @if(selectedVacancy && viewDetail) {
+    <appli-vacancy-detail [vacancyId]="selectedVacancy" (onClose)="selectedVacancy = undefined; viewDetail = false;"
+        [visible]="false"></appli-vacancy-detail>
 
-    <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">{{view == 'table' ? 'grid' : 'table'}}</button>
+    }
 
-    <select [formControl]="sortPropertyFC" (change)="onSortChanges()">
-        <option value="createdAt">Date</option>
-        <option value="title">Name</option>
-        <option value="status">Status</option>
-        <option value="company">Company</option>
-    </select>
-    <select [formControl]="sortOrderFC" (change)="onSortChanges()">
-        <option value="ASC">Ascendent</option>
-        <option value="DESC">Descendent</option>
-    </select>
+    <div class="flex justify-between">
+
+
+        <div class="flex gap-2">
+
+            <select [formControl]="sortPropertyFC" (change)="onSortChanges()">
+                <option value="createdAt">Date</option>
+                <option value="title">Name</option>
+                <option value="status">Status</option>
+                <option value="company">Company</option>
+            </select>
+            <select [formControl]="sortOrderFC" (change)="onSortChanges()">
+                <option value="ASC">Ascendent</option>
+                <option value="DESC">Descendent</option>
+            </select>
+        </div>
+        <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">
+            @if(view == 'table'){ <i class="bi bi-grid"></i>
+            }@else{ <i class="bi bi-table"></i>
+            }
+        </button>
+    </div>
+
 </header>
+@if(vacancies().length === 0) {
+<div class="w-full h-full flex items-center justify-center">
+    No vacancies yet
+</div>
+}
 <div class="flex-1">
-    @if (view == 'table') {
+    @if (view == 'table' && vacancies().length > 0) {
     <table class="w-full">
         <thead>
             <tr>
                 <th></th>
-                <th class="text-left">company</th>
+                <th class="text-left">Company</th>
                 <th class="text-left">Status</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @for (vacancy of vacancies(); track vacancy) {
-            <tr>
+            <tr (click)="selectedVacancy = vacancy.id; viewDetail = true;">
                 <td>
                     {{vacancy.title}}
                 </td>
@@ -38,12 +59,13 @@
                 </td>
                 <td>
                     <span class="status-chip" [ngClass]="vacancy.status">
-                        {{vacancy.status}}
+                        {{getStatusString(vacancy.status)}}
                     </span>
                 </td>
                 <td>
-                    <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
-                    <button (click)="deleteVacancy(vacancy.id)">Delete</button>
+                    <button
+                        (click)="$event.stopPropagation(); selectedVacancy = vacancy.id; deleteVacancyDialog.showModal();"><i
+                            class="bi bi-trash-fill"></i></button>
                 </td>
             </tr>
             }
@@ -51,21 +73,40 @@
     </table>
     }
 
-    @if (view == 'grid') {
+    @if (view == 'grid' && vacancies().length > 0) {
 
     <div class="grid grid-cols-5 gap-2 p-2">
         @for (vacancy of vacancies(); track vacancy) {
-        <div class="border-solid border">
-            {{vacancy.title}} {{vacancy.company}} <span class="status-chip" [ngClass]="vacancy.status">
-                {{vacancy.status}}
+        <div class="border-solid border flex flex-col gap-2 p-2 rounded-md" (click)="selectedVacancy = vacancy.id">
+            <p class="flex-1 p-0 m-0 ">
+
+                {{vacancy.title}} {{vacancy.company}}
+            </p>
+            <span class="status-chip" [ngClass]="vacancy.status">
+
+                {{getStatusString(vacancy.status)}}
             </span>
-            <appli-vacancy-detail [vacancyId]="vacancy.id"></appli-vacancy-detail>
-            <button (click)="deleteVacancy(vacancy.id)">Delete</button>
+            <button
+                (click)="$event.stopPropagation(); selectedVacancy = vacancy.id; deleteVacancyDialog.showModal();">Delete</button>
+            <!-- deleteVacancy(vacancy.id) -->
         </div>
+
         }
     </div>
     }
 </div>
+
 <div class="sticky bottom-0 bg-white border-[0px] border-solid border-t-[1px] p-2">
     {{vacancies().length}} vacancies
 </div>
+<dialog #deleteVacancyDialog>
+    <div class="flex p-2 flex-col gap-2 w-[200px]">
+
+        Delete vacancy?
+        <div class="flex gap-2 justify-end">
+
+            <button (click)="deleteVacancyDialog.close()">Cancel</button>
+            <button (click)="deleteVacancy(selectedVacancy!); deleteVacancyDialog.close()">Accept</button>
+        </div>
+    </div>
+</dialog>

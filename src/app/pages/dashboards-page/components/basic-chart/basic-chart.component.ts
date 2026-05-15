@@ -26,6 +26,14 @@ export class BasicChartComponent {
         datasets: this.data()
       },
       options: {
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
+          }
+        },
         responsive: true,
         maintainAspectRatio: false,
         plugins: {

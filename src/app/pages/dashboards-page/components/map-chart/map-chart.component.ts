@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, signal, WritableSignal } from '@angular/core';
 import { VacanciesService } from '@app/shared/services/vacancies/vacancy-service';
 import { VacancyDetail } from '@app/vacancies/components/vacancy-detail/vacancy-detail';
 import { LeafletDirective, LeafletLayersControlDirective } from '@bluehalo/ngx-leaflet';
@@ -10,52 +10,47 @@ import * as L from 'leaflet';
   templateUrl: './map-chart.component.html',
   styles: [`
     #map {
-      height: 400px;
+      height: 100vh;
       width: 100%;
       display: block;
+      background: white;
     }
-.leaflet-marker-shadow ,.leaflet-zoom-animated {
-  display: none!important; opacity: 0!important;
-}
+ 
+
   `]
 }
 )
 export class MapChartComponent {
 
-  vacancyId?: string;
   private map!: L.Map;
-
+  selectedVacancy: WritableSignal<string | undefined> = signal(undefined);
   private vacanciesService = inject(VacanciesService)
 
   ngOnInit(): void {
-    console.log('?', document.getElementById('map')?.clientHeight);
-    console.log('??', this.map);
     setTimeout(() => {
-      this.map = L.map('map').setView([41.053, 0.489], 13);
+      this.map = L.map('map').setView([37.600, 11.800], 5.4);
 
-      // L.Icon.Default.mergeOptions({
-      //   iconUrl: 'favicon.ico',
-      //   iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
-      //   shadowUrl: 'assets/leaflet/marker-shadow.png'
-      // });
+      L.Icon.Default.mergeOptions({
+        iconUrl: 'pin.svg',
+        // iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
+        // shadowUrl: 'assets/leaflet/marker-shadow.png'
+      });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://api.maptiler.com/maps/toner-v2/{z}/{x}/{y}.png?key=1jOv7vouEBSA6GvSet3k', {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
       }).addTo(this.map);
 
       this.vacanciesService.$listValue().forEach(
         i => {
-          console.log('holaaa', i.geolocation?.lat, i.geolocation?.lon)
           if (!i.geolocation?.lat || !i.geolocation?.lon) { return null; }
           let marker = L.marker([i.geolocation?.lat, i.geolocation?.lon]) // lat, lng
             .addTo(this.map)
-            .bindPopup(`${i.title} at ${i.company}&nbsp; <button (onClick)="openDetail('${i.id}')" >button</button>   <br> <b>${i.location}</b>`)
-          // .openPopup();
+          // .bindPopup(`${i.title} at ${i.company}&nbsp; <button (onClick)="openDetail('${i.id}')" >button</button>   <br> <b>${i.location}</b>`)
+          //  .openPopup();
 
           marker.on('click', () => {
-            this.vacancyId = i.id
-            //aqui hauria de poder fer new ClassName() i que automàticament això mostrés un popup
+            this.selectedVacancy?.set(i.id);
           })
           return null;
         }
@@ -64,9 +59,5 @@ export class MapChartComponent {
       this.map.invalidateSize();
     }, 100);
 
-  }
-
-  onMarkerClick(id: string) {
-    console.log(id);
   }
 }

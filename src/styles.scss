@@ -3,6 +3,8 @@
 // @tailwind components;
 @tailwind utilities;
 @import 'leaflet/dist/leaflet.css';
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 // h2 {
 //     @apply text-xl font-bold;
 // }
@@ -16,6 +18,7 @@
 // }
 * {
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html,
@@ -29,7 +32,13 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0
+    margin: 0;
+    font-family: monospace;
+}
+
+button {
+    font-family: monospace;
+
 }
 
 table,
@@ -38,9 +47,38 @@ td {
     border-bottom: 1px solid rgb(185, 185, 185);
     border-collapse: collapse;
     padding: 4px;
-    align-content: start;
+}
+
+th {
+    font-weight: 700;
+    font-size: small;
 }
 
 dialog {
     padding: 0;
+    border-radius: 8px;
+    border-width: 1px;
+}
+
+label {
+    @apply text-xs font-medium;
+    display: block;
+}
+
+input,
+select {
+    width: 100%
+}
+
+.leaflet-control-attribution,
+.leaflet-control,
+.leaflet-shadow-pane {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+.leaflet-tile-pane {
+    filter: invert(1) opacity(0.2) !important;
+
+
 }

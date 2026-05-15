@@ -42,7 +42,7 @@ export class VacancyFormComponent {
             skillsMust: string;
             skillsPlus: string;
             softSkills: string;
-            recruiters: string; //HAS TO BE NAME + SURNAMES. IF MULTIPLE, SEPARATE WITH COMMA
+            recruiters: string; //HAS TO BE NAME + SURNAMES. IF MULTIPLE, SEPARATE WITH COMMA. DON'T FILL IF IT'S NOT CERTANLY A PERSON'S NAME.
             salaryRange: { 
             min: number | null, //MINIMUM GROSS SALARY PER YEAR
             max: number | null //MAXIMUM GROSS SALARY PER YEAR
@@ -83,7 +83,7 @@ export class VacancyFormComponent {
 
 
     public submitButtonClicked: boolean = false;
-
+    EMPTY_VACANCY_FORM = EMPTY_VACANCY_FORM;
     public submitForm() {
         this.submitButtonClicked = true;
         if (this.vacancyForm().valid()) {

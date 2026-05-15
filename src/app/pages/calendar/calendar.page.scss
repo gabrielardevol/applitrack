@@ -1,0 +1,26 @@
+.day {
+    border: 1px solid black;
+    margin-bottom: -1px;
+    margin-right: -1px;
+
+    .day-number {
+
+        padding: 4px;
+    }
+}
+
+.border-bottom-right {
+    border-bottom-right-radius: 8px;
+}
+
+.border-top-left {
+    border-top-left-radius: 8px;
+}
+
+.border-top-right {
+    border-top-right-radius: 8px;
+}
+
+.border-bottom-left {
+    border-bottom-left-radius: 8px;
+}

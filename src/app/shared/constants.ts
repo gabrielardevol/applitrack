@@ -35,3 +35,10 @@ export const EMPTY_RESPONSE_FORM: ResponseForm = {
     interviewDate: null
 
 }
+
+export enum VACANCY_STATUS_DISPLAY {
+    APPLIED = 'Applied',
+    IN_PROCESS = 'In process',
+    REJECTED = 'Rejected',
+    RECIPROCATED = 'Reciprocated'
+}
