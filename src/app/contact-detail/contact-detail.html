@@ -14,6 +14,10 @@
             </h2>
         </div>
         <h3 class="py-2"> {{contact()?.company}}</h3>
+        <h3 class="py-2"> {{contact()?.position}}</h3>
+        <h3 class="py-2"> {{contact()?.phone}}</h3>
+        <h3 class="py-2"> {{contact()?.mail}}</h3>
+
 
     </header>
 
@@ -26,6 +30,16 @@
         <form>
             <div class="grid grid-cols-2 gap-2">
                 <div>
+                    <label for="vacancyForm.company">Name</label>
+                    <input [formField]="contactForm.name" type="text">
+                    @if (contactForm.name().touched() && contactForm.name().invalid()) {
+                    @for (error of contactForm.name().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                    }
+                </div>
+
+                <div>
                     <label for="vacancyForm.company">Company</label>
                     <input [formField]="contactForm.company" type="text">
                     @if (contactForm.company().touched() && contactForm.company().invalid()) {
@@ -35,7 +49,15 @@
                     }
                 </div>
 
-
+                <div>
+                    <label for="vacancyForm.company">Position</label>
+                    <input [formField]="contactForm.position" type="text">
+                    @if ( contactForm.position().touched() && contactForm.name().invalid()) {
+                    @for (error of contactForm.position().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                    }
+                </div>
 
 
             </div>
@@ -43,5 +65,7 @@
 
         </form>
         }
+        <app-annotations-component [entityId]="contactId()" [entityType]="ANNOTATION_ENTITY_TYPES.CONTACT" />
+
     </main>
 </dialog>

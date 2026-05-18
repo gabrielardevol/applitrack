@@ -4,7 +4,7 @@ import { form, FormField, required } from '@angular/forms/signals';
 import { AnnotationsComponent } from '@app/shared/components/annotations/annotations.component';
 import { EMPTY_CONTACT_FORM } from '@app/shared/constants';
 import { ContactsService } from '@app/shared/services/contacts/contacts.service';
-import { Contact } from '@app/shared/types';
+import { ANNOTATION_ENTITY_TYPES, Contact } from '@app/shared/types';
 
 @Component({
   selector: 'app-contact-detail',
@@ -46,8 +46,14 @@ export class ContactDetail {
       id: this.contact()!.id,
       name: this.contactForm().value().name,
       company: this.contactForm().value().company,
+      mail: this.contactForm().value().mail,
+      phone: this.contactForm().value().phone,
+
+      position: this.contactForm().value().position
 
     }
     );
   }
+
+  ANNOTATION_ENTITY_TYPES = ANNOTATION_ENTITY_TYPES
 }

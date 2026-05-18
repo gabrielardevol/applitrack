@@ -135,6 +135,9 @@ export class ResponseFormComponent {
       p => this.contactsService.create({
         name: p,
         company: company,
+        phone: '',
+        mail: '',
+        position: ''
       })?.id
     ).toString()
   }

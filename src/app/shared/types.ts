@@ -114,20 +114,20 @@ export type Contact = {
     id: string,
     name: string,
     company: string,
-    position?: string,
+    position: string,
     lastContact?: Date,
-    mail?: string,
-    phone?: string
+    mail: string,
+    phone: string
 }
 
 export type ContactForm = {
     id?: string;
     name: string,
     company: string,
-    position?: string,
+    position: string,
     lastContact?: Date,
-    mail?: string,
-    phone?: string
+    mail: string,
+    phone: string
 }
 
 export type Annotation = {
@@ -147,7 +147,8 @@ export type AnnotationForm = {
 export enum ANNOTATION_ENTITY_TYPES {
     OFFER = 'OFFER',
     RESPONSE = 'RESPONSE',
-    INTERVIEW = 'INTERVIEW'
+    INTERVIEW = 'INTERVIEW',
+    CONTACT = 'CONTACT'
 }
 
 export enum VACANCY_TYPES {

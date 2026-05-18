@@ -38,6 +38,9 @@ export const EMPTY_RESPONSE_FORM: ResponseForm = {
 
 export const EMPTY_CONTACT_FORM: ContactForm = {
     name: '',
+    mail: '',
+    position: '',
+    phone: '',
     company: '',
 }
 
