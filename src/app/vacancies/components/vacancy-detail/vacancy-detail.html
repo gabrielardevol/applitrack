@@ -117,51 +117,74 @@
 
         @if (updating) {
         <form>
-            <label for="vacancyForm.company">Company</label>
-            <input [formField]="vacancyForm.company" type="text">
-            @if (vacancyForm.company().touched() && vacancyForm.company().invalid()) {
-            @for (error of vacancyForm.company().errors(); track error) {
-            <li>{{ error.message }}</li>
-            }
-            }
-            <hr>
-            <label for="vacancyForm.role">Role</label>
-            <input [formField]="vacancyForm.role" type="text">
-            <hr>
-            <label for="vacancyForm.status">Status</label>
-            <input [formField]="vacancyForm.status" type="text">
-            <hr>
-            <label for="vacancyForm.location">Location</label>
-            <input [formField]="vacancyForm.location" type="text">
-            <hr>
-            <label for="vacancyForm.modality">Modality</label>
-            <input [formField]="vacancyForm.modality" type="text">
-            <hr>
-            <label for="">
-                Salary range (annual gross K)
-            </label>
-            <div class="flex gap-2">
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label for="vacancyForm.company">Company</label>
+                    <input [formField]="vacancyForm.company" type="text">
+                    @if (vacancyForm.company().touched() && vacancyForm.company().invalid()) {
+                    @for (error of vacancyForm.company().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                    }
+                </div>
 
-                <input [formField]="vacancyForm.salaryRange.min" type="number">
-                <input [formField]="vacancyForm.salaryRange.max" type="number">
-            </div>
-            <hr>
-            <label for="">
-                Experience range (years)
-            </label>
-            <div class="flex gap-2">
+                <div>
+                    <label for="vacancyForm.role">Role</label>
+                    <input [formField]="vacancyForm.role" type="text">
+                </div>
 
-                <input [formField]="vacancyForm.experienceRange.min" type="number">
-                <input [formField]="vacancyForm.experienceRange.max" type="number">
+                <div>
+                    <label for="vacancyForm.status">Status</label>
+                    <input [formField]="vacancyForm.status" type="text">
+                </div>
+
+                <div>
+                    <label for="vacancyForm.location">Location</label>
+                    <input [formField]="vacancyForm.location" type="text">
+                </div>
+
+                <div>
+                    <label for="vacancyForm.modality">Modality</label>
+                    <input [formField]="vacancyForm.modality" type="text">
+                </div>
+
+                <div>
+                    <label for="">
+                        Salary range (annual gross K)
+                    </label>
+                    <div class="flex gap-2">
+
+                        <input [formField]="vacancyForm.salaryRange.min" type="number">
+                        -
+                        <input [formField]="vacancyForm.salaryRange.max" type="number">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="">
+                        Experience range (years)
+                    </label>
+                    <div class="flex gap-2">
+
+                        <input [formField]="vacancyForm.experienceRange.min" type="number">
+                        -
+                        <input [formField]="vacancyForm.experienceRange.max" type="number">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="offerForm.recruiters">
+                        Recruiter
+                    </label>
+                    <input [formField]="vacancyForm.recruiters" type="text">
+                </div>
+
+
             </div>
+
             <hr>
-            <label for="offerForm.recruiters">
-                Recruiter
-            </label>
-            <input [formField]="vacancyForm.recruiters" type="text">
-            <hr>
-            <label for="">Skills</label>
             <ul>
+                <label for="">Skills</label>
                 <li>
                     Must have:
                     <input [formField]="vacancyForm.skillsMust" type="text">
@@ -176,8 +199,7 @@
                     <input [formField]="vacancyForm.softSkills" type="text">
                 </li>
             </ul>
-            <hr>
-            <label for="offerForm.platform"> Platform / job board:
+            <!-- <label for="offerForm.platform"> Platform / job board:
             </label>
             <input [formField]="vacancyForm.platform" type="string">
             <hr>
@@ -195,7 +217,7 @@
             <hr>
             <label for="vacancyForm.originalText">Original text</label> <br>
             <textarea [formField]="vacancyForm.originalText" type="text"> </textarea>
-            <hr>
+            <hr> -->
         </form>
         }
     </main>
