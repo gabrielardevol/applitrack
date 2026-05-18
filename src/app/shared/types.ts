@@ -121,6 +121,7 @@ export type Contact = {
 }
 
 export type ContactForm = {
+    id?: string;
     name: string,
     company: string,
     position?: string,

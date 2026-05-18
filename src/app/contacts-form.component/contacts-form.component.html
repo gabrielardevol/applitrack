@@ -1,0 +1,31 @@
+<button (click)="dialog.showModal()">track contact</button>
+
+<dialog class="relative" #dialog>
+    <div class="sticky top-0 justify-end flex gap-2 p-2 bg-white border border-b border-x-0 border-t-0 border-solid">
+        <button (click)="contactForm().value.set(EMPTY_CONTACT_FORM)"> <i class="bi bi-eraser-fill"></i></button>
+        <button (click)="dialog.close(); contactForm().value.set(EMPTY_CONTACT_FORM)"> <i
+                class="bi bi-x-lg"></i></button>
+    </div>
+    <form class="p-2">
+
+
+        <div class="grid grid-cols-2 gap-2">
+
+            <div>
+                <label for="name">Title</label>
+                <input [formField]="contactForm.name" type="text">
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <div class="flex justify-end">
+
+            <button (click)="$event.preventDefault(); submitForm()">Submit</button>
+        </div>
+    </form>
+</dialog>

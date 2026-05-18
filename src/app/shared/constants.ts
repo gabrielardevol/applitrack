@@ -1,4 +1,4 @@
-import { Vacancy, VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm, RESPONSE_TYPES, ResponseForm, VACANCY_STATUS } from "./types";
+import { Vacancy, VACANCY_MODALITIES, VACANCY_ROLES, VACANCY_TYPES, VacancyForm, RESPONSE_TYPES, ResponseForm, VACANCY_STATUS, ContactForm } from "./types";
 
 export const EMPTY_VACANCY_FORM: VacancyForm = {
     title: '',
@@ -34,6 +34,11 @@ export const EMPTY_RESPONSE_FORM: ResponseForm = {
     proposalAmount: 0,
     interviewDate: null
 
+}
+
+export const EMPTY_CONTACT_FORM: ContactForm = {
+    name: '',
+    company: '',
 }
 
 export enum VACANCY_STATUS_DISPLAY {
