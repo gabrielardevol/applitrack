@@ -9,6 +9,9 @@
         <li>
             {{contact.name}}, {{contact.company}}
         </li>
+        <button (click)="contactsService.delete(contact.id)">
+            delete
+        </button>
         }
     </ul>
 </div>
