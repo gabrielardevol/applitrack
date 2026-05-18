@@ -12,6 +12,14 @@
         <button (click)="contactsService.delete(contact.id)">
             delete
         </button>
+        <button (click)="selectedContact = contact.id;">
+            detail
+        </button>
         }
     </ul>
 </div>
+
+@if(selectedContact) {
+
+<app-contact-detail (onClose)="selectedContact = undefined;" [contactId]="selectedContact!"></app-contact-detail>
+}

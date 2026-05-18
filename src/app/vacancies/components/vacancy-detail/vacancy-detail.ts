@@ -37,11 +37,6 @@ export class VacancyDetail implements OnInit {
     this.viewVacancy()
   }
 
-  ngOnChanges() {
-    console.log('changes')
-    if (this.visible()) { console.log('changes -- visible') }
-  }
-
   viewVacancy() {
     let vacancyDetail = this.vacanciesService.getSingle(this.vacancyId())
     if (vacancyDetail) {

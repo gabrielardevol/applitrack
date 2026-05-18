@@ -1,0 +1,47 @@
+<dialog #dialog class="w-full sm:w-2/3 max-w-[700px]">
+    <div class="flex justify-end sticky top-0 p-2 gap-2 bg-white">
+        <button (click)="updating && updateContact(); updating = !updating; ">
+            @if(updating){<i class="bi bi-floppy2-fill"></i>}@else{<i class="bi bi-pencil-fill"></i>}
+            {{!updating ? 'Edit' : 'Save'}}
+        </button>
+        <button (click)="onClose.emit()"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <header class="bg-gray-200 p-2">
+        <div class="flex">
+            <h2 class="inline flex-1 ">
+                {{contact()?.name}}
+            </h2>
+        </div>
+        <h3 class="py-2"> {{contact()?.company}}</h3>
+
+    </header>
+
+
+    <main class="p-2">
+
+
+
+        @if (updating) {
+        <form>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label for="vacancyForm.company">Company</label>
+                    <input [formField]="contactForm.company" type="text">
+                    @if (contactForm.company().touched() && contactForm.company().invalid()) {
+                    @for (error of contactForm.company().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                    }
+                </div>
+
+
+
+
+            </div>
+
+
+        </form>
+        }
+    </main>
+</dialog>
