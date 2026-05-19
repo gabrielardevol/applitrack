@@ -18,8 +18,8 @@ import { ContactsService } from '@app/shared/services/contacts/contacts.service'
 export class ResponseFormComponent {
 
   public RESPONSE_TYPES = RESPONSE_TYPES
-
   public EMPTY_RESPONSE_FORM = EMPTY_RESPONSE_FORM;
+
   private llmService = new LlmService<ResponseForm>;
   private vacanciesService = inject(VacanciesService);
   public responseService = inject(ResponsesService)
@@ -32,7 +32,6 @@ export class ResponseFormComponent {
   public responseForm = form(this.response, (schemaPath) => {
     // required(schemaPath.role, { message: 'Required field' });
   })
-  // formTemplate = viewChild<HTMLFormElement>('#responseFormTemplate')
   vacancyFormControl = new FormControl()
   interviewDateFormControl = new FormControl()
 
@@ -64,10 +63,7 @@ export class ResponseFormComponent {
   public submitButtonClicked: boolean = false;
 
   public submitForm() {
-
-
     let company = this.vacanciesService.getSingle(this.vacancyFormControl.value)?.company
-
     let people = this.responseForm().value().people
     let responseData: ResponseForm = {
       ...this.responseForm().value(),
@@ -129,6 +125,7 @@ export class ResponseFormComponent {
   }
 
   createContacts(people: string, company: string): string {
+    if (this.responseForm().value().type == RESPONSE_TYPES.REJECTION) { return '' }
     if (!people) return '';
     this.notificationService.createTemporaryNotification('Contacts created.')
     return people.split(',').map(
