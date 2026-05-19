@@ -30,7 +30,7 @@
         <form>
             <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <label for="vacancyForm.company">Name</label>
+                    <label for="contactForm.name">Name</label>
                     <input [formField]="contactForm.name" type="text">
                     @if (contactForm.name().touched() && contactForm.name().invalid()) {
                     @for (error of contactForm.name().errors(); track error) {
@@ -40,7 +40,7 @@
                 </div>
 
                 <div>
-                    <label for="vacancyForm.company">Company</label>
+                    <label for="contactForm.company">Company</label>
                     <input [formField]="contactForm.company" type="text">
                     @if (contactForm.company().touched() && contactForm.company().invalid()) {
                     @for (error of contactForm.company().errors(); track error) {
@@ -50,16 +50,32 @@
                 </div>
 
                 <div>
-                    <label for="vacancyForm.company">Position</label>
+                    <label for="contactForm.position">Position</label>
                     <input [formField]="contactForm.position" type="text">
-                    @if ( contactForm.position().touched() && contactForm.name().invalid()) {
+                    @if ( contactForm.position().touched() && contactForm.position().invalid()) {
                     @for (error of contactForm.position().errors(); track error) {
                     <li>{{ error.message }}</li>
                     }
                     }
                 </div>
-
-
+                <div>
+                    <label for="contactForm.mail">Mail</label>
+                    <input [formField]="contactForm.mail" type="text">
+                    @if ( contactForm.mail().touched() && contactForm.mail().invalid()) {
+                    @for (error of contactForm.mail().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                    }
+                </div>
+                <div>
+                    <label for="contactForm.phone">Phone</label>
+                    <input [formField]="contactForm.phone" type="text">
+                    @if ( contactForm.phone().touched() && contactForm.phone().invalid()) {
+                    @for (error of contactForm.phone().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                    }
+                </div>
             </div>
 
 
