@@ -63,7 +63,12 @@ export class CalendarPage {
     if (!day) { return; }
     if (day.toString().length == 1) { day = `0${day}` }
     if (month.toString().length == 1) { month = `0${month}` }
-    let count = (this.services[type].$listDateDistribution() as any)[`${this.displayedYear}-${month}-${day}`]
+    let count = 0;
+    if (type != 'interviews') {
+      count = (this.services[type].$listDateDistribution() as any)[`${this.displayedYear}-${month}-${day}`]
+    } else {
+      count = this.services.interviews.getByDay(`${this.displayedYear}-${month}-${day}`).length
+    }
     if (count) {
       return count > 1 ? `${count} ${type}` : `${count} ${this.SINGULAR_WORDS[type]}`
     } else { return null }
