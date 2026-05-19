@@ -16,13 +16,23 @@ export class ContactsService extends BaseService<Contact, Contact, ContactForm> 
 
   override create(contact: ContactForm) {
 
+    let existingContact = this.checkIfExists(contact)
+    if (existingContact) {
+      this.notificationsService.createTemporaryNotification('Contact already exists')
+      return existingContact;
+    } else {
+      return super.create(contact)
+    }
+  }
+
+  private checkIfExists(contact: ContactForm) {
     let filteredList = this.getByParams(
       { name: contact.name, company: contact.company }
     )
     if (filteredList) {
-      this.notificationsService.createTemporaryNotification('Contact already exists')
       return filteredList[0]
+    } else {
+      return false;
     }
-    return super.create(contact)
   }
 }
