@@ -16,6 +16,7 @@ export class BasicChartComponent {
   data = input<{ data: number[], label: string }[]>([{ data: [2478, 5267, 734, 784, 433], label: 'yass' }, { data: [2478, 5267, 734, 784, 433], label: 'naaaawrl' }])
   labels = input(["Africa", "Asia", "Europe", "Latin America", "North America"])
   type = input<'line' | 'bar' | 'doughnut' | 'pie'>('doughnut')
+  horizontal = input<boolean>(false)
   constructor() { }
 
   ngAfterViewInit() {
@@ -26,6 +27,7 @@ export class BasicChartComponent {
         datasets: this.data()
       },
       options: {
+        indexAxis: this.horizontal() ? 'y' : 'x',
         scales: {
           x: {
             stacked: true,

@@ -18,10 +18,44 @@ export class DashboardService {
 
   public interviewsCount = computed(() => this.interviewsService.$listValue().length)
 
-  // public vacanciesWithOneInterview
-  // public vacanciesWithTwoInterviews
-  // public vacanciesWithThreeInterviews
-  // public vacanciesWithFourInterviews
+  public conversionFunnel = computed(() => {
+    let allVccIds = this.responsesService.$listValue().map(i => i.vacancyId)
+    let allVccUniqueIds = new Set(allVccIds);
+    let positiveVccIds = this.responsesService.$listValue().filter(i => i.type !== RESPONSE_TYPES.REJECTION).map(i => i.vacancyId)
+    let positiveVccUniqueIds = new Set(positiveVccIds);
+    let funnel: { key: string, value: number }[] = [];
+
+    let index = 0;
+    while (positiveVccIds.length > 0) {
+
+      let counter = 0;
+      for (const id of positiveVccUniqueIds) {
+        if (positiveVccIds.includes(id)) {
+          let i = positiveVccIds.indexOf(id)
+          positiveVccIds.splice(i, 1);
+          counter++;
+        }
+      }
+
+      funnel.push({
+        key: (index + 1).toString(), value: counter
+      })
+      index++;
+      counter = 0;
+    }
+    return [
+
+      {
+        key: 'responded'
+        , value: allVccUniqueIds.size
+      },
+      ...funnel,
+      {
+        key: 'reciprocated',
+        value: this.reciprocatedVacancies().length
+      }
+    ]
+  });
 
   public positivelyRespondedVacancies = computed(() => {
     let vacancyIds = this.vacanciesService.$listValue().filter(v => v.status != VACANCY_STATUS.REJECTED && v.status != VACANCY_STATUS.APPLIED).map(v => v.id)

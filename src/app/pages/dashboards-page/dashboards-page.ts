@@ -14,6 +14,28 @@ import { VacancyDetail } from "@app/vacancies/components/vacancy-detail/vacancy-
 })
 export class DashboardsPage {
   dashboardService = inject(DashboardService);
+  conversionFunnelData = computed(() => {
+    let values: number[] = this.dashboardService.conversionFunnel().map(
+      i => i.value || 0
+    )
+    let labels: string[] = this.dashboardService.conversionFunnel().map(
+      i => i.key || ''
+    )
+    // let data = [{ data: [2478, 5267, 734, 784, 433], label: 'yass' }, 
+    // { data: [2478, 5267, 734, 784, 433], label: 'naaaawrl' }]
+
+    let data: { data: number[], label: string }[] = [{
+      data: values,
+      label: 'Vacancies'
+    }];
+
+    let object = {
+      data: data, labels: labels
+    }
+    console.log(object)
+    return object;
+  }
+  )
   VRTimelineData = computed(() => {
     let items = this.dashboardService.vacanciesAndResponsesCountTimeline()
     let obj = {

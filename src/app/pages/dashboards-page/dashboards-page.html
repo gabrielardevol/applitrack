@@ -72,6 +72,13 @@
                     <app-basic-chart-component [type]="'bar'" [data]="VRTimelineData().data"
                         [labels]="VRTimelineData().labels" class="h-full flex-1 w-full"></app-basic-chart-component>
                 </div>
+
+                <div class="chart">
+                    <label>Conversion funnel</label>
+                    <app-basic-chart-component [type]="'bar'" [horizontal]='true' [data]="conversionFunnelData().data"
+                        [labels]="conversionFunnelData().labels"
+                        class="h-full flex-1 w-full"></app-basic-chart-component>
+                </div>
                 <!-- <app-basic-chart-component [type]="'line'"></app-basic-chart-component>
             <app-basic-chart-component [type]="'pie'"></app-basic-chart-component>
             
