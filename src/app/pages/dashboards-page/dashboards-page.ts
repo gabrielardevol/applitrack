@@ -21,18 +21,17 @@ export class DashboardsPage {
     let labels: string[] = this.dashboardService.conversionFunnel().map(
       i => i.key || ''
     )
-    // let data = [{ data: [2478, 5267, 734, 784, 433], label: 'yass' }, 
-    // { data: [2478, 5267, 734, 784, 433], label: 'naaaawrl' }]
 
-    let data: { data: number[], label: string }[] = [{
+    let data: { data: number[], label: string, backgroundColor: string }[] = [{
       data: values,
-      label: 'Vacancies'
+      label: 'Vacancies',
+      backgroundColor: 'black'
+
     }];
 
     let object = {
       data: data, labels: labels
     }
-    console.log(object)
     return object;
   }
   )
