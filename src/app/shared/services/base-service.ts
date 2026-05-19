@@ -23,6 +23,43 @@ export class BaseService<
 
   }
 
+  public levenshteinSortedList(property: keyof TSingle, string: string): TList[] {
+    const levenshteinDistance = (str1 = '') => {
+      const track = Array(string.length + 1).fill(null).map(() =>
+        Array(str1.length + 1).fill(null));
+
+      for (let i = 0; i <= str1.length; i += 1) {
+        track[0][i] = i;
+      }
+
+      for (let j = 0; j <= string.length; j += 1) {
+        track[j][0] = j;
+      }
+
+      for (let j = 1; j <= string.length; j += 1) {
+        for (let i = 1; i <= str1.length; i += 1) {
+          const indicator = str1[i - 1] === string[j - 1] ? 0 : 1;
+          track[j][i] = Math.min(
+            track[j][i - 1] + 1,
+            track[j - 1][i] + 1,
+            track[j - 1][i - 1] + indicator,
+          );
+        }
+      }
+      return track[string.length][str1.length];
+    };
+
+
+    let sortedList = this.$listValue().sort(
+      (a, b) => {
+        return levenshteinDistance((a as any)[property]) - (levenshteinDistance((b as any)[property]))
+      }
+    )
+    console.log(sortedList)
+
+    return sortedList
+  }
+
   public sortedList(property: keyof TSingle): TList[] {
     //this.getList();
     return this.$listValue().sort(

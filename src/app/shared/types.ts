@@ -87,6 +87,7 @@ export type ResponseForm = {
     type: RESPONSE_TYPES,
     interviewDate: Date | null,
     proposalAmount: number,
+    company: string
 }
 
 export type InterviewCreation = {

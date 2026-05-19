@@ -26,7 +26,9 @@ export class ResponseFormComponent {
   private notificationService = inject(NotificationService)
   private contactsService = inject(ContactsService);
 
-  public vacancies = this.vacanciesService.$listValue;
+  public vacancies = computed(() => {
+    return this.vacanciesService.levenshteinSortedList('company', this.responseForm.company().value() || '');
+  })
   private response = signal<ResponseForm>(EMPTY_RESPONSE_FORM)
 
   public responseForm = form(this.response, (schemaPath) => {
@@ -43,6 +45,7 @@ export class ResponseFormComponent {
           type: 'REJECTION' | 'INFORMATION_REQUEST' | 'INTERVIEW_SCHEDULE' | 'JOB_PROPOSAL';
            interviewDate?: Date;
            proposalAmount?: number | undefined,
+           company: string
        }`
 
   updateForm() {
@@ -97,7 +100,7 @@ export class ResponseFormComponent {
   }
 
   resetForm() {
-    this.responseForm().value.set(EMPTY_RESPONSE_FORM)
+    this.responseForm().value.set({ ...EMPTY_RESPONSE_FORM, company: '' })
     this.responseForm().reset()
     this.interviewDateFormControl.reset();
     this.vacancyFormControl.reset();

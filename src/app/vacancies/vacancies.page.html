@@ -9,9 +9,7 @@
 
     <div class="flex justify-between">
 
-
         <div class="flex gap-2">
-
             <select [formControl]="sortPropertyFC" (change)="onSortChanges()">
                 <option value="createdAt">Date</option>
                 <option value="title">Name</option>
@@ -23,6 +21,7 @@
                 <option value="DESC">Descendent</option>
             </select>
         </div>
+
         <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">
             @if(view == 'table'){ <i class="bi bi-grid"></i>
             }@else{ <i class="bi bi-table"></i>
@@ -31,6 +30,7 @@
     </div>
 
 </header>
+
 @if(vacancies().length === 0) {
 <div class="w-full h-full flex items-center justify-center">
     No vacancies yet
@@ -54,8 +54,8 @@
                 [ngClass]="vacancy.featured ? 'bg-yellow-50' : ''">
                 <th>
 
-                    <i (click)="$event.stopPropagation(); featureVacancy(vacancy.id, !vacancy.featured)"
-                        class="bi bi-star-fill" [ngClass]="vacancy.featured ? 'text-yellow-400' : 'text-gray-200'"></i>
+                    <i (click)="$event.stopPropagation(); featureVacancy(vacancy.id, !vacancy.featured)" class="bi ml-1"
+                        [ngClass]="vacancy.featured ? 'text-yellow-400 bi-star-fill' : 'text-gray-300 bi-star'"></i>
                 </th>
                 <td>
                     {{vacancy.title}}
