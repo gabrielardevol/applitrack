@@ -42,6 +42,7 @@
         <thead>
             <tr>
                 <th></th>
+                <th></th>
                 <th class="text-left">Company</th>
                 <th class="text-left">Status</th>
                 <th></th>
@@ -49,7 +50,13 @@
         </thead>
         <tbody>
             @for (vacancy of vacancies(); track vacancy) {
-            <tr (click)="selectedVacancy = vacancy.id; viewDetail = true;">
+            <tr (click)="selectedVacancy = vacancy.id; viewDetail = true;"
+                [ngClass]="vacancy.featured ? 'bg-yellow-50' : ''">
+                <th>
+
+                    <i (click)="$event.stopPropagation(); featureVacancy(vacancy.id, !vacancy.featured)"
+                        class="bi bi-star-fill" [ngClass]="vacancy.featured ? 'text-yellow-400' : 'text-gray-200'"></i>
+                </th>
                 <td>
                     {{vacancy.title}}
                 </td>

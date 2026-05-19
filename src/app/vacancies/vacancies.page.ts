@@ -53,4 +53,11 @@ export class VacanciesPage {
     return (VACANCY_STATUS_DISPLAY as any)[key]
   }
 
+  featureVacancy(id: string, featured: boolean) {
+    this.vacanciesService.update(
+      { featured: featured }, id
+    )
+    this.vacanciesService.getList()
+  }
+
 }

@@ -21,7 +21,8 @@ export type Vacancy = {
     geolocation?: { lat: number, lon: number }
     company: string;
     createdAt: Date | string;
-    positiveResponse: boolean
+    positiveResponse: boolean;
+    featured?: boolean;
 }
 
 export type VacancyListItem = {
@@ -37,6 +38,7 @@ export type VacancyListItem = {
     },
     geolocation?: { lat: number, lon: number },
     location: string;
+    featured?: boolean;
 
     positiveResponse: boolean,
     skillsMust: string;
