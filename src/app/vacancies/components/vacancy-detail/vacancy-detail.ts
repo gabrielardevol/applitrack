@@ -5,10 +5,11 @@ import { DatePipe } from '@angular/common';
 import { ANNOTATION_ENTITY_TYPES, Vacancy, VACANCY_MODALITIES, VACANCY_TYPES } from '../../../shared/types';
 import { EMPTY_VACANCY_FORM, VACANCY_STATUS_DISPLAY } from '../../../shared/constants';
 import { AnnotationsComponent } from '@app/shared/components/annotations/annotations.component';
+import { ResponseDetails } from "@app/responses/response-details/response-details";
 
 @Component({
   selector: 'appli-vacancy-detail',
-  imports: [FormField, DatePipe, AnnotationsComponent],
+  imports: [FormField, DatePipe, AnnotationsComponent, ResponseDetails],
   templateUrl: './vacancy-detail.html',
   styleUrl: './vacancy-detail.scss',
 })

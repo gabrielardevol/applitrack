@@ -1,0 +1,20 @@
+@for(response of (responses()); track response.id) {
+{{response.createdAt}}
+<span class="rounded-full bg-gray-200 px-2">
+    {{response.type}}
+</span>
+
+<details>
+    <summary>{{response.originalText.slice(0, 200)}}...</summary>
+    <div class="ml-6">
+
+        <h4>Complete caption:</h4>
+        <p class="font-xs text-xs">
+
+            {{response.originalText}}
+
+        </p>
+    </div>
+</details>
+<hr>
+}

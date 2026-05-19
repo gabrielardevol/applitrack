@@ -111,6 +111,7 @@
         @let id = vacancy()?.id;
         @if(id) {
         <app-annotations-component [entityId]="id" [entityType]="ANNOTATION_ENTITY_TYPES.OFFER" />
+        <app-response-details [vacancyId]="id"></app-response-details>
         }
 
         }
