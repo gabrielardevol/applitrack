@@ -1,18 +1,25 @@
-<div class="p-2 gap-2 flex flex-col bg-gray-200 rounded-md">
-
+<div class="p-2 flex flex-col bg-gray-200 rounded-md gap-2">
 
     Annotations <br>
 
-    <div class="flex gap-2">
+    @for(annotation of annotations(); track annotation.id) {
+    <div class="annotation flex border-solid border-x-0 border-t-0 gap-2 pb-[6px] border-b">
 
+        <div class="gap-2 flex flex-1">
+            <p class="flex-1 m-0 p-0">
+                {{annotation.message}}
+            </p>
+            <span class=" align-right text-xs font-gray-200 text-nowrap p-[4px]"> {{annotation.createdAt.slice(0, 10)}}
+                {{annotation.createdAt.slice(12, 16)}}</span>
+        </div>
+        <button (click)="annotationService.delete(annotation.id)" class="opacity-0 h-min w-min"><i
+                class="bi bi-trash-fill ">
+            </i></button>
+    </div>
+
+    }
+    <div class="flex gap-2">
         <input type="text" placeholder="write a comment" [formControl]="formControl"> <button
             (click)="createAnnotation(); formControl.reset()">submit</button>
-    </div>
-    <div>
-        @for(annotation of annotations(); track annotation.id) {
-        {{annotation.message}} <span class="text-xs font-gray-200">| {{annotation.createdAt}}</span>
-        <button (click)="annotationService.delete(annotation.id)"><i class="bi bi-trash-fill"> </i></button>
-        <br>
-        }
     </div>
 </div>

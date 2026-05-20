@@ -55,5 +55,19 @@ export class DashboardsPage {
     return obj;
   }
   )
+  weekDaysVccDistribution = computed(() => {
+    let distribution = Object.values(this.dashboardService.vacanciesByWeekDay())
+    let obj = {
+      data: [
+        {
+          data: [...distribution.splice(1, 6), distribution[0]],
+          label: 'Vacancies',
+          backgroundColor: 'black'
+        },
+      ],
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    };
+    return obj;
+  })
   console = console;
 }

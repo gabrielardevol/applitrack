@@ -1,5 +1,3 @@
-<!-- <button (click)="viewVacancy()"><i class="bi bi-eye-fill"></i></button> -->
-
 <dialog #dialog class="w-full sm:w-2/3 max-w-[700px]">
     <div class="flex justify-end sticky top-0 p-2 gap-2 bg-white">
         <button (click)="updating && updateVacancy(); updating = !updating; ">
@@ -27,18 +25,18 @@
         @if (vacancy()?.modality) {
         ({{vacancy()?.modality}})
         }
-
     </header>
-
 
     <main class="p-2">
 
         @if (!updating) {
+        <i class="bi bi-calendar"></i>
         Applied at: {{vacancy()?.createdAt | date:'dd/MM/yy' }}
         <hr>
         @let minSalary = vacancy()?.salaryRange?.min;
         @let maxSalary = vacancy()?.salaryRange?.max;
         @if(minSalary || maxSalary) {
+        <i class="bi bi-cash"></i>
         Salary range: {{minSalary || '???'}}K - {{maxSalary || '???'}}K
         <hr>
 
@@ -46,12 +44,14 @@
 
         @let minExperience = vacancy()?.experienceRange?.min;
         @let maxExperience = vacancy()?.experienceRange?.max;
-        @if(minSalary || maxSalary) {
-        Experience range: {{minExperience || '???'}} years - {{maxExperience || '???'}} years
+        @if(minExperience || maxExperience) {
+        <i class="bi bi-suitcase-lg-fill"></i> Experience range: {{minExperience || '???'}} years - {{maxExperience ||
+        '???'}} years
         <hr>
         }
         @if(vacancy()?.recruiters) {
-        👤 {{vacancy()?.recruiters}}
+        <i class="bi bi-person-fill"></i>
+        {{vacancy()?.recruiters}}
         <hr>}
         <!--********************skills************************-->
         @let skillsPlus = (vacancy()?.skillsPlus?.split(',') || []).filter(string => string != "");
@@ -60,34 +60,34 @@
         @let anySkill = skillsPlus || skillsMust || softSkills;
 
         @if(anySkill) {
+        <i class="bi bi-tools"></i>
         Skills <br>
-        @if(skillsMust.length > 0) { <b>Must have:</b>
-        @for(skill of skillsMust; track skill) {
-        <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
-        }
-        <br>
-        }
-        @if(skillsPlus.length > 0) { <b>Valued:</b>
-        @for(skill of skillsPlus; track skill) {
-        <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+        <div class="pl-6">
+            @if(skillsMust.length > 0) { <b>Must have:</b>
+            @for(skill of skillsMust; track skill) {
+            <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+            }
+            <br>
+            }
+            @if(skillsPlus.length > 0) { <b>Valued:</b>
+            @for(skill of skillsPlus; track skill) {
+            <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+            }
+            <br>
+            }
 
-        }
-        <br>
-        }
-
-        @if(softSkills.length > 0) { <b>Soft skills:</b>
-        @for(skill of softSkills; track skill) {
-        <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
-
-        }}
+            @if(softSkills.length > 0) { <b>Soft skills:</b>
+            @for(skill of softSkills; track skill) {
+            <span class="bg-gray-200 rounded-full px-2 mr-1 mb-1 inline-block">{{skill}}</span>
+            }}
+        </div>
         <hr>
         }
 
-        @if(vacancy()?.platform) {
+        <!-- @if(vacancy()?.platform) {
         Job board:
         {{vacancy()?.platform}}
-        <hr> }
-
+        <hr> } -->
         @if(vacancy()?.type) {
         Type:
         {{vacancy()?.type}}
@@ -97,7 +97,7 @@
         @if(vacancy()?.originalText) {
         <details>
             <summary> Original text</summary>
-            <p class="text-xs"> {{vacancy()?.originalText}}
+            <p class="text-xs pl-4"> {{vacancy()?.originalText}}
             </p>
         </details>
         <hr>

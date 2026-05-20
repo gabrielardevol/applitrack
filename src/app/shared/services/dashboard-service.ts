@@ -57,6 +57,18 @@ export class DashboardService {
     ]
   });
 
+  public vacanciesByWeekDay = computed(() => {
+    let distribution = {
+      0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0,
+    }
+    this.vacanciesService.$listValue().forEach(i => {
+      let date = new Date(i.createdAt);
+      (distribution as any)[date.getDay()]++
+      console.log('lorem', date.getDay(), distribution)
+    })
+    return distribution;
+  })
+
   public positivelyRespondedVacancies = computed(() => {
     let vacancyIds = this.vacanciesService.$listValue().filter(v => v.status != VACANCY_STATUS.REJECTED && v.status != VACANCY_STATUS.APPLIED).map(v => v.id)
     let responseVacancyIds = this.responsesService.$listValue().filter(r => r.type != RESPONSE_TYPES.REJECTION).map(r => r.vacancyId)
