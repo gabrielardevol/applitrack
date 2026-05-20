@@ -19,9 +19,19 @@ export class VacanciesService extends BaseService<Vacancy, VacancyListItem, Vaca
     return vacancy;
   }
 
-  // public getFilteredList(): VacancyListItem[] {
-  //   return super.getList()
-  // }
+  public getFilteredList(string: string): VacancyListItem[] {
+    let unfilteredItems = this.$listValue()
+    let filteredItems = unfilteredItems.filter(i => {
+      let match = false;
+      if (i.company.toLowerCase().indexOf(string) >= 0) { match = true; }
+      if (i.title.toLowerCase().indexOf(string) >= 0) { match = true; }
+      if (i.role.toLowerCase().indexOf(string) >= 0) { match = true; }
+      return match;
+    })
+
+    console.log(filteredItems)
+    return filteredItems
+  }
 
   public override create(vacancy: VacancyForm) {
     let createdVacancy = super.create(vacancy)

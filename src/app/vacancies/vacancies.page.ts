@@ -23,10 +23,12 @@ export class VacanciesPage {
 
   sortPropertyFC = new FormControl('createdAt')
   sortOrderFC = new FormControl('ASC')
+  searchFC = new FormControl('')
+  searchString: WritableSignal<string> = signal('')
 
   favouriteVacancies: WritableSignal<{ id: string, featured: boolean }[]> = signal([])
 
-  public vacancies = computed(() => [this.vacanciesService.$listValue().map(i => {
+  public vacancies = computed(() => [this.vacanciesService.getFilteredList(this.searchString()).map(i => {
     //locally updates 'favourite' icon
     let newItem = i;
     this.favouriteVacancies().map(
@@ -44,7 +46,6 @@ export class VacanciesPage {
       return comparison;
     }
   )].map(items => {
-    console.log(items)
     return this.sortBy().order == 'ASC' ? items.reverse() : items
   })[0]);
   view: 'table' | 'grid' = 'table';
@@ -71,7 +72,6 @@ export class VacanciesPage {
     this.vacanciesService.update(
       { featured: featured }, id
     );
-
     let objCopy = this.favouriteVacancies()
     let onlyIds: string[] = objCopy.map(i => i.id);
     let idIsThereAlready = onlyIds.find(i => i == id);
@@ -84,9 +84,10 @@ export class VacanciesPage {
         id: id, featured: featured
       }
     ])
+  }
 
-    console.log(this.favouriteVacancies())
-
+  public search() {
+    this.searchString.set(this.searchFC.value || '')
   }
 
 }
