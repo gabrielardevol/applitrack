@@ -3,7 +3,6 @@ import { VacanciesService } from '../shared/services/vacancies/vacancy-service';
 import { VacancyDetail } from "./components/vacancy-detail/vacancy-detail";
 import { NgClass } from '@angular/common';
 import { VacancyListItem } from '@app/shared/types';
-import { form } from '@angular/forms/signals';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VACANCY_STATUS_DISPLAY } from '@app/shared/constants';
 
@@ -25,12 +24,27 @@ export class VacanciesPage {
   sortPropertyFC = new FormControl('createdAt')
   sortOrderFC = new FormControl('ASC')
 
-  public vacancies = computed(() => [this.vacanciesService.$listValue().sort(
+  favouriteVacancies: WritableSignal<{ id: string, featured: boolean }[]> = signal([])
+
+  public vacancies = computed(() => [this.vacanciesService.$listValue().map(i => {
+    //locally updates 'favourite' icon
+    let newItem = i;
+    this.favouriteVacancies().map(
+      fv => {
+        if (fv.id == i.id) {
+          newItem = { ...i, featured: fv.featured }
+        }
+      }
+    );
+    return newItem;
+    // ------------------------------
+  }).sort(
     (a, b) => {
       let comparison = (a as any)[this.sortBy().property].localeCompare((b as any)[this.sortBy().property]);
       return comparison;
     }
   )].map(items => {
+    console.log(items)
     return this.sortBy().order == 'ASC' ? items.reverse() : items
   })[0]);
   view: 'table' | 'grid' = 'table';
@@ -56,8 +70,23 @@ export class VacanciesPage {
   featureVacancy(id: string, featured: boolean) {
     this.vacanciesService.update(
       { featured: featured }, id
-    )
-    this.vacanciesService.getList()
+    );
+
+    let objCopy = this.favouriteVacancies()
+    let onlyIds: string[] = objCopy.map(i => i.id);
+    let idIsThereAlready = onlyIds.find(i => i == id);
+    if (idIsThereAlready) {
+      objCopy = objCopy.filter(i => i.id !== id);
+    }
+    this.favouriteVacancies.set([
+      ...objCopy,
+      {
+        id: id, featured: featured
+      }
+    ])
+
+    console.log(this.favouriteVacancies())
+
   }
 
 }
