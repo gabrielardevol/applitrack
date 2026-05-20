@@ -9,14 +9,29 @@ export class BaseService<
 
   public $listValue: WritableSignal<TList[]> = signal<TList[]>([]);
 
-  public $listDateDistribution = computed(() => this.$listValue().map(i => { return { createdAt: i.createdAt } }).reduce(
-    (acc, curr) => {
+  public $listDateDistribution = computed(() => {
+    // 1. Creem un formatejador que retorni la data en format ISO (YYYY-MM-DD) segons la franja horària local
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+
+    return this.$listValue().reduce((acc, curr) => {
+      if (!curr.createdAt) return acc; // Seguretat per si algun registre no té data
+
       let date = new Date(curr.createdAt);
-      let key = date.toISOString().split('T')[0];
-      (acc as any)[key] ? (acc as any)[key] = (acc as any)[key] + 1 : (acc as any)[key] = 1;
-      return acc
-    }, {}
-  ))
+
+      // 2. El format 'en-CA' (Canadà) ens torna directament el format YYYY-MM-DD en hora local
+      let key = formatter.format(date);
+
+      // 3. Comptabilitzem (simplificat sense tants "as any")
+      const currentAcc = acc as Record<string, number>;
+      currentAcc[key] = (currentAcc[key] || 0) + 1;
+
+      return currentAcc;
+    }, {} as Record<string, number>);
+  });
 
   constructor(private readonly STORAGE_KEY: string, private readonly API: string) {
     this.getList()

@@ -87,8 +87,11 @@ export class DashboardService {
 
     let distributionPerWeekDay = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
 
+    console.log('dateDistribution', dateDistribution)
     Object.keys(dateDistribution).map(i => {
       let date = new Date(i);
+      console.log(i, '----', date)
+
       let weekDay: number = date.getDay();
       (distributionPerWeekDay as any)[weekDay].push((dateDistribution as any)[i])
     });

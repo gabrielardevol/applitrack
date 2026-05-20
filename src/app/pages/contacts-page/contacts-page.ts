@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ContactsService } from '@app/shared/services/contacts/contacts.service';
-import { ContactsFormComponent } from "@app/contacts-form/contacts-form.component";
-import { ContactDetail } from "@app/contact-detail/contact-detail";
+import { ContactsFormComponent } from './contacts-form/contacts-form.component';
+import { ContactDetail } from './contact-detail/contact-detail';
 
 @Component({
   selector: 'app-contacts-page',

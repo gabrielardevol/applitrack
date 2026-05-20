@@ -18,10 +18,11 @@
             <h3 class="hidden sm:block">Applitrack</h3>
             <ul class="flex flex-col p-0 m-0">
 
-                <a routerLink="/vacancies">Vacancies</a>
-                <a routerLink="/dashboard">Dashboard</a>
-                <a routerLink="/calendar">Calendar</a>
-                <a routerLink="/contacts">Contacts</a>
+                <a routerLink="/vacancies" [ngClass]="router.url == '/vacancies' ? 'selected' : ''">Vacancies</a>
+                <a routerLink="/dashboard" [ngClass]="router.url == '/dashboard' ? 'selected' : ''">Dashboard</a>
+                <a routerLink="/calendar" [ngClass]="router.url == '/calendar' ? 'selected' : ''">Calendar</a>
+                <a routerLink="/contacts" [ngClass]="router.url == '/contacts' ? 'selected' : ''">Contacts</a>
+                <a routerLink="/notes" [ngClass]="router.url == '/notes' ? 'selected' : ''">Notes</a>
             </ul>
             <hr class="w-full">
             <app-vacancy-form></app-vacancy-form>
