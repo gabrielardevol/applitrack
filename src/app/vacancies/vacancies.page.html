@@ -10,7 +10,8 @@
     <div class="flex justify-between">
 
         <div class="flex gap-2">
-            <input [formControl]="searchFC" type="text"> <button (click)="search()">search</button>
+            <input [formControl]="searchFC" type="text"> <button
+                (click)="searchString.set(searchFC.value || '')">search</button>
             <select [formControl]="sortPropertyFC" (change)="onSortChanges()">
                 <option value="createdAt">Date</option>
                 <option value="title">Name</option>

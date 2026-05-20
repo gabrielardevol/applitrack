@@ -86,8 +86,4 @@ export class VacanciesPage {
     ])
   }
 
-  public search() {
-    this.searchString.set(this.searchFC.value || '')
-  }
-
 }
