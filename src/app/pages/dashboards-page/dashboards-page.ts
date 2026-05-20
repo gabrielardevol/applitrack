@@ -5,10 +5,11 @@ import { MixedChartComponent } from './components/mixed-chart/mixed-chart.compon
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
 import { RadarChartComponent } from './components/radar-chart/radar-chart.component';
 import { MapChartComponent } from './components/map-chart/map-chart.component';
-import { VacancyDetail } from "@app/vacancies/components/vacancy-detail/vacancy-detail";
+import { DoubleAxisBasicChartComponent } from './components/double-axis-basic-chart/double-axis-basic-chart.component';
+import { color } from 'chart.js/helpers';
 @Component({
   selector: 'app-dashboards-page',
-  imports: [BasicChartComponent, MapChartComponent, MixedChartComponent, ScatterChartComponent, RadarChartComponent],
+  imports: [BasicChartComponent, MapChartComponent, MixedChartComponent, ScatterChartComponent, RadarChartComponent, DoubleAxisBasicChartComponent],
   templateUrl: './dashboards-page.html',
   styleUrl: './dashboards-page.scss',
 })
@@ -56,14 +57,29 @@ export class DashboardsPage {
   }
   )
   weekDaysVccDistribution = computed(() => {
-    let distribution = Object.values(this.dashboardService.vacanciesByWeekDay())
+    let countValues = Object.values(this.dashboardService.vacanciesByWeekDay().count)
+    let averageValues = Object.values(this.dashboardService.vacanciesByWeekDay().average)
     let obj = {
       data: [
         {
-          data: [...distribution.splice(1, 6), distribution[0]],
-          label: 'Vacancies',
-          backgroundColor: 'black'
+          data: [...averageValues.splice(1, 6), averageValues[0]],
+          label: 'Average',
+          backgroundColor: 'grey',
+          borderColor: 'grey',
+          type: 'line',
+          yAxisID: 'y1',
+
         },
+        {
+          data: [...countValues.splice(1, 6), countValues[0]],
+          label: 'Total',
+          backgroundColor: 'black',
+          type: 'bar',
+          yAxisID: 'y',
+
+
+        },
+
       ],
       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     };

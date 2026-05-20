@@ -82,18 +82,15 @@
 
                 <div class="chart">
                     <label>Application count by week day</label>
-                    <app-basic-chart-component [type]="'bar'" [horizontal]='false'
+
+                    <app-double-axis-basic-chart-component [type]="'bar'" [horizontal]='false'
                         [data]="weekDaysVccDistribution().data" [labels]="weekDaysVccDistribution().labels"
-                        class="h-full flex-1 w-full"></app-basic-chart-component>
+                        class="h-full flex-1 w-full">
+
+                    </app-double-axis-basic-chart-component>
                 </div>
 
-                <div class="chart">
-                    <label>Application average by week day</label>
-                    Coming soon
-                    <!-- <app-basic-chart-component [type]="'bar'" [horizontal]='false'
-                        [data]="weekDaysVccDistribution().data" [labels]="weekDaysVccDistribution().labels"
-                        class="h-full flex-1 w-full"></app-basic-chart-component> -->
-                </div>
+
                 <!-- <app-basic-chart-component [type]="'line'"></app-basic-chart-component>
             <app-basic-chart-component [type]="'pie'"></app-basic-chart-component>
             

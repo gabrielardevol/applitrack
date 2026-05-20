@@ -3,12 +3,12 @@ import { Chart, } from 'chart.js/auto';
 import { Point } from 'chart.js/auto';
 import { BaseChartDirective } from 'ng2-charts'
 @Component({
-  selector: 'app-basic-chart-component',
+  selector: 'app-double-axis-basic-chart-component',
   imports: [BaseChartDirective],
-  templateUrl: './basic-chart.component.html',
-  styleUrl: './basic-chart.component.scss',
+  templateUrl: './double-axis-basic-chart.component.html',
+  styleUrl: './double-axis-basic-chart.component.scss',
 })
-export class BasicChartComponent {
+export class DoubleAxisBasicChartComponent {
   @ViewChild('chart')
   private chartRef!: ElementRef;
   private chart!: Chart;
@@ -30,14 +30,25 @@ export class BasicChartComponent {
         indexAxis: this.horizontal() ? 'y' : 'x',
         scales: {
           x: {
-            stacked: true,
-          },
-          y: {
             stacked: true
           },
 
-        },
+          y: {
+            type: 'linear',
+            position: 'left',
+            stacked: false,
+          },
 
+          y1: {
+            type: 'linear',
+            position: 'right',
+            stacked: false,
+
+            grid: {
+              drawOnChartArea: false,
+            },
+          }
+        },
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -47,7 +58,6 @@ export class BasicChartComponent {
             text: 'Predicted world population (millions) in 2050'
           }
         },
-
 
       }
     });

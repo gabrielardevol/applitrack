@@ -58,14 +58,44 @@ export class DashboardService {
   });
 
   public vacanciesByWeekDay = computed(() => {
-    let distribution = {
-      0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0,
+    let distribution: {
+      count: { 0: number, 1: number, 2: number, 3: number, 4: number, 5: number, 6: number },
+      average: { 0: number, 1: number, 2: number, 3: number, 4: number, 5: number, 6: number }
+    } = {
+      count: {
+        0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0,
+      },
+      average: {
+        0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0,
+      }
     }
     this.vacanciesService.$listValue().forEach(i => {
       let date = new Date(i.createdAt);
-      (distribution as any)[date.getDay()]++
-      console.log('lorem', date.getDay(), distribution)
+      (distribution.count as any)[date.getDay()]++
     })
+
+    let dateDistribution = this.vacanciesService.$listDateDistribution()
+
+    function getAverage(array: number[]) {
+      if (!array) return 0;
+      let sum = 0;
+      for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+      }
+      return sum / array.length;
+    }
+
+    let distributionPerWeekDay = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+
+    Object.keys(dateDistribution).map(i => {
+      let date = new Date(i);
+      let weekDay: number = date.getDay();
+      (distributionPerWeekDay as any)[weekDay].push((dateDistribution as any)[i])
+    });
+
+    Object.keys(distributionPerWeekDay).forEach(
+      key => (distribution.average as any)[key] = getAverage((distributionPerWeekDay as any)[key])
+    )
     return distribution;
   })
 
