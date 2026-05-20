@@ -67,7 +67,7 @@
             <div class="grid grid-cols-2 w-full gap-2">
 
                 <!-- <app-basic-chart-component class="w-20"></app-basic-chart-component> -->
-                <div class="chart">
+                <div class="chart col-span-2">
                     <label>Applications and responses</label>
                     <app-basic-chart-component [type]="'bar'" [data]="VRTimelineData().data"
                         [labels]="VRTimelineData().labels" class="h-full flex-1 w-full"></app-basic-chart-component>
@@ -81,7 +81,8 @@
                 </div>
 
                 <div class="chart">
-                    <label>Application count by week day</label>
+                    <label>Application count by week day <span class="text-gray">Only considering days with
+                            applications</span></label>
 
                     <app-double-axis-basic-chart-component [type]="'bar'" [horizontal]='false'
                         [data]="weekDaysVccDistribution().data" [labels]="weekDaysVccDistribution().labels"
