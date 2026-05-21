@@ -11,12 +11,12 @@
 
     <div class="flex overflow-hidden flex-1">
         <nav #menu
-            class="hidden rounded-lg sm:rounded-none z-[402] sm:flex border-solid sm:border-r-[1px] sm:border-l-0 sm:border-solid sm:border-y-0 p-2 absolute sm:relative bg-white sm:bg-none z-10 m-2 sm:m-0 flex flex-col gap-2">
+            class="hidden rounded-lg sm:rounded-none z-[402] sm:flex border-solid sm:border-r-[1px] sm:border-l-0 sm:border-solid sm:border-y-0  absolute sm:relative bg-white sm:bg-none z-10 m-2 sm:m-0 flex flex-col gap-2">
             <button class="sm:hidden self-end block w-min" (click)="menu.classList.add('hidden')"><i
                     class="bi bi-x-lg"></i></button>
 
-            <h1 class="hidden sm:block">Applitrack</h1>
-            <ul class="flex flex-col p-0 m-0">
+            <h1 class="hidden sm:block p-2">Applitrack</h1>
+            <ul class="flex flex-col p-0 m-0 border-x-0 border-y-[1px] border-solid">
 
                 <a routerLink="/vacancies" [ngClass]="router.url == '/vacancies' ? 'selected' : ''">Vacancies</a>
                 <a routerLink="/dashboard" [ngClass]="router.url == '/dashboard' ? 'selected' : ''">Dashboard</a>
@@ -24,9 +24,10 @@
                 <a routerLink="/contacts" [ngClass]="router.url == '/contacts' ? 'selected' : ''">Contacts</a>
                 <a routerLink="/notes" [ngClass]="router.url == '/notes' ? 'selected' : ''">Notes</a>
             </ul>
-            <hr class="w-full">
-            <app-vacancy-form></app-vacancy-form>
-            <app-response-form></app-response-form>
+            <div class="p-2 grid gap-2">
+                <app-vacancy-form></app-vacancy-form>
+                <app-response-form></app-response-form>
+            </div>
             <div class="flex-1 flex items-end justify-end">
 
                 <button class="w-min">

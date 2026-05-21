@@ -10,8 +10,10 @@
     <div class="flex justify-between">
 
         <div class="flex gap-2">
-            <input [formControl]="searchFC" placeholder="Search" type="text">
-            <button [disabled]="searchFC.value == ''" (click)="searchFC.setValue('')">x</button>
+            <div class="flex w-[350px]">
+                <input class="flex-1" [formControl]="searchFC" placeholder="Search" type="text">
+                <button [hidden]="searchFC.value == ''" (click)="searchFC.setValue('')">x</button>
+            </div>
             <hr class="h-full m-0 p-0">
 
             <select [formControl]="sortPropertyFC" (change)="onSortChanges()">

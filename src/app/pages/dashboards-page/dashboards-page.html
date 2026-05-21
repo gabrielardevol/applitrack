@@ -17,6 +17,7 @@
 
         <div class="absolute top-2 left-2 z-[401]">
 
+            <button (click)="console.log(dashboardService.skillsFrequency())">conslog</button>
             <!-- <h2>Overview</h2> -->
             <div class="flex gap-2 w-full py-1">
                 <div class="metric">
@@ -69,29 +70,81 @@
                 <!-- <app-basic-chart-component class="w-20"></app-basic-chart-component> -->
                 <div class="chart col-span-2">
                     <label>Applications and responses</label>
-                    <app-basic-chart-component [type]="'bar'" [data]="VRTimelineData().data"
-                        [labels]="VRTimelineData().labels" class="h-full flex-1 w-full"></app-basic-chart-component>
+                    <div class="flex-1 bg-red-200 overflow-hidden">
+
+                        <app-basic-chart-component [type]="'bar'" [data]="VRTimelineData().data"
+                            [labels]="VRTimelineData().labels" class="h-full flex-1 w-full"></app-basic-chart-component>
+                    </div>
                 </div>
 
                 <div class="chart">
                     <label>Conversion funnel</label>
-                    <app-basic-chart-component [type]="'bar'" [horizontal]='true' [data]="conversionFunnelData().data"
-                        [labels]="conversionFunnelData().labels"
-                        class="h-full flex-1 w-full"></app-basic-chart-component>
+                    <div class="flex-1 bg-red-200 overflow-hidden">
+
+                        <app-basic-chart-component [type]="'bar'" [horizontal]='true'
+                            [data]="conversionFunnelData().data" [labels]="conversionFunnelData().labels"
+                            class="h-full flex-1 w-full"></app-basic-chart-component>
+                    </div>
                 </div>
 
                 <div class="chart">
-                    <label>Application count by week day <span class="text-gray">Only considering days with
-                            applications</span></label>
+                    <label>Application count by week day <span class="text-gray-400">(Considering only days with
+                            applications)</span></label>
+                    <div class="flex-1 bg-red-200 overflow-hidden">
 
-                    <app-double-axis-basic-chart-component [type]="'bar'" [horizontal]='false'
-                        [data]="weekDaysVccDistribution().data" [labels]="weekDaysVccDistribution().labels"
-                        class="h-full flex-1 w-full">
+                        <app-double-axis-basic-chart-component [type]="'bar'" [horizontal]='false'
+                            [data]="weekDaysVccDistribution().data" [labels]="weekDaysVccDistribution().labels"
+                            class="h-full flex-1 w-full">
 
-                    </app-double-axis-basic-chart-component>
+                        </app-double-axis-basic-chart-component>
+                    </div>
+                </div>
+
+                <div class="chart overflow-hidden">
+                    <label>Top 10 skills</label>
+
+                    <div class="flex-1 bg-red-200 overflow-hidden">
+
+                        <app-basic-chart-component [type]="'pie'" [horizontal]='false' [data]="skillsPieData().datasets"
+                            [labels]="skillsPieData().labels" class="">
+                        </app-basic-chart-component>
+                    </div>
                 </div>
 
 
+                <div class="chart overflow-hidden">
+                    <label>Top 10 frontend skills</label>
+
+                    <div class="flex-1 bg-red-200 overflow-hidden">
+
+                        <app-basic-chart-component [type]="'pie'" [horizontal]='false'
+                            [data]="skillsPieData(VACANCY_ROLES.FRONTEND).datasets"
+                            [labels]="skillsPieData(VACANCY_ROLES.FRONTEND).labels" class="">
+                        </app-basic-chart-component>
+                    </div>
+                </div>
+                <div class="chart overflow-hidden">
+                    <label>Top 10 backend skills</label>
+
+                    <div class="flex-1 bg-red-200 overflow-hidden">
+
+                        <app-basic-chart-component [type]="'pie'" [horizontal]='false'
+                            [data]="skillsPieData(VACANCY_ROLES.BACKEND).datasets"
+                            [labels]="skillsPieData(VACANCY_ROLES.BACKEND).labels" class="">
+                        </app-basic-chart-component>
+                    </div>
+                </div>
+                <div class="chart overflow-hidden">
+                    <label>Top 10 UX/UI skills</label>
+
+                    <div class="flex-1 bg-red-200 overflow-hidden">
+
+                        <app-basic-chart-component [type]="'pie'" [horizontal]='false'
+                            [data]="skillsPieData(VACANCY_ROLES.UX_UI).datasets"
+                            [labels]="skillsPieData(VACANCY_ROLES.UX_UI).labels" class="">
+                        </app-basic-chart-component>
+                    </div>
+                </div>
                 <!-- <app-basic-chart-component [type]="'line'"></app-basic-chart-component>
             <app-basic-chart-component [type]="'pie'"></app-basic-chart-component>
             

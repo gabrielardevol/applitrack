@@ -10,5 +10,5 @@ a:hover {
 }
 
 a.selected {
-    background: gray
+    @apply bg-gray-600 text-white;
 }

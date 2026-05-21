@@ -28,15 +28,15 @@ export class BasicChartComponent {
       },
       options: {
         indexAxis: this.horizontal() ? 'y' : 'x',
-        scales: {
+        scales: this.type() == 'bar' ? {
+
           x: {
             stacked: true,
           },
           y: {
             stacked: true
           },
-
-        },
+        } : {},
 
         responsive: true,
         maintainAspectRatio: false,
@@ -51,5 +51,7 @@ export class BasicChartComponent {
 
       }
     });
+
+    console.log(this.chart)
   }
 }

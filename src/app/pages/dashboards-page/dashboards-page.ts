@@ -7,6 +7,7 @@ import { RadarChartComponent } from './components/radar-chart/radar-chart.compon
 import { MapChartComponent } from './components/map-chart/map-chart.component';
 import { DoubleAxisBasicChartComponent } from './components/double-axis-basic-chart/double-axis-basic-chart.component';
 import { color } from 'chart.js/helpers';
+import { Vacancy, VACANCY_ROLES, VacancyListItem } from '@app/shared/types';
 @Component({
   selector: 'app-dashboards-page',
   imports: [BasicChartComponent, MapChartComponent, MixedChartComponent, ScatterChartComponent, RadarChartComponent, DoubleAxisBasicChartComponent],
@@ -14,6 +15,7 @@ import { color } from 'chart.js/helpers';
   styleUrl: './dashboards-page.scss',
 })
 export class DashboardsPage {
+  public readonly VACANCY_ROLES = VACANCY_ROLES;
   dashboardService = inject(DashboardService);
   conversionFunnelData = computed(() => {
     let values: number[] = this.dashboardService.conversionFunnel().map(
@@ -85,5 +87,35 @@ export class DashboardsPage {
     };
     return obj;
   })
+
+  skillsPieData(role?: VACANCY_ROLES) {
+
+    let functionToUse = (i: VacancyListItem) => {
+      if (role) {
+        return i.role == role;
+      } else {
+        return true
+      }
+    }
+
+    let skillsData = this.dashboardService.skillsFreqByFilteredVcc(functionToUse);
+    let labels = skillsData.map(i => i.skill).slice(0, 10);
+    console.log(role, skillsData.map(i => i.count).slice(0, 10))
+    let datasets = [{
+      label: 'Vacancies', data: skillsData.map(i => i.count).slice(0, 10), hoverOffset: 5
+    }]
+    return { labels: labels, datasets: datasets }
+  }
+
+
+
+  // skillsPieData = computed(() => {
+  //   let skillsData = this.dashboardService.skillsFrequency();
+  //   let labels = skillsData.map(i => i.skill).slice(0, 10);
+  //   let datasets = [{
+  //     label: 'Vacancies', data: skillsData.map(i => i.count).slice(0, 10), hoverOffset: 5
+  //   }]
+  //   return { labels: labels, datasets: datasets }
+  // })
   console = console;
 }

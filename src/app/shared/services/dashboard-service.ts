@@ -122,7 +122,6 @@ export class DashboardService {
       v => {
         let max = v.salaryRange.max || null;
         let min = v.salaryRange.min || null;
-        console.log(min, max)
         if (min && max) { return (min + max) / 2 };
         if (min) return min;
         if (max) return max;
@@ -155,21 +154,49 @@ export class DashboardService {
 
   public skillsFrequency = computed(
     () => {
-      let skillsMust: string[] = []
-      let skillsPlus: string[] = []
-      let skillsSoft: string[] = []
+      let allSkills: string[] = []
       this.vacanciesService.$listValue().forEach(v => {
-        skillsMust = [...skillsMust, ...v.skillsMust.split(',')];
-        skillsPlus = [...skillsPlus, ...v.skillsPlus.split(',')];
-        skillsSoft = [...skillsSoft, ...v.softSkills.split(',')];
+        allSkills = [...allSkills, ...v.skillsMust.split(',').map(skill => skill.trim().toLowerCase())];
+        allSkills = [...allSkills, ...v.skillsPlus.split(',').map(skill => skill.trim().toLowerCase())];
+        allSkills = [...allSkills, ...v.softSkills.split(',').map(skill => skill.trim().toLowerCase())];
       }
       )
-      let skillsCount = {}
-      skillsMust.forEach(
-        el => { (skillsCount as any)[el] ? (skillsCount as any)[el]++ : (skillsCount as any)[el] = 1 }
-      )
+
+      return this.getSkillCountObjectFromStringArray(allSkills)
     }
   )
+
+  public skillsFreqByFilteredVcc(filteringFn: Function) {
+    let filteredVacancies = this.vacanciesService.$listValue().filter(i => filteringFn(i))
+    let filteredSkills = filteredVacancies.map(i => [...i.skillsMust.split(',').map(skill => skill.trim().toLowerCase()), ...i.skillsPlus.split(',').map(skill => skill.trim().toLowerCase()), ...i.softSkills.split(',').map(skill => skill.trim().toLowerCase())]).reduce((acc, curr) => { return [...acc, ...curr] }, [])
+    return this.getSkillCountObjectFromStringArray(filteredSkills)
+  }
+
+  private getSkillCountObjectFromStringArray(skills: string[]): { skill: string, count: number }[] {
+    let newObj: {
+      [key: string]: number
+    } = skills.reduce((acc, curr) => {
+      return {
+        ...acc,
+        [curr]: (acc as any)[curr] + 1 || 1
+      }
+    }, {})
+
+    let newArray: { skill: string, count: number }[] = []
+    Object.entries(newObj).forEach(key => {
+      newArray.push({
+        skill: key[0],
+        count: key[1]
+      })
+    })
+
+    newArray.sort(
+      (a, b) =>
+        b.count - a.count
+    )
+
+    return newArray.filter(i => i.skill !== '')
+  }
 
   public vacanciesCountTimeline = computed(
     () => {
