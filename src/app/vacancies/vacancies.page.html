@@ -1,4 +1,4 @@
-<header class="sticky top-0 bg-white border-[0px] border-solid border-b-[1px] p-2">
+<header #header class="sticky grid gap-2 left-0 top-0 bg-white border-[0px] border-solid border-b-[1px] p-2">
 
     <h2>Vacancies</h2>
     @if(selectedVacancy && viewDetail) {
@@ -10,19 +10,23 @@
     <div class="flex justify-between">
 
         <div class="flex gap-2">
-            <input [formControl]="searchFC" type="text"> <button
-                (click)="searchString.set(searchFC.value || '')">search</button>
+            <input [formControl]="searchFC" placeholder="Search" type="text">
+            <button [disabled]="searchFC.value == ''" (click)="searchFC.setValue('')">x</button>
+            <hr class="h-full m-0 p-0">
+
             <select [formControl]="sortPropertyFC" (change)="onSortChanges()">
                 <option value="createdAt">Date</option>
                 <option value="title">Name</option>
                 <option value="status">Status</option>
                 <option value="company">Company</option>
+                <!-- <option value="featured">Featured</option> --> <!--not working-->
             </select>
             <select [formControl]="sortOrderFC" (change)="onSortChanges()">
                 <option value="ASC">Ascendent</option>
                 <option value="DESC">Descendent</option>
             </select>
         </div>
+
 
         <button (click)="view == 'grid' ? view = 'table' : view = 'grid'">
             @if(view == 'table'){ <i class="bi bi-grid"></i>
@@ -40,13 +44,15 @@
 }
 <div class="flex-1">
     @if (view == 'table' && vacancies().length > 0) {
-    <table class="w-full">
-        <thead>
+    <table class="w-full overflow-x-auto overflow-y-auto">
+        <thead class="sticky bg-gray-100  z-[10] " [ngStyle]="{top: header.clientHeight  + 'px'}">
             <tr>
                 <th></th>
                 <th></th>
                 <th class="text-left">Company</th>
-                <th class="text-left">Status</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Applied at</th>
+
                 <th></th>
             </tr>
         </thead>
@@ -56,7 +62,8 @@
                 [ngClass]="vacancy.featured ? 'bg-yellow-50' : ''">
                 <th>
 
-                    <i (click)="$event.stopPropagation(); featureVacancy(vacancy.id, !vacancy.featured)" class="bi ml-1"
+                    <i (click)="$event.stopPropagation(); featureVacancy(vacancy.id, !vacancy.featured)"
+                        class="bi ml-1 p-2 hover:bg-gray-50 cursor-pointer text-[14px] mix-blend-multiply rounded-full h-[32px] w-[32px] inline-block pt-[6px] aspect-square"
                         [ngClass]="vacancy.featured ? 'text-yellow-400 bi-star-fill' : 'text-gray-300 bi-star'"></i>
                 </th>
                 <td>
@@ -66,13 +73,16 @@
                 <td>
                     {{vacancy.company}}
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="status-chip" [ngClass]="vacancy.status">
                         {{getStatusString(vacancy.status)}}
                     </span>
                 </td>
+                <td class="text-center">
+                    {{formatDate(vacancy.createdAt)}}
+                </td>
                 <td>
-                    <button
+                    <button class="opacity-0"
                         (click)="$event.stopPropagation(); selectedVacancy = vacancy.id; deleteVacancyDialog.showModal();"><i
                             class="bi bi-trash-fill"></i></button>
                 </td>
@@ -105,9 +115,22 @@
     }
 </div>
 
-<div class="sticky bottom-0 bg-white border-[0px] border-solid border-t-[1px] p-2">
-    {{vacancies().length}} vacancies
+<div class="sticky flex justify-between left-0 bottom-0 bg-white border-[0px] border-solid border-t-[1px] p-2">
+    <div class="flex gap-2">
+        <button>
+            < </button>
+                <div>1</div>
+                <div>2</div>
+                <div>...</div>
+                <div>12</div>
+                <button>></button>
+    </div>
+    <span>
+        {{vacancies().length}} vacancies
+    </span>
 </div>
+
+
 <dialog #deleteVacancyDialog>
     <div class="flex p-2 flex-col gap-2 w-[200px]">
 

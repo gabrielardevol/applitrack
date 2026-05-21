@@ -1,15 +1,17 @@
 import { Component, computed, inject, NgModule, signal, WritableSignal } from '@angular/core';
 import { VacanciesService } from '../shared/services/vacancies/vacancy-service';
 import { VacancyDetail } from "./components/vacancy-detail/vacancy-detail";
-import { NgClass } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { VacancyListItem } from '@app/shared/types';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VACANCY_STATUS_DISPLAY } from '@app/shared/constants';
+import { debounceTime, distinctUntilChanged, of, pipe } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-vacancies-page',
   providers: [NgModule],
-  imports: [VacancyDetail, NgClass, ReactiveFormsModule],
+  imports: [VacancyDetail, NgClass, ReactiveFormsModule, NgStyle],
   templateUrl: './vacancies.page.html',
   styleUrl: './vacancies.page.scss',
   styles: `:host {display: flex; flex-flow: column; height: 100%}`
@@ -24,11 +26,16 @@ export class VacanciesPage {
   sortPropertyFC = new FormControl('createdAt')
   sortOrderFC = new FormControl('ASC')
   searchFC = new FormControl('')
-  searchString: WritableSignal<string> = signal('')
+  // searchString: WritableSignal<string> = signal('')
+  searchString = toSignal(this.searchFC.valueChanges.pipe(
+    debounceTime(300),
+    distinctUntilChanged()
+  ), { initialValue: '' })
+
 
   favouriteVacancies: WritableSignal<{ id: string, featured: boolean }[]> = signal([])
 
-  public vacancies = computed(() => [this.vacanciesService.getFilteredList(this.searchString()).map(i => {
+  public vacancies = computed(() => [this.vacanciesService.getFilteredList(this.searchString() || '').map(i => {
     //locally updates 'favourite' icon
     let newItem = i;
     this.favouriteVacancies().map(
@@ -84,6 +91,11 @@ export class VacanciesPage {
         id: id, featured: featured
       }
     ])
+  }
+
+  formatDate(date: string | Date) {
+    let ddate = new Date(date);
+    return ddate.toLocaleDateString()
   }
 
 }
